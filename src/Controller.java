@@ -37,6 +37,18 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String prevScene = request.getParameter("prevScene");
+		String option = request.getParameter("option");
+
+		switch (prevScene) {
+		case "top":
+			if (option.equals("login")) {
+				String id = request.getParameter("id");
+				String password = request.getParameter("password");
+				response.getWriter().println("id:" + id + "<br>");
+				response.getWriter().println("password:" + password);
+			}
+			break;
+		}
 	}
 
 }
