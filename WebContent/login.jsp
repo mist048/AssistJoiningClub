@@ -44,6 +44,9 @@
 					<p>
 						</br>
 					</p>
+
+					<!--
+
 					<form action="#">
 						<p>
 							<label> <input name="group1" type="radio" /> <span>一般</span>
@@ -60,12 +63,13 @@
 							</label>
 						</p>
 					</form>
+					  -->
 
 					<p>
 						<select name="user">
-							<option value="一般" label="一般ユーザ"></option>
-							<option value="サークル" label="サークル"></option>
-							<option value="管理者" label="管理者"></option>
+							<option value="jeneral" label="一般ユーザ"></option>
+							<option value="club" label="サークル"></option>
+							<option value="admin" label="管理者"></option>
 						</select>
 					</p>
 					<p>
