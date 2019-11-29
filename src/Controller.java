@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Controller
@@ -81,6 +82,10 @@ public class Controller extends HttpServlet {
 				 * 	getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 				 * }
 				 */
+			}else if(option.equals("toTop")) {
+				HttpSession session=request.getSession();
+				//if(!session.getAttribute("login")&&session.getAttribute("user")==null){
+				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 			}
 			break;
 		}
