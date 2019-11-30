@@ -54,7 +54,7 @@ public class ToMyPage extends HttpServlet {
 		HttpSession session = request.getSession();
 		Boolean login = (Boolean) session.getAttribute("login");
 
-		if (login == null) { // ログインしていない場合
+		if (login == null || !login) { // ログインしていない場合
 			//String user = request.getParameter("group1");
 			String user = "club"; // テスト用
 			String id = request.getParameter("id");
@@ -68,7 +68,7 @@ public class ToMyPage extends HttpServlet {
 			case "general": // 一般ユーザ
 				result = userManager.login(hashId, hashPassword);
 				if (result) { // ログイン成功
-					session.setAttribute("login", true);
+					session.setAttribute("login", result);
 					session.setAttribute("useId", hashId);
 
 					String[] general = userManager.getUser(hashId);
@@ -77,7 +77,7 @@ public class ToMyPage extends HttpServlet {
 					request.setAttribute("mail", general[Constant.MAIL]);
 					getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
 				} else { // ログイン失敗
-					request.setAttribute("error", true);
+					request.setAttribute("login", result);
 					getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 				}
 				break;
