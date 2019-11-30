@@ -21,4 +21,13 @@ public class ClubManager {
 		return Constant.SUCCESS;
 	}
 
+	public void registerConfirm(int viewer, String hashId, String name, String hashPassword, String mail) {
+	}
+
+	public int update(String hashId, String name, String hashPassword, String mail) {
+		return Constant.SUCCESS;
+	}
+
+	public void updateConfirm(int admin, String hashId, String name, String hashPassword, String mail, String recogn) {
+	}
 }

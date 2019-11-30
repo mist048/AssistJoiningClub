@@ -6,6 +6,7 @@ public class Constant {
 	public static final int EXCEED_NUM_OF_CHAR = 1; // 定義された文字数を超えている
 	public static final int CONTAINS_EX_CHAR = 2; // 特殊な文字が含まれている
 	public static final int CONTAINS_BLANK = 3; // 空欄が含まれている
+	public static final int DUPLICATE = 4; // 重複している
 
 	// 登録情報
 	public static final int ID = 0; // ID

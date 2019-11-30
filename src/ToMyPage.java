@@ -51,9 +51,12 @@ public class ToMyPage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String user = request.getParameter("group1");
-		String user = "club"; // テスト用
-		if (user != null) {
+		HttpSession session = request.getSession();
+		Boolean login = (Boolean) session.getAttribute("login");
+
+		if (login == null) { // ログインしていない場合
+			//String user = request.getParameter("group1");
+			String user = "club"; // テスト用
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 			// ID、パスワードをハッシュ値に変換する
@@ -65,7 +68,6 @@ public class ToMyPage extends HttpServlet {
 			case "general": // 一般ユーザ
 				result = userManager.login(hashId, hashPassword);
 				if (result) { // ログイン成功
-					HttpSession session = request.getSession();
 					session.setAttribute("login", true);
 					session.setAttribute("useId", hashId);
 
@@ -83,7 +85,6 @@ public class ToMyPage extends HttpServlet {
 			case "club": // サークルアカウント
 				result = clubManager.login(hashId, hashPassword);
 				if (result) { // ログイン成功
-					HttpSession session = request.getSession();
 					session.setAttribute("login", true);
 					session.setAttribute("useId", hashId);
 
@@ -101,10 +102,9 @@ public class ToMyPage extends HttpServlet {
 				}
 				break;
 
-			case "admin":
+			case "admin": // 管理者
 				result = adminManager.login(hashId, hashPassword);
 				if (result) { // ログイン成功
-					HttpSession session = request.getSession();
 					session.setAttribute("login", true);
 					session.setAttribute("useId", hashId);
 					getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
@@ -114,9 +114,30 @@ public class ToMyPage extends HttpServlet {
 				}
 				break;
 			}
-		} else {
-			request.setAttribute("error", true);
-			getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+		} else { // ログインしている場合
+			String user = (String) session.getAttribute("user");
+			String hashId = (String) session.getAttribute("userId");
+
+			switch (user) {
+			case "general": // 一般ユーザ
+				String[] general = userManager.getUser(hashId);
+				request.setAttribute("id", general[Constant.ID]);
+				request.setAttribute("name", general[Constant.NAME]);
+				request.setAttribute("mail", general[Constant.MAIL]);
+				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+				break;
+
+			case "club": // サークルアカウント
+				String[] club = clubManager.getClub(hashId);
+				String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
+				request.setAttribute("id", club[Constant.ID]);
+				request.setAttribute("name", club[Constant.NAME]);
+				request.setAttribute("mail", club[Constant.MAIL]);
+				request.setAttribute("recogn", club[Constant.RECOGN]);
+				request.setAttribute("intro", clubInfo[Constant.INTRO]);
+				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+				break;
+			}
 		}
 	}
 }

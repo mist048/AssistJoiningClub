@@ -13,17 +13,17 @@ import tool.Constant;
 import tool.SHA256;
 
 /**
- * Servlet implementation class ToClubUpdateConfirm
+ * Servlet implementation class ClubUpdate
  */
-@WebServlet("/ToClubUpdateConfirm")
-public class ToClubRegistrationConfirm extends HttpServlet {
+@WebServlet("/ClubUpdate")
+public class ClubUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToClubRegistrationConfirm() {
+	public ClubUpdate() {
 		super();
 		clubManager = new ClubManager();
 	}
@@ -51,46 +51,50 @@ public class ToClubRegistrationConfirm extends HttpServlet {
 		String hashId = SHA256.hash(id);
 		String hashPassword = SHA256.hash(password);
 
-		HttpSession session = request.getSession();
-		String user = (String) session.getAttribute("user");
 		int code;
-		if (user == null) { // 閲覧者
-			code = clubManager.register(Constant.VIEWER, hashId, name, hashPassword, mail);
-		} else { // 管理者
-			code = clubManager.register(Constant.ADMIN, "", name, "", mail);
-		}
-
-		request.setAttribute("id", id);
-		request.setAttribute("name", name);
-		request.setAttribute("password", password);
-		request.setAttribute("mail", mail);
-		request.setAttribute("recogn", recogn);
-
+		code = clubManager.update(hashId, name, hashPassword, mail);
 		switch (code) {
-		case Constant.SUCCESS: // 登録できる
-			getServletContext().getRequestDispatcher("/clubRegistrationConfirm.jsp").forward(request, response);
+		case Constant.SUCCESS: // 更新できる
+			HttpSession session = request.getSession();
+			String user = (String) session.getAttribute("user");
+			if (user.equals("club")) { // サークルアカウント
+				clubManager.updateConfirm(Constant.CLUB, hashId, name, hashPassword, mail, null);
+				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+			} else { // 管理者
+				clubManager.updateConfirm(Constant.ADMIN, hashId, name, hashPassword, mail, recogn);
+				getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
+			}
 			break;
 
 		case Constant.EXCEED_NUM_OF_CHAR: // 定義された文字数を超えている
 			request.setAttribute("error", Constant.EXCEED_NUM_OF_CHAR);
-			getServletContext().getRequestDispatcher("/clubRegistration.jsp").forward(request, response);
+			request.setAttribute("id", id);
+			request.setAttribute("name", name);
+			request.setAttribute("password", password);
+			request.setAttribute("mail", mail);
+			request.setAttribute("recogn", recogn);
+			getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			break;
 
 		case Constant.CONTAINS_EX_CHAR: // 特殊な文字が含まれている
 			request.setAttribute("error", Constant.CONTAINS_EX_CHAR);
-			getServletContext().getRequestDispatcher("/clubRegistration.jsp").forward(request, response);
+			request.setAttribute("id", id);
+			request.setAttribute("name", name);
+			request.setAttribute("password", password);
+			request.setAttribute("mail", mail);
+			request.setAttribute("recogn", recogn);
+			getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			break;
 
 		case Constant.CONTAINS_BLANK: // 空欄が含まれている
 			request.setAttribute("error", Constant.CONTAINS_BLANK);
-			getServletContext().getRequestDispatcher("/clubRegistration.jsp").forward(request, response);
+			request.setAttribute("id", id);
+			request.setAttribute("name", name);
+			request.setAttribute("password", password);
+			request.setAttribute("mail", mail);
+			request.setAttribute("recogn", recogn);
+			getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			break;
-
-		case Constant.DUPLICATE: // 重複している
-			request.setAttribute("error", Constant.DUPLICATE);
-			getServletContext().getRequestDispatcher("/clubRegistration.jsp").forward(request, response);
-			break;
-
 		}
 	}
 
