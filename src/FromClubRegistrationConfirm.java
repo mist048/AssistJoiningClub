@@ -14,17 +14,17 @@ import tool.Constant;
 import tool.SHA256;
 
 /**
- * Servlet implementation class ToAccountRegistrationComplete
+ * Servlet implementation class FromClubRegistrationConfirm
  */
-@WebServlet("/ToAccountRegistrationComplete")
-public class ToAccountRegistrationComplete extends HttpServlet {
+@WebServlet("/FromClubRegistrationConfirm")
+public class FromClubRegistrationConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToAccountRegistrationComplete() {
+	public FromClubRegistrationConfirm() {
 		super();
 		clubManager = new ClubManager();
 	}
