@@ -34,6 +34,7 @@
 	</p>
 
 
+	<form action="FromLogin" method="get">
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
@@ -67,7 +68,7 @@
 
 					<p>
 						<select name="user">
-							<option value="jeneral" label="一般ユーザ"></option>
+							<option value="general" label="一般ユーザ"></option>
 							<option value="club" label="サークル"></option>
 							<option value="admin" label="管理者"></option>
 						</select>
@@ -77,20 +78,22 @@
 							maxlength="10"></label>
 					</p>
 					<p>
-						<label>パスワード<input type="password" name="pass" size="20"
+						<label>パスワード<input type="password" name="password" size="20"
 							maxlength="16"></label>
 					</p>
 					<p>
 						</br>
 					</p>
 					<div class="center-align">
-						<a class="waves-effect waves-light btn">ログイン</a>
+						<button class="waves-effect waves-light btn" type="submit" value="yes" name="option">
+							ログイン </button>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
 
 
 

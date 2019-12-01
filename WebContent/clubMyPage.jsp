@@ -14,13 +14,13 @@
 
 </head>
 <body bgcolor=#f9f9f9>
-
+<form action="FromClubMypage" method="post">
 	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">戻る</a></li>
+				<li><a href="">ユーザ</a></li>
 			</ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="">トップ</a></li>
@@ -70,8 +70,9 @@
 
 
 						<p>
-						<a class="waves-effect waves-light btn">設定</a>
-						<a class="waves-effect waves-light btn">編集</a>
+
+							<button class="waves-effect waves-light btn" type="submit" value="setting" name="option">設定</button>
+							<button class="waves-effect waves-light btn" type="submit" value="edit" name="option">編集</button>
 
 						</p>
 					</div>
@@ -80,6 +81,6 @@
 			</div>
 		</div>
 	</div>
-
+</form>
 </body>
 </html>
