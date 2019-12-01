@@ -30,4 +30,20 @@ public class ClubManager {
 
 	public void updateConfirm(int admin, String hashId, String name, String hashPassword, String mail, String recogn) {
 	}
+
+	public boolean delete(String hashId, String hashPassword) {
+		return true;
+	}
+
+	public String[][] searchByKeyword(String keyword) {
+		return new String[][] {{"id1","name1"},{"id2","name2"}};
+	}
+
+	public String[][] searchByTag(String tag) {
+		return new String[][] {{"id1","name1"},{"id2","name2"}};
+	}
+
+	public String[][] getAllClubs(int firstIndex) {
+		return new String[][] {{"id1","name1"},{"id2","name2"}};
+	}
 }

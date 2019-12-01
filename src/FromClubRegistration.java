@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,17 +14,17 @@ import tool.Constant;
 import tool.SHA256;
 
 /**
- * Servlet implementation class ToClubUpdateConfirm
+ * Servlet implementation class FromClubRegistration
  */
-@WebServlet("/ToClubUpdateConfirm")
-public class ToClubRegistrationConfirm extends HttpServlet {
+@WebServlet("/FromClubRegistration")
+public class FromClubRegistration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToClubRegistrationConfirm() {
+	public FromClubRegistration() {
 		super();
 		clubManager = new ClubManager();
 	}
