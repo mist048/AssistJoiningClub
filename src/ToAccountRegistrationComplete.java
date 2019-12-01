@@ -52,9 +52,9 @@ public class ToAccountRegistrationComplete extends HttpServlet {
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
 		if(user==null) { // 閲覧者
-			clubManager.registerConfirm(Constant.VIEWER, hashId, name, hashPassword, mail);
+			clubManager.registerConfirm(Constant.VIEWER, hashId, name, hashPassword, mail); // 登録処理
 		}else { // 管理者
-			clubManager.registerConfirm(Constant.ADMIN, "", name, "", mail);
+			clubManager.registerConfirm(Constant.ADMIN, "", name, "", mail); // 登録処理
 		}
 
 		getServletContext().getRequestDispatcher("/accountRegistrationComplete.jsp").forward(request, response);

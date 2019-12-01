@@ -55,11 +55,12 @@ public class ToClubRegistrationConfirm extends HttpServlet {
 		String user = (String) session.getAttribute("user");
 		int code;
 		if (user == null) { // 閲覧者
-			code = clubManager.register(Constant.VIEWER, hashId, name, hashPassword, mail);
+			code = clubManager.register(Constant.VIEWER, hashId, name, hashPassword, mail); // 登録判定
 		} else { // 管理者
-			code = clubManager.register(Constant.ADMIN, "", name, "", mail);
+			code = clubManager.register(Constant.ADMIN, "", name, "", mail); // 登録判定
 		}
 
+		// 登録画面または登録確認画面へのデータ
 		request.setAttribute("id", id);
 		request.setAttribute("name", name);
 		request.setAttribute("password", password);

@@ -12,17 +12,17 @@ import model.ClubManager;
 import tool.Constant;
 
 /**
- * Servlet implementation class ToClubUpdate
+ * Servlet implementation class ToUserDeleteConfirm
  */
-@WebServlet("/ToClubUpdate")
-public class ToClubUpdate extends HttpServlet {
+@WebServlet("/ToUserDeleteConfirm")
+public class ToClubDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToClubUpdate() {
+	public ToClubDelete() {
 		super();
 		clubManager = new ClubManager();
 	}
@@ -43,13 +43,11 @@ public class ToClubUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		// 更新画面へのデータ
+		// 削除画面へのデータ
 		String[] club = clubManager.getClub(hashId);
-		request.setAttribute("password", club[Constant.PASSWORD]);
 		request.setAttribute("name", club[Constant.NAME]);
-		request.setAttribute("mail", club[Constant.MAIL]);
-		request.setAttribute("recogn", club[Constant.RECOGN]);
-		getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
+
+		getServletContext().getRequestDispatcher("/clubDelete.jsp").forward(request, response);
 	}
 
 }
