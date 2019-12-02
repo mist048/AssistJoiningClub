@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.ClubInfoManager;
 import model.ClubManager;
+import model.FavoriteManager;
 import model.UserManager;
 import tool.Constant;
 
@@ -22,6 +23,7 @@ public class FromUserMyPage extends HttpServlet {
 	UserManager userManager;
 	ClubManager clubManager;
 	ClubInfoManager clubInfoManager;
+	FavoriteManager favoriteManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -31,6 +33,7 @@ public class FromUserMyPage extends HttpServlet {
 		userManager = new UserManager();
 		clubManager = new ClubManager();
 		clubInfoManager = new ClubInfoManager();
+		favoriteManager=new FavoriteManager();
 	}
 
 	/**
@@ -58,6 +61,12 @@ public class FromUserMyPage extends HttpServlet {
 			request.setAttribute("name", general[Constant.NAME]);
 			request.setAttribute("mail", general[Constant.MAIL]);
 			getServletContext().getRequestDispatcher("/userUpdate.jsp").forward(request, response);
+			break;
+
+		case "favoriteClubDisplay": // お気に入りサークル一覧表示画面へ
+			String[][] favoriteClubs=favoriteManager.getFavorite(hashId);
+			request.setAttribute("favoriteClubs", favoriteClubs);
+			getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
 			break;
 
 		case "top": // トップ画面へ
