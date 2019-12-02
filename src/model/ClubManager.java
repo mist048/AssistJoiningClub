@@ -14,7 +14,7 @@ public class ClubManager {
 				"password",
 				"17fi999@ms.dendai.ac.jp",
 				"公認",
-				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"};
+				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" };
 	}
 
 	public int register(int club, String id, String name, String password, String mail) {
@@ -36,14 +36,25 @@ public class ClubManager {
 	}
 
 	public String[][] searchByKeyword(String keyword) {
-		return new String[][] {{"id1","name1"},{"id2","name2"}};
+		return new String[][] { { "id1", "name1" }, { "id2", "name2" } };
 	}
 
 	public String[][] searchByTag(String tag) {
-		return new String[][] {{"id1","name1"},{"id2","name2"}};
+		return new String[][] { { "id1", "name1" }, { "id2", "name2" } };
 	}
 
 	public String[][] getAllClubs(int firstIndex) {
-		return new String[][] {{"id1","name1"},{"id2","name2"}};
+		return new String[][] { { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+				"ホゲサークル",
+				"password",
+				"17fi999@ms.dendai.ac.jp",
+				"公認",
+				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
+				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+						"ホゲサークル",
+						"password",
+						"17fi999@ms.dendai.ac.jp",
+						"公認",
+						"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" } };
 	}
 }

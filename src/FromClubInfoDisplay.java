@@ -13,10 +13,10 @@ import model.ClubManager;
 import tool.Constant;
 
 /**
- * Servlet implementation class Controller
+ * Servlet implementation class FromClubInfoDisplay
  */
-@WebServlet("/ToTop")
-public class ToTop extends HttpServlet {
+@WebServlet("/FromClubInfoDisplay")
+public class FromClubInfoDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 	ClubInfoManager clubInfoManager;
@@ -24,10 +24,10 @@ public class ToTop extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToTop() {
+	public FromClubInfoDisplay() {
 		super();
-		clubManager=new ClubManager();
-		clubInfoManager=new ClubInfoManager();
+		clubManager = new ClubManager();
+		clubInfoManager = new ClubInfoManager();
 	}
 
 	/**
@@ -44,17 +44,17 @@ public class ToTop extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String firstIndex=request.getParameter("firstIndex");
-		if(firstIndex==null) { // 最初のアクセスなら
-			firstIndex="0";
+		String firstIndex = request.getParameter("firstIndex");
+		if (firstIndex == null) { // 最初のアクセスなら
+			firstIndex = "0";
 		}
 		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
-		String[][] allClubInfo=new String[allClubs.length][3]; // 閲覧用サークル情報
-		for(int i=0;i<allClubs.length;i++) {
-			allClubInfo[i][Constant.ID]=allClubs[i][Constant.ID];
-			allClubInfo[i][Constant.NAME]=allClubs[i][Constant.NAME];
+		String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
+		for (int i = 0; i < allClubs.length; i++) {
+			allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
+			allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-			allClubInfo[i][2]=clubInfo[Constant.INTRO];
+			allClubInfo[i][2] = clubInfo[Constant.INTRO];
 		}
 		request.setAttribute("clubs", allClubInfo);
 
@@ -68,9 +68,6 @@ public class ToTop extends HttpServlet {
 				break;
 			case "club": // サークルアカウント
 				getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
-				break;
-			case "admin": // 管理者
-				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
 				break;
 			}
 		}
