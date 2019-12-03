@@ -14,7 +14,7 @@ public class ClubDAO {
     }
 
     protected void delete(String id){
-
+    	// デリート
     }
 
     protected boolean findById(String id){
