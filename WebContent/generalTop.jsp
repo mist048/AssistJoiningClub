@@ -39,7 +39,7 @@
 <nav class="teal">
 		<div class="nav-wrapper">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">ログアウト</a></li>
+				<li><a href="http://localhost:8080/AssistJoiningClub/logout.jsp">ログアウト</a></li>
 			</ul>
 
 			<ul class="left hide-on-med-and-down">
