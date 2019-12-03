@@ -14,7 +14,7 @@
 
 </head>
 <body bgcolor=#f9f9f9>
-<form action="FromClubMypage" method="post">
+<form action="FromClubMyage" method="post">
 	<nav class="teal">
 
 		<div class="nav-wrapper">
