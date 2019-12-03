@@ -14,11 +14,17 @@
 </head>
 
 <body>
+
+<form action="FromTop" method="get">
+
 <p><input type="submit" value="ログアウト"></p>
 <p>管理者ページ</p>
 <p><input type="submit" value="タグ一覧"></p>
 <p><input type="submit" value="サークルアカウント一覧"></p>
 <p><input type="submit" value="一般ユーザ一覧"></p>
 <p><input type="submit" value="公式サークルアカウント作成"></p>
+
+</form>
+
 </body>
 </html>
