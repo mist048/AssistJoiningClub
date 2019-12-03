@@ -16,3 +16,13 @@
 /FromLogin.class
 /FromLogout.class
 /FromTop.class
+/FromAccountRegistrationComplete.class
+/FromAdminTop.class
+/FromClubInfoDisplay.class
+/FromFavoriteClubDelete.class
+/FromFavoriteClubDisplay.class
+/FromSearchResultDisplay.class
+/FromUserMyPage.class
+/FromUserRegistration.class
+/FromUserRegistrationConfirm.class
+/FromUserUpdate.class
