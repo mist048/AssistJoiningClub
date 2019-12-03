@@ -30,6 +30,7 @@
 		</br>
 	</p>
 
+	<form action="FromLogout" method="get">
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
@@ -43,8 +44,11 @@
 						</p>
 
 						<p>
-						<a class="waves-effect waves-light btn">はい</a>
-						<a class="waves-effect waves-light btn">いいえ</a>
+
+						<button class="waves-effect waves-light btn" type="submit" value="yes" name="option">
+							はい </button>
+						<button class="waves-effect waves-light btn" type="submit" value="no" name="option">
+							いいえ </button>
 
 						</p>
 					</div>
@@ -53,6 +57,6 @@
 			</div>
 		</div>
 	</div>
-
+	</form>
 </body>
 </html>
