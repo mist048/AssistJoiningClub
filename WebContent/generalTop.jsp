@@ -39,11 +39,19 @@
 <nav class="teal">
 		<div class="nav-wrapper">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">ログイン</a></li>
-				<li><a class="waves-effect waves-light btn">新規登録</a></li>
+				<li><a href="">ログアウト</a></li>
+			</ul>
+
+			<ul class="left hide-on-med-and-down">
+
+				<li><a class="waves-effect waves-teal btn-flat">
+					<span class="white-text">＜ユーザ名＞</span>
+					</a>
+				</li>
 			</ul>
 		</div>
-	</nav>
+
+</nav>
 
 <p>
 	</br>
@@ -190,13 +198,6 @@
 	</div>
 
 
-
-
-	<p>TOP</p>
-<p><input type="submit" value="ログアウト"></p>
-<p><input type="submit" value="マイページ"></p>
-<p><input type="submit" value="フリーワード検索"></p>
-<p><input type="submit" value="タグ検索"></p>
 <p><input type="submit" value="問い合わせ"></p>
 </body>
 </html>
