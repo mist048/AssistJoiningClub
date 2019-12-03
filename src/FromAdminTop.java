@@ -8,23 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.ClubInfoManager;
 import model.ClubManager;
-import tool.Constant;
+import model.UserManager;
 
 /**
- * Servlet implementation class ToClubUpdate
+ * Servlet implementation class FromTop
  */
-@WebServlet("/ToClubUpdate")
-public class ToClubUpdate extends HttpServlet {
+@WebServlet("/FromAdminTop")
+public class FromAdminTop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserManager userManager;
 	ClubManager clubManager;
+	ClubInfoManager clubInfoManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ToClubUpdate() {
+	public FromAdminTop() {
 		super();
+		userManager = new UserManager();
 		clubManager = new ClubManager();
+		clubInfoManager = new ClubInfoManager();
 	}
 
 	/**
@@ -42,14 +47,21 @@ public class ToClubUpdate extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
-		String[] club = clubManager.getClub(hashId);
-		request.setAttribute("id", club[Constant.ID]);
-		request.setAttribute("password", club[Constant.PASSWORD]);
-		request.setAttribute("name", club[Constant.NAME]);
-		request.setAttribute("mail", club[Constant.MAIL]);
-		request.setAttribute("recogn", club[Constant.RECOGN]);
-		getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
+		String option = request.getParameter("option");
+
+		switch(option) {
+		case "tagDisplay": // タグ一覧画面へ
+			break;
+
+		case "clubDisplay": // サークル情報一覧画面
+			break;
+
+		case "userDisplay": // 一般ユーザ一覧画面
+			break;
+
+		case "clubRegistration": // サークルアカウント登録画面へ
+			break;
+		}
 	}
 
 }

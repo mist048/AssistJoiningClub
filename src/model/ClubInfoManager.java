@@ -7,6 +7,7 @@ public class ClubInfoManager {
 				"https://github.com/mist048/AssistJoiningClub",
 				"ほげほげ",
 				"20",
+				"/img/icon.jpg",
 				"/img/hoge.jpg" };
 	}
 

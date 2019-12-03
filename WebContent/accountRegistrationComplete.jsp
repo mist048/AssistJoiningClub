@@ -5,6 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>accountRegistrationComplete.</title>
+
+<!-- materealize CDN -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- materialize CDN -->
+
 </head>
 <body>
 <p>アカウントを登録しました。</p>

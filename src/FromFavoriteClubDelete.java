@@ -9,19 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.FavoriteManager;
+
 /**
- * Servlet implementation class ToViewerTop
+ * Servlet implementation class FromFavoriteClubDelete
  */
-@WebServlet("/ToViewerTop")
-public class ToViewerTop extends HttpServlet {
+@WebServlet("/FromFavoriteClubDelete")
+public class FromFavoriteClubDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ToViewerTop() {
-        super();
-    }
+	FavoriteManager favoriteManager;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public FromFavoriteClubDelete() {
+		super();
+		favoriteManager = new FavoriteManager();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,11 +38,13 @@ public class ToViewerTop extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// セッションを破棄する
-		HttpSession session = request.getSession();
-		session.invalidate();
-		
-		getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
+		HttpSession session=request.getSession();
+		String hashId=(String)session.getAttribute("userId");
+		String[] clubIds=request.getParameterValues("clubId");
+		for(String clubId:clubIds) {
+			favoriteManager.delete(hashId,clubId); // お気に入りサークルを削除
+		}
+		getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
 	}
 
 }
