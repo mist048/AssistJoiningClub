@@ -51,10 +51,6 @@
 							maxlength="256"></label>
 					</p>
 					<p>
-						<label>ID<input type="text" name="id" size="20"
-							maxlength="10"></label>
-					</p>
-					<p>
 						<label>パスワード<input type="password" name="pass" size="20"
 							maxlength="16"></label>
 					</p>
