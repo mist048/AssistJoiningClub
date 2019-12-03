@@ -39,11 +39,19 @@
 <nav class="teal">
 		<div class="nav-wrapper">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">ログイン</a></li>
-				<li><a class="waves-effect waves-light btn">新規登録</a></li>
+				<li><a href="http://localhost:8080/AssistJoiningClub/logout.jsp">ログアウト</a></li>
+			</ul>
+
+			<ul class="left hide-on-med-and-down">
+
+				<li><a class="waves-effect waves-teal btn-flat">
+					<span class="white-text">＜ユーザ名＞</span>
+					</a>
+				</li>
 			</ul>
 		</div>
-	</nav>
+
+</nav>
 
 <p>
 	</br>
@@ -178,39 +186,9 @@
 						<p>
 							</br>
 						</p>
-
+						<div class = "center-align">
 						<a class="waves-effect waves-light btn">検索</a>
-					</div>
-				</div>
-
-
-
-				<div class="card">
-					<div class="card-content">
-						<div class="input-field col s12">
-							<input type="text" id="autocomplete-input" class="autocomplete">
-							<label for="autocomplete-input">検索</label>
 						</div>
-						<form action="#">
-							<p>
-								<label>
-									<input name="submit" type="radio" />
-									<span>フリーワード</span>
-								</label>
-							</p>
-							<p>
-								<label>
-									<input name="submit" type="radio" />
-									<span>タグ</span>
-								</label>
-							</p>
-						</form>
-
-						<p>
-							</br>
-						</p>
-
-						<a class="waves-effect waves-light btn">検索</a>
 					</div>
 				</div>
 			</div>
@@ -220,13 +198,6 @@
 	</div>
 
 
-
-
-	<p>TOP</p>
-<p><input type="submit" value="ログアウト"></p>
-<p><input type="submit" value="マイページ"></p>
-<p><input type="submit" value="フリーワード検索"></p>
-<p><input type="submit" value="タグ検索"></p>
 <p><input type="submit" value="問い合わせ"></p>
 </body>
 </html>
