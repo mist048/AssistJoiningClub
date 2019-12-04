@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,10 +12,10 @@ import model.ClubManager;
 import tool.Constant;
 
 /**
- * Servlet implementation class FromSearchResultDisplay
+ * Servlet implementation class FromUserDisplay
  */
-@WebServlet("/FromSearchResultDisplay")
-public class FromSearchResultDisplay extends HttpServlet {
+@WebServlet("/FromClubDisplay")
+public class FromClubDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ClubManager clubManager;
 	ClubInfoManager clubInfoManager;
@@ -24,24 +23,26 @@ public class FromSearchResultDisplay extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromSearchResultDisplay() {
+	public FromClubDisplay() {
 		super();
-		clubManager=new ClubManager();
-		clubInfoManager=new ClubInfoManager();
+		clubManager = new ClubManager();
+		clubInfoManager = new ClubInfoManager();
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// サークル情報閲覧画面へ
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// サークルアカウント情報管理者閲覧画面へ
 		String clubId = request.getParameter("clubId");
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
@@ -54,7 +55,7 @@ public class FromSearchResultDisplay extends HttpServlet {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
-		getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
 	}
 
 }
