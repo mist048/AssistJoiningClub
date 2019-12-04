@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -32,14 +31,17 @@ public class FromClubRegistrationConfirm extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
@@ -50,13 +52,13 @@ public class FromClubRegistrationConfirm extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
-		if(user==null) { // 閲覧者
+		if (user == null) { // 閲覧者
 			clubManager.registerConfirm(Constant.VIEWER, hashId, name, hashPassword, mail); // 登録処理
-		}else { // 管理者
+		} else { // 管理者
 			clubManager.registerConfirm(Constant.ADMIN, "", name, "", mail); // 登録処理
 		}
 
-		 // ログイン
+		// ログイン
 		session.setAttribute("login", true);
 		session.setAttribute("user", "club");
 		session.setAttribute("userId", hashId);

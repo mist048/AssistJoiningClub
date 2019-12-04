@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -30,19 +29,22 @@ public class FromFavoriteClubDelete extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
-		String hashId=(String)session.getAttribute("userId");
-		String[] clubIds=request.getParameterValues("clubId");
-		for(String clubId:clubIds) {
-			favoriteManager.delete(hashId,clubId); // お気に入りサークルを削除
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String hashId = (String) session.getAttribute("userId");
+		String[] clubIds = request.getParameterValues("clubId");
+		for (String clubId : clubIds) {
+			favoriteManager.delete(hashId, clubId); // お気に入りサークルを削除
 		}
 		getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
 	}

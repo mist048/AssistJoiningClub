@@ -39,6 +39,7 @@ public class FromUserDisplay extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// 一般ユーザ情報管理者閲覧画面へ
 		String generalId = request.getParameter("generalId");
 		String[] general = userManager.getUser(generalId);

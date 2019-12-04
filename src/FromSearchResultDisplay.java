@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -26,21 +25,24 @@ public class FromSearchResultDisplay extends HttpServlet {
 	 */
 	public FromSearchResultDisplay() {
 		super();
-		clubManager=new ClubManager();
-		clubInfoManager=new ClubInfoManager();
+		clubManager = new ClubManager();
+		clubInfoManager = new ClubInfoManager();
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// サークル情報閲覧画面へ
 		String clubId = request.getParameter("clubId");
 		String[] club = clubManager.getClub(clubId);

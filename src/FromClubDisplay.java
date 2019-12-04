@@ -42,6 +42,7 @@ public class FromClubDisplay extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// サークルアカウント情報管理者閲覧画面へ
 		String clubId = request.getParameter("clubId");
 		String[] club = clubManager.getClub(clubId);
