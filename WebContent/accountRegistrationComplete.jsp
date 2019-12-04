@@ -13,7 +13,16 @@
 
 </head>
 <body>
+
+<form action="FromAccountRegistrationComplete" method="get">
+
 <p>アカウントを登録しました。</p>
-<p><input type="submit" value="了解"></p>
+
+<div class="center-align">
+		<a href = "FromUserRegistration" class="waves-effect waves-light btn"> 了解 </a>
+</div>
+
+</form>
+
 </body>
 </html>

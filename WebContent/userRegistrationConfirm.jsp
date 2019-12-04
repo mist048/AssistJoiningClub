@@ -13,16 +13,24 @@
 
 </head>
 <body>
+
+<form action="FromUserRegistrationConfirm" method="get">
+
 <p><input type="submit" value="戻る"></p>
 <p>登録情報</p>
 
 <table>
-<tr><td>ユーザ名</td><td>***</td></tr>
-<tr><td>メールアドレス</td><td>***</td></tr>
-<tr><td>ID</td><td>***</td></tr>
-<tr><td>パスワード</td><td>***</td></tr>
+<tr><td>ユーザ名</td><td><%= session.getAttribute("name")%></td></tr>
+<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
+<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
+<tr><td>パスワード</td><td><%= session.getAttribute("password")%></td></tr>
 </table>
 
-<p><input type="submit" value="登録"></p>
+<div class="center-align">
+		<a href = "FromUserRegistration" class="waves-effect waves-light btn"> 登録 </a>
+</div>
+
+</form>
+
 </body>
 </html>

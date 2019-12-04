@@ -13,6 +13,9 @@
 
 </head>
 <body>
+
+<form action="FromUserRegistration" method="get">
+
 <p><input type="submit" value="戻る"></p>
 <p>一般ユーザ更新</p>
 
@@ -21,7 +24,11 @@
 <p><label>ID<input type="text" name="id" size="20" maxlength="10"></label></p>
 <p><label>パスワード<input type="password" name="pass" size="20" maxlength="16"></label></p>
 
-<p><input type="submit" value="確認画面"></p>
+<div class="center-align">
+		<a href = "FromUserRegistration" class="waves-effect waves-light btn"> 確認画面 </a>
+</div>
+
+</form>
 
 </body>
 </html>
