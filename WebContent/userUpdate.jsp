@@ -14,14 +14,29 @@
 </head>
 
 <body>
-<p><input type="submit" value="戻る"></p>
+
+<div class="center-align">
+		<a href = "ToTop" class="waves-effect waves-light btn"> トップ </a>
+</div>
+
 <p>ユーザ更新</p>
+
+<form action="FromUserUpdate" method="get">
 
 <p><label>ユーザ名<input type="text" name="name" size="20" maxlength="50"></label></p>
 <p><label>メールアドレス<input type="email" name="email" size="50" maxlength="256"></label></p>
-<p><label>ID<input type="text" name="id" size="20" maxlength="10"></label></p>
 <p><label>パスワード<input type="password" name="pass" size="20" maxlength="16"></label></p>
 
-<p><input type="submit" value="確定"></p>
+
+<div class="center-align">
+		<a href = "FromUserUpdate" class="waves-effect waves-light btn"> 確定 </a>
+		<input type="hidden" name="name">
+		<input type="hidden" name="password">
+		<input type="hidden" name="mail">
+		<input type="hidden" name="option" value="confirm">
+</div>
+
+</form>
+
 </body>
 </html>

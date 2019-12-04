@@ -16,7 +16,11 @@
 
 <form action="FromUserRegistration" method="get">
 
-<p><input type="submit" value="戻る"></p>
+<div class="center-align">
+		<a class="waves-effect waves-light btn"> トップ </a>
+		<input type="hidden" name="option" value="top">
+</div>
+
 <p>一般ユーザ更新</p>
 
 <p><label>ユーザ名<input type="text" name="name" size="20" maxlength="50"></label></p>

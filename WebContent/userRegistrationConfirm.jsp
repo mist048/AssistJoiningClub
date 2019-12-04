@@ -16,7 +16,11 @@
 
 <form action="FromUserRegistrationConfirm" method="get">
 
-<p><input type="submit" value="戻る"></p>
+<div class="center-align">
+		<a class="waves-effect waves-light btn"> トップ </a>
+		<input type="hidden" name="option" value="top">
+</div>
+
 <p>登録情報</p>
 
 <table>
@@ -27,7 +31,7 @@
 </table>
 
 <div class="center-align">
-		<a href = "FromUserRegistration" class="waves-effect waves-light btn"> 登録 </a>
+		<a class="waves-effect waves-light btn"> 登録 </a>
 </div>
 
 </form>
