@@ -30,7 +30,7 @@
 
 <body bgcolor=#f9f9f9>
 
-
+<form action="FromTop" method="get">
 
 
 <nav class="teal">
@@ -80,6 +80,7 @@
 							class="material-icons circle">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
@@ -87,18 +88,21 @@
 							class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle red">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
@@ -106,18 +110,21 @@
 							class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle red">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
@@ -125,18 +132,21 @@
 							class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle red">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle red">person</i> <span class="title">サークル名</span>
 							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
 								class="waves-effect waves-teal btn-flat">詳細</i>
+							<input type="hidden" name="option" value="clubInfoDisplay">
 						</a></li>
 
 					</ul>
@@ -178,6 +188,7 @@
 
 						<div class = "center-align">
 						<a class="waves-effect waves-light btn">検索</a>
+						<input type="hidden" name="option" value="search">
 						</div>
 					</div>
 				</div>
@@ -206,6 +217,8 @@
 
 
 <p><input type="submit" value="問い合わせ"></p>
+
+</form>
 
 </body>
 </html>
