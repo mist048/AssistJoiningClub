@@ -6,24 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.FavoriteManager;
+import model.TagManager;
 
 /**
- * Servlet implementation class FromFavoriteClubDelete
+ * Servlet implementation class FromTop
  */
-@WebServlet("/FromFavoriteClubDelete")
-public class FromFavoriteClubDelete extends HttpServlet {
+@WebServlet("/FromTagEdit")
+public class FromTagEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	FavoriteManager favoriteManager;
+	TagManager tagManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromFavoriteClubDelete() {
+	public FromTagEdit() {
 		super();
-		favoriteManager = new FavoriteManager();
+		tagManager = new TagManager();
 	}
 
 	/**
@@ -40,13 +39,14 @@ public class FromFavoriteClubDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
-		String[] clubIds = request.getParameterValues("clubId");
-		for (String clubId : clubIds) {
-			favoriteManager.delete(hashId, clubId); // お気に入りサークルを削除
+
+		String firstIndex = request.getParameter("firstIndex");
+		if (firstIndex == null) {
+			firstIndex = "0";
 		}
-		getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
+		String[][] allTags = tagManager.getAllTags(Integer.parseInt(firstIndex));
+		request.setAttribute("allTags", allTags);
+		// これから作成
 	}
 
 }

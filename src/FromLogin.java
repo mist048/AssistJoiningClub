@@ -1,12 +1,19 @@
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.*;
-import tool.*;
+import model.AdminManager;
+import model.ClubInfoManager;
+import model.ClubManager;
+import model.UserManager;
+import tool.Constant;
+import tool.SHA256;
 
 /**
  * Servlet implementation class FromLogin
@@ -43,6 +50,7 @@ public class FromLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		//String user = request.getParameter("group1");
 		String user = "club"; // テスト用 本番用:request.getParameter("user")

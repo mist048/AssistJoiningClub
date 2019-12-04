@@ -43,6 +43,7 @@ public class FromAccountRegistrationComplete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String firstIndex = request.getParameter("firstIndex");
 		if (firstIndex == null) { // 最初のアクセスなら

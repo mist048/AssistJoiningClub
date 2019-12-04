@@ -6,24 +6,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.FavoriteManager;
+import model.UserManager;
+import tool.Constant;
 
 /**
- * Servlet implementation class FromFavoriteClubDelete
+ * Servlet implementation class FromUserDisplay
  */
-@WebServlet("/FromFavoriteClubDelete")
-public class FromFavoriteClubDelete extends HttpServlet {
+@WebServlet("/FromUserDisplay")
+public class FromUserDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	FavoriteManager favoriteManager;
+	UserManager userManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromFavoriteClubDelete() {
+	public FromUserDisplay() {
 		super();
-		favoriteManager = new FavoriteManager();
+		userManager = new UserManager();
 	}
 
 	/**
@@ -40,13 +40,13 @@ public class FromFavoriteClubDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
-		String[] clubIds = request.getParameterValues("clubId");
-		for (String clubId : clubIds) {
-			favoriteManager.delete(hashId, clubId); // お気に入りサークルを削除
-		}
-		getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
+		// 一般ユーザ情報管理者閲覧画面へ
+		String generalId = request.getParameter("generalId");
+		String[] general = userManager.getUser(generalId);
+		request.setAttribute("id", general[Constant.ID]);
+		request.setAttribute("name", general[Constant.NAME]);
+		request.setAttribute("mail", general[Constant.MAIL]);
+		getServletContext().getRequestDispatcher("/userInfoDisplayForAdmin.jsp").forward(request, response);
 	}
 
 }

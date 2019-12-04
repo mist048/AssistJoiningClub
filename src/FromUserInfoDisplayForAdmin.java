@@ -6,34 +6,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.ClubInfoManager;
 import model.ClubManager;
-import model.FavoriteManager;
 import model.UserManager;
 import tool.Constant;
 
 /**
- * Servlet implementation class FromClubMypage
+ * Servlet implementation class FromUserDisplay
  */
-@WebServlet("/FromUserMyPage")
-public class FromUserMyPage extends HttpServlet {
+@WebServlet("/FromUserInfoDisplayForAdmin")
+public class FromUserInfoDisplayForAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserManager userManager;
 	ClubManager clubManager;
 	ClubInfoManager clubInfoManager;
-	FavoriteManager favoriteManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromUserMyPage() {
+	public FromUserInfoDisplayForAdmin() {
 		super();
 		userManager = new UserManager();
 		clubManager = new ClubManager();
 		clubInfoManager = new ClubInfoManager();
-		favoriteManager=new FavoriteManager();
 	}
 
 	/**
@@ -50,27 +46,21 @@ public class FromUserMyPage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
+		String generalId = request.getParameter("generalId");
 		String option = request.getParameter("option");
 
-		String[] general = userManager.getUser(hashId);
+		String[] general = userManager.getUser(generalId);
 
 		switch (option) {
 		case "setting": // 一般ユーザ更新画面へ
+			request.setAttribute("id", general[Constant.ID]);
 			request.setAttribute("password", general[Constant.PASSWORD]);
 			request.setAttribute("name", general[Constant.NAME]);
 			request.setAttribute("mail", general[Constant.MAIL]);
 			getServletContext().getRequestDispatcher("/userUpdate.jsp").forward(request, response);
 			break;
 
-		case "favoriteClubDisplay": // お気に入りサークル一覧表示画面へ
-			String[][] favoriteClubs=favoriteManager.getFavorite(hashId);
-			request.setAttribute("favoriteClubs", favoriteClubs);
-			getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
-			break;
-
-		case "top": // トップ画面へ
+		case "top": // 管理者トップ画面へ
 			String[][] allClubs = clubManager.getAllClubs(0); // サークルアカウント情報をfirstIndexから10件取得
 			String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
 			for (int i = 0; i < allClubs.length; i++) {
@@ -80,7 +70,7 @@ public class FromUserMyPage extends HttpServlet {
 				allClubInfo[i][2] = clubInfo[Constant.CLUB_INFO_ID];
 			}
 			request.setAttribute("clubs", allClubInfo);
-			getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
 			break;
 		}
 	}
