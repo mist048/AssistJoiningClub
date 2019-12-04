@@ -17,9 +17,9 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
+			<a href="" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">戻る</a></li>
+				<li><a href="ToTop">戻る</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -45,10 +45,10 @@
 
 						<p>
 
-						<button class="waves-effect waves-light btn" type="submit" value="yes" name="option">
-							はい </button>
-						<button class="waves-effect waves-light btn" type="submit" value="no" name="option">
-							いいえ </button>
+						<a href = "FromLogout" class="waves-effect waves-light btn"> はい </a>
+						<input type="hidden" name="option" value="yes">
+						<a href = "FromLogout" class="waves-effect waves-light btn"> いいえ </a>
+						<input type="hidden" name="option" value="no">
 
 						</p>
 					</div>

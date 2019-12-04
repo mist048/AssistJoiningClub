@@ -24,9 +24,11 @@
 			<ul class="left hide-on-med-and-down">
 				<li><a href="">戻る</a></li>
 			</ul>
+
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">トップ</a></li>
+				<li><a href="ToTop">トップ</a></li>
 			</ul>
+
 		</div>
 	</nav>
 	<p>
@@ -34,7 +36,6 @@
 	</p>
 
 
-	<form action="FromLogin" method="get">
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
@@ -85,15 +86,14 @@
 						</br>
 					</p>
 					<div class="center-align">
-						<button class="waves-effect waves-light btn" type="submit" value="yes" name="option">
-							ログイン </button>
+						<a href = "FromLogin" class="waves-effect waves-light btn">ログイン </a>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
-	</form>
+
 
 
 
