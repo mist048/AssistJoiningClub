@@ -17,6 +17,7 @@ public class Constant {
 	public static final int CLUB_INFO_ID = 5; // サークル情報ID
 	public static final int LINK = 1; // リンク
 	public static final int INTRO = 2; // 紹介文
+	public static final int DESCRIPTION = 2; // 説明文
 	public static final int MEMBER = 3; // 人数
 	public static final int ICON = 4; // アイコン
 	public static final int HOME = 5; // ホーム画像
