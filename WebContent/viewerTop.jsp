@@ -200,11 +200,11 @@
 					<h6 class="teal-text">新規登録</h6>
 					<hr class="teal">
 					<div class="center-align">
-						<a class="waves-effect waves-light btn">サークル新規登録</a>
+						<a class="waves-effect waves-light btn" href="clubRegistration.jsp">サークル新規登録</a>
 						<p>
 							</br>
 						</p>
-						<a class="waves-effect waves-light btn">ユーザ新規登録</a>
+						<a class="waves-effect waves-light btn" href="userRegistration.jsp">ユーザ新規登録</a>
 					</div>
 					</div>
 				</div>
