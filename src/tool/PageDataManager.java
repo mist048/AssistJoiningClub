@@ -14,12 +14,16 @@ public class PageDataManager {
 		clubManager = new ClubManager();
 		clubInfoManager = new ClubInfoManager();
 	}
-	
+
 	public static PageDataManager getInstance() {
 		return pageDataManager;
 	}
 
-	public void toViewerTop(HttpServletRequest request,String firstIndex) {
+	public void toViewerTop(HttpServletRequest request) {
+		String firstIndex = request.getParameter("firstIndex");
+		if (firstIndex == null) { // 最初のアクセスなら
+			firstIndex = "0";
+		}
 		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
 		String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
 		for (int i = 0; i < allClubs.length; i++) {
