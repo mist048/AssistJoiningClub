@@ -16,8 +16,6 @@ import tool.PageDataManager;
 @WebServlet("/ToTop")
 public class ToTop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/*ClubManager clubManager;
-	ClubInfoManager clubInfoManager;*/
 	private PageDataManager pageDataManager;
 
 	/**
@@ -25,8 +23,6 @@ public class ToTop extends HttpServlet {
 	 */
 	public ToTop() {
 		super();
-		/*clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();*/
 		pageDataManager = PageDataManager.getInstance();
 	}
 
@@ -46,7 +42,7 @@ public class ToTop extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
-		pageDataManager.toViewerTop(request);
+		pageDataManager.toTop(request);
 
 		if (session.getAttribute("login") == null || !(boolean) session.getAttribute("login")) { // セッションが破棄されている場合
 			getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
