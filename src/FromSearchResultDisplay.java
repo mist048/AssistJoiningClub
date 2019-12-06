@@ -6,10 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
-import tool.Constant;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromSearchResultDisplay
@@ -17,16 +16,14 @@ import tool.Constant;
 @WebServlet("/FromSearchResultDisplay")
 public class FromSearchResultDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromSearchResultDisplay() {
 		super();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -43,20 +40,28 @@ public class FromSearchResultDisplay extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		// サークル情報閲覧画面へ
-		String clubId = request.getParameter("clubId");
-		String[] club = clubManager.getClub(clubId);
-		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
-		request.setAttribute("id", club[Constant.ID]);
-		request.setAttribute("name", club[Constant.NAME]);
-		request.setAttribute("mail", club[Constant.MAIL]);
-		request.setAttribute("recogn", club[Constant.RECOGN]);
-		request.setAttribute("link", clubInfo[Constant.LINK]);
-		request.setAttribute("intro", clubInfo[Constant.INTRO]);
-		request.setAttribute("member", clubInfo[Constant.MEMBER]);
-		request.setAttribute("icon", clubInfo[Constant.ICON]);
-		request.setAttribute("home", clubInfo[Constant.HOME]);
-		getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		String hashId = (String) session.getAttribute("userId");
+		String user = (String) session.getAttribute("user");
+		String option = request.getParameter("option");
+
+		switch (option) {
+		case "clubInfoDisplay": // サークル情報閲覧画面へ
+			pageDataManager.toClubInfoDisplay(request);
+			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
+			break;
+
+		case "myPage": // マイページへ
+			if (user.equals("general")) { // 一般ユーザ
+				pageDataManager.toUserMyPage(request, hashId);
+				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+
+			} else if (user.equals("club")) { // サークルアカウント
+				pageDataManager.toClubMyPage(request, hashId);
+				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+			}
+			break;
+		}
 	}
 
 }
