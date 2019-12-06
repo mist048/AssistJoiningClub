@@ -37,7 +37,7 @@
 	<nav class="teal">
 		<div class="nav-wrapper">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="http://localhost:8080/AssistJoiningClub/login.jsp">ログイン</a></li>
+				<li><a href="login.jsp">ログイン</a></li>
 				<li><a class="waves-effect waves-light btn">新規登録</a></li>
 			</ul>
 		</div>
