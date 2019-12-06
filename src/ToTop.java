@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
-import tool.Constant;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class Controller
@@ -18,16 +16,18 @@ import tool.Constant;
 @WebServlet("/ToTop")
 public class ToTop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
+	/*ClubManager clubManager;
+	ClubInfoManager clubInfoManager;*/
+	private PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ToTop() {
 		super();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
+		/*clubManager = new ClubManager();
+		clubInfoManager = new ClubInfoManager();*/
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ToTop extends HttpServlet {
 		if (firstIndex == null) { // 最初のアクセスなら
 			firstIndex = "0";
 		}
-		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
+		/*String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
 		String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
 		for (int i = 0; i < allClubs.length; i++) {
 			allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
@@ -57,7 +57,8 @@ public class ToTop extends HttpServlet {
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
 			allClubInfo[i][2] = clubInfo[Constant.INTRO];
 		}
-		request.setAttribute("clubs", allClubInfo);
+		request.setAttribute("clubs", allClubInfo);*/
+		pageDataManager.toViewerTop(request, firstIndex);
 
 		if (session.getAttribute("login") == null || !(boolean) session.getAttribute("login")) { // セッションが破棄されている場合
 			getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
