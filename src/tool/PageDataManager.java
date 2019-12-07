@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import model.ClubInfoManager;
 import model.ClubManager;
+import model.FavoriteManager;
 import model.UserManager;
 
 public class PageDataManager {
@@ -11,11 +12,13 @@ public class PageDataManager {
 	private UserManager userManager;;
 	private ClubManager clubManager;
 	private ClubInfoManager clubInfoManager;
+	private FavoriteManager favoriteManager;
 
 	private PageDataManager() {
 		userManager = new UserManager();
 		clubManager = new ClubManager();
 		clubInfoManager = new ClubInfoManager();
+		favoriteManager=new FavoriteManager();
 	}
 
 	public static PageDataManager getInstance() {
@@ -40,11 +43,48 @@ public class PageDataManager {
 		request.setAttribute("firstIndex", firstIndex);
 	}
 
+	// 一般ユーザ更新画面へのデータ
+	public void toUserUpdate(HttpServletRequest request, String generalId) {
+		String[] general = userManager.getUser(generalId);
+		request.setAttribute("password", general[Constant.PASSWORD]);
+		request.setAttribute("name", general[Constant.NAME]);
+		request.setAttribute("mail", general[Constant.MAIL]);
+	}
+
 	// 一般ユーザマイページ画面へのデータ
 	public void toUserMyPage(HttpServletRequest request, String generalId) {
 		String[] general = userManager.getUser(generalId);
 		request.setAttribute("name", general[Constant.NAME]);
 		request.setAttribute("mail", general[Constant.MAIL]);
+	}
+
+	// お気に入りサークル一覧表示画面へのデータ
+	public void toFavoriteClubDisplay(HttpServletRequest request, String generalId) {
+		String[][] favoriteClubs=favoriteManager.getFavorite(generalId);
+		request.setAttribute("favoriteClubs", favoriteClubs);
+	}
+
+	// サークルアカウント更新画面へのデータ
+	public void toClubUpdate(HttpServletRequest request, String clubId) {
+		String[] club = clubManager.getClub(clubId);
+		request.setAttribute("password", club[Constant.PASSWORD]);
+		request.setAttribute("name", club[Constant.NAME]);
+		request.setAttribute("mail", club[Constant.MAIL]);
+		request.setAttribute("recogn", club[Constant.RECOGN]);
+	}
+
+	// サークル情報更新画面へのデータ
+	public void toClubInfoUpdate(HttpServletRequest request, String clubId) {
+		String[] club = clubManager.getClub(clubId);
+		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
+		request.setAttribute("name", club[Constant.NAME]);
+		request.setAttribute("mail", club[Constant.MAIL]);
+		request.setAttribute("recogn", club[Constant.RECOGN]);
+		request.setAttribute("link", clubInfo[Constant.LINK]);
+		request.setAttribute("intro", clubInfo[Constant.INTRO]);
+		request.setAttribute("member", clubInfo[Constant.MEMBER]);
+		request.setAttribute("icon", clubInfo[Constant.ICON]);
+		request.setAttribute("home", clubInfo[Constant.HOME]);
 	}
 
 	// サークルアカウントマイページ画面へのデータ

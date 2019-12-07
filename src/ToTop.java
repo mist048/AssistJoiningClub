@@ -43,7 +43,6 @@ public class ToTop extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		pageDataManager.toTop(request);
-
 		if (session.getAttribute("login") == null || !(boolean) session.getAttribute("login")) { // セッションが破棄されている場合
 			getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
 		} else { // ログインしている場合

@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
-import tool.Constant;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromClubMypage
@@ -18,16 +16,14 @@ import tool.Constant;
 @WebServlet("/FromClubMyPage")
 public class FromClubMyPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromClubMyPage() {
 		super();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -48,40 +44,19 @@ public class FromClubMyPage extends HttpServlet {
 		String hashId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
 
-		String[] club = clubManager.getClub(hashId);
-		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
-
 		switch (option) {
 		case "setting": // サークルアカウント更新画面へ
-			request.setAttribute("password", club[Constant.PASSWORD]);
-			request.setAttribute("name", club[Constant.NAME]);
-			request.setAttribute("mail", club[Constant.MAIL]);
-			request.setAttribute("recogn", club[Constant.RECOGN]);
+			pageDataManager.toClubUpdate(request, hashId);
 			getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			break;
 
 		case "edit": // サークル情報更新画面へ
-			request.setAttribute("name", club[Constant.NAME]);
-			request.setAttribute("mail", club[Constant.MAIL]);
-			request.setAttribute("recogn", club[Constant.RECOGN]);
-			request.setAttribute("link", clubInfo[Constant.LINK]);
-			request.setAttribute("intro", clubInfo[Constant.INTRO]);
-			request.setAttribute("member", clubInfo[Constant.MEMBER]);
-			request.setAttribute("icon", clubInfo[Constant.ICON]);
-			request.setAttribute("home", clubInfo[Constant.HOME]);
+			pageDataManager.toClubInfoUpdate(request, hashId);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 			break;
 
 		case "top": // トップ画面へ
-			String[][] allClubs = clubManager.getAllClubs(0); // サークルアカウント情報をfirstIndexから10件取得
-			String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
-			for (int i = 0; i < allClubs.length; i++) {
-				allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
-				allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
-				clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-				allClubInfo[i][2] = clubInfo[Constant.CLUB_INFO_ID];
-			}
-			request.setAttribute("clubs", allClubInfo);
+			pageDataManager.toTop(request);
 			getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
 			break;
 		}

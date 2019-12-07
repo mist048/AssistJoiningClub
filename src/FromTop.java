@@ -42,7 +42,6 @@ public class FromTop extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		String user = (String) session.getAttribute("user");
 		String option = request.getParameter("option");
 
 		switch (option) {
@@ -56,15 +55,14 @@ public class FromTop extends HttpServlet {
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
 
-		case "myPage": // マイページへ
-			if (user.equals("general")) { // 一般ユーザ
-				pageDataManager.toUserMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+		case "userMyPage": // 一般ユーザマイページへ
+			pageDataManager.toUserMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			break;
 
-			} else if (user.equals("club")) { // サークルアカウント
-				pageDataManager.toClubMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
-			}
+		case "clubMyPage": // サークルアカウントマイページへ
+			pageDataManager.toClubMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			break;
 		}
 	}
