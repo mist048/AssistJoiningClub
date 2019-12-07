@@ -23,7 +23,7 @@
 				<li><a href="">ユーザ</a></li>
 			</ul>
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">トップ</a></li>
+				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -44,24 +44,20 @@
 							</br>
 						<table>
 							<tr>
-								<td>ID</td>
-								<td>***</td>
-							</tr>
-							<tr>
 								<td>サークル名</td>
-								<td>***</td>
+								<td><%= session.getAttribute("name")%></td>
 							</tr>
 							<tr>
 								<td>メールアドレス</td>
-								<td>***</td>
+								<td><%= session.getAttribute("mail")%></td>
 							</tr>
 							<tr>
 								<td>公認</td>
-								<td>***</td>
+								<td><%= session.getAttribute("recogn")%></td>
 							</tr>
 							<tr>
 								<td>サークル説明文</td>
-								<td>***</td>
+								<td><%= session.getAttribute("intro")%></td>
 							</tr>
 						</table>
 
@@ -69,12 +65,15 @@
 						</br>
 
 
-						<p>
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="setting">
+								<a class="waves-effect waves-light btn" href="FromClubMyPage">設定</a>
+								<input type="hidden" name="option" value="edit">
+								<a class="waves-effect waves-light btn" href="FromClubMyPage">編集</a>
+							</p>
 
-							<button class="waves-effect waves-light btn" type="submit" value="setting" name="option">設定</button>
-							<button class="waves-effect waves-light btn" type="submit" value="edit" name="option">編集</button>
-
-						</p>
+						</div>
 					</div>
 
 				</div>

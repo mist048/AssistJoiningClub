@@ -44,7 +44,7 @@
 
 			<form action="ToTop" method="post">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="">トップ</a></li>
+				<li><a href="ToTop">トップ</a></li>
 			</ul>
 			</form>
 		</div>
@@ -65,39 +65,27 @@
 
 					<ul class="collection">
 
-						<li class="collection-item avatar">
-							<i class="material-icons circle">person</i>
-							<span class="title">サークル名</span>
-							<p>
-								説明文(最初20文字)
-							</p>
-							<a href="#!" class="secondary-content">
-								<i class="waves-effect waves-teal btn-flat">詳細</i>
-							</a>
-						</li>
+						<%
+							String[][] clubs = (String[][]) request.getAttribute("clubs");
+							for (int i = 0; i < clubs.length; i++) {
+						%>
 
-						<li class="collection-item avatar">
-							<i class="material-icons circle green">person</i>
-							<span class="title">サークル名</span>
-							<p>
-								説明文(最初20文字)
-							</p>
-							<a href="#!" class="secondary-content">
-								<i class="waves-effect waves-teal btn-flat">詳細</i>
-							</a>
-						</li>
+						<li class="collection-item avatar"><i
+							class="material-icons circle">person</i>
+							<form action="FromClubDisplay" method="post" name="form<%=i%>">
+								<span class="title"><%=clubs[i][Constant.NAME]%></span>
+								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
+								<input type="hidden" name="option" value="clubInfoDisplay">
+								<input type="hidden" name="clubId"
+									value=<%=clubs[i][Constant.ID]%>> <a
+									href="javascript:form<%=i%>.submit()" class="secondary-content">
+									<i class="waves-effect waves-teal btn-flat">詳細</i>
+								</a>
+							</form></li>
 
-						<li class="collection-item avatar">
-							<i class="material-icons circle red">person</i>
-							<span class="title">サークル名</span>
-							<p>
-								説明文(最初20文字)
-							</p>
-							<a href="#!" class="secondary-content">
-								<i class="waves-effect waves-teal btn-flat">詳細</i>
-
-							</a>
-						</li>
+						<%
+							}
+						%>
 					</ul>
 
 

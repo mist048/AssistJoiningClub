@@ -14,19 +14,51 @@
 </head>
 
 <body>
-<p><input type="submit" value="戻る"></p>
-<p>検索結果</p>
 
-<p><label>入力キーワード: </label></p>
-<p><label>入力タグ: </label></p>
+<form action="" method="get">
 
-<p>検索結果一覧</p>
-<table>
-<thead><tr> <th>サークル名</th><th>タグ1</th><th>タグ2</th> </tr></thead>
+<nav class="teal">
 
-<tbody> <tr><td>**部</td><td>***</td><td>***</td> </tr></tbody>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo center"></a>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="clubMyPage">ユーザ</a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
+		</div>
+	</nav>
 
-</table>
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+
+					<h6>
+						検索結果</br>
+					</h6>
+					<p>
+						</br>
+					</p>
+
+					<p><label>入力キーワード: <%= session.getAttribute("result")%></label></p>
+
+					<table>
+					<thead><tr> <th>サークル名</th></tr></thead>
+
+					<tbody><tr><td></td></tr></tbody>
+
+					</table>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</form>
 
 </body>
 </html>

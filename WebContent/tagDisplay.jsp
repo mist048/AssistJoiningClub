@@ -14,13 +14,36 @@
 </head>
 
 <body>
-<p><input type="submit" value="戻る"></p>
+
+<form action="" method="get">
+
+	<nav class="teal">
+
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo center"></a>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="">ユーザ</a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
+		</div>
+	</nav>
+
 <p>タグ一覧</p>
 
 <table>
-<tr><td>***</td></tr>
+<tr><td><%= session.getAttribute("allTags")%></td></tr>
 </table>
 
-<p><input type="submit" value="編集"></p>
+					<div class="center-align">
+						<p>
+							<a class="waves-effect waves-light btn" href="FromTagDisplay">編集</a>
+						</p>
+
+					</div>
+
+</form>
+
 </body>
 </html>
