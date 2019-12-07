@@ -41,8 +41,6 @@ public class FromSearchResultDisplay extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
-		String user = (String) session.getAttribute("user");
 		String option = request.getParameter("option");
 
 		switch (option) {
@@ -52,13 +50,18 @@ public class FromSearchResultDisplay extends HttpServlet {
 			break;
 
 		case "myPage": // マイページへ
-			if (user.equals("general")) { // 一般ユーザ
-				pageDataManager.toUserMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			String hashId = (String) session.getAttribute("userId");
+			pageDataManager.toUserMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			break;
 
-			} else if (user.equals("club")) { // サークルアカウント
-				pageDataManager.toClubMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			String user = (String) session.getAttribute("user");
+			if (user == null) { // 閲覧者
+				getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
+			} else if (user.equals("general")) { // 一般ユーザ
+				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 			}
 			break;
 		}
