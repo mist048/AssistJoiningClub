@@ -8,11 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
-import model.FavoriteManager;
-import model.UserManager;
-import tool.Constant;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromFavoriteClubDisplay
@@ -20,20 +16,14 @@ import tool.Constant;
 @WebServlet("/FromFavoriteClubDisplay")
 public class FromFavoriteClubDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	UserManager userManager;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
-	FavoriteManager favoriteManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromFavoriteClubDisplay() {
 		super();
-		userManager = new UserManager();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
-		favoriteManager = new FavoriteManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -56,31 +46,23 @@ public class FromFavoriteClubDisplay extends HttpServlet {
 
 		switch (option) {
 		case "clubInfoDisplay": // サークル情報閲覧画面へ
-			String clubId = request.getParameter("clubId");
-			String[] club = clubManager.getClub(clubId);
-			String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
-			request.setAttribute("name", club[Constant.NAME]);
-			request.setAttribute("mail", club[Constant.MAIL]);
-			request.setAttribute("recogn", club[Constant.RECOGN]);
-			request.setAttribute("link", clubInfo[Constant.LINK]);
-			request.setAttribute("intro", clubInfo[Constant.INTRO]);
-			request.setAttribute("member", clubInfo[Constant.MEMBER]);
-			request.setAttribute("icon", clubInfo[Constant.ICON]);
-			request.setAttribute("home", clubInfo[Constant.HOME]);
+			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
 
 		case "edit": // お気に入りサークル削除画面へ
-			String[][] favoriteClubs = favoriteManager.getFavorite(hashId);
-			request.setAttribute("favoriteClubs", favoriteClubs);
+			pageDataManager.toFavoriteClubDelete(request, hashId);
 			getServletContext().getRequestDispatcher("/favoriteClubDelete.jsp").forward(request, response);
 			break;
 
-		case "userMyPage": // 一般ユーザマイページへ
-			String[] general = userManager.getUser(hashId);
-			request.setAttribute("name", general[Constant.NAME]);
-			request.setAttribute("mail", general[Constant.MAIL]);
+		case "myPage": // マイページ画面へ
+			pageDataManager.toUserMyPage(request, hashId);
 			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			break;
+
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 			break;
 		}
 	}

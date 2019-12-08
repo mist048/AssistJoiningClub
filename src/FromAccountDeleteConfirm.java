@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
-import tool.Constant;
-import tool.SHA256;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromAccountDeleteConfirm
@@ -19,16 +16,14 @@ import tool.SHA256;
 @WebServlet("/FromAccountDeleteConfirm")
 public class FromAccountDeleteConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromAccountDeleteConfirm() {
 		super();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -47,46 +42,55 @@ public class FromAccountDeleteConfirm extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
-		String password = request.getParameter("password");
-		// パスワードをハッシュ値に変換する
-		String hashPassword = SHA256.hash(password);
+		String hashId = (String) session.getAttribute("userId");
+		String option = request.getParameter("option");
 
-		switch (user) {
-		case "club": // サークルアカウント
-			String hashId = (String) session.getAttribute("userId");
-			if (clubManager.delete(hashId, hashPassword)) { // 削除成功
-				String firstIndex = request.getParameter("firstIndex");
-				String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
-				String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
-				for (int i = 0; i < allClubs.length; i++) {
-					allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
-					allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
-					String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-					allClubInfo[i][2] = clubInfo[Constant.CLUB_INFO_ID];
+		switch (option) {
+		case "delete": // 削除処理
+			if (user.equals("general") || user.equals("club")) { // 一般ユーザかサークルアカウント
+				boolean result = pageDataManager.accountDelete(request, user, hashId); // 削除処理
+				if (result) { // 削除成功
+					pageDataManager.toTop(request);
+					getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
+				} else { // 削除失敗
+					pageDataManager.toAccountDeleteConfirm(request, user, null, null);
+					getServletContext().getRequestDispatcher("/accountDeleteConfirm.jsp").forward(request, response);
 				}
-				request.setAttribute("clubs", allClubInfo);
-				getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
-			} else { // 削除失敗
-				getServletContext().getRequestDispatcher("/accountDeleteConfirm.jsp").forward(request, response);
+			} else if (user.equals("admin")) { // 管理者
+				String deletedUser = request.getParameter("deletedUser"); // 削除される対象
+				String deletedId = request.getParameter("deletedId");
+				boolean result = pageDataManager.accountDelete(request, user, deletedId); // 削除処理
+				if (result) { // 削除成功
+					if (deletedUser.equals("general")) { // 一般ユーザが対象
+						getServletContext().getRequestDispatcher("/userDisplay.jsp").forward(request, response);
+					} else if (deletedUser.equals("club")) { // サークルアカウントが対象
+						getServletContext().getRequestDispatcher("/clubDisplay.jsp").forward(request, response);
+					}
+				} else { // 削除失敗
+					pageDataManager.toAccountDeleteConfirm(request, user, deletedUser, deletedId);
+					getServletContext().getRequestDispatcher("/accountDeleteConfirm.jsp").forward(request, response);
+				}
 			}
 			break;
 
-		case "admin": // 管理者
-			String clubId = request.getParameter("clubId");
-			if (clubManager.delete(clubId, hashPassword)) { // 削除成功
-				String firstIndex = request.getParameter("firstIndex");
-				String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
-				String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
-				for (int i = 0; i < allClubs.length; i++) {
-					allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
-					allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
-					String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-					allClubInfo[i][2] = clubInfo[Constant.CLUB_INFO_ID];
-				}
-				request.setAttribute("clubs", allClubInfo);
-				getServletContext().getRequestDispatcher("/clubDisplay.jsp").forward(request, response);
-			} else { // 削除失敗
-				getServletContext().getRequestDispatcher("/accountDeleteConfirm.jsp").forward(request, response);
+		case "myPage": // マイページ画面へ
+			if (user.equals("general")) { // 一般ユーザ
+				pageDataManager.toUserMyPage(request, hashId);
+				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			} else if (user.equals("club")) { // サークルアカウント
+				pageDataManager.toClubMyPage(request, hashId);
+				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+			}
+			break;
+
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			if (user.equals("general")) { // 一般ユーザ
+				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
+			} else if (user.equals("club")) { // サークルアカウント
+				getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
+			} else if (user.equals("admin")) { // 管理者
+				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
 			}
 			break;
 		}

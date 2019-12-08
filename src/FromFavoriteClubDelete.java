@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.FavoriteManager;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromFavoriteClubDelete
@@ -16,14 +16,14 @@ import model.FavoriteManager;
 @WebServlet("/FromFavoriteClubDelete")
 public class FromFavoriteClubDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	FavoriteManager favoriteManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromFavoriteClubDelete() {
 		super();
-		favoriteManager = new FavoriteManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -42,11 +42,24 @@ public class FromFavoriteClubDelete extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		String[] clubIds = request.getParameterValues("clubId");
-		for (String clubId : clubIds) {
-			favoriteManager.delete(hashId, clubId); // お気に入りサークルを削除
+		String option = request.getParameter("option");
+
+		switch (option) {
+		case "delete": // 削除処理
+			pageDataManager.favoriteClubDelete(request, hashId);
+			getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
+			break;
+
+		case "myPage": // マイページ画面へ
+			pageDataManager.toUserMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
+			break;
+
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
+			break;
 		}
-		getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
 	}
 
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.TagManager;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromTop
@@ -15,14 +15,14 @@ import model.TagManager;
 @WebServlet("/FromTagEdit")
 public class FromTagEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	TagManager tagManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromTagEdit() {
 		super();
-		tagManager = new TagManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -39,14 +39,32 @@ public class FromTagEdit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String option = request.getParameter("option");
 
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) {
-			firstIndex = "0";
+		switch (option) {
+		case "update": // 更新処理
+			// これから作成
+			pageDataManager.toTagEdit(request);
+			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);
+			break;
+
+		case "delete": // 削除処理
+			// これから作成
+			pageDataManager.toTagEdit(request);
+			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);
+			break;
+
+		case "save": // タグ一覧表示画面へ
+			// これから作成
+			pageDataManager.toTagDisplay(request);
+			getServletContext().getRequestDispatcher("/tagDisplay.jsp").forward(request, response);
+			break;
+
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
+			break;
 		}
-		String[][] allTags = tagManager.getAllTags(Integer.parseInt(firstIndex));
-		request.setAttribute("allTags", allTags);
-		// これから作成
 	}
 
 }

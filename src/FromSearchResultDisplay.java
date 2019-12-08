@@ -49,7 +49,7 @@ public class FromSearchResultDisplay extends HttpServlet {
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
 
-		case "myPage": // マイページへ
+		case "myPage": // マイページ画面へ
 			String hashId = (String) session.getAttribute("userId");
 			pageDataManager.toUserMyPage(request, hashId);
 			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);

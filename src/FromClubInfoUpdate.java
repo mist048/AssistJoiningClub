@@ -6,21 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tool.PageDataManager;
 
 /**
- * Servlet implementation class FromUserDisplay
+ * Servlet implementation class FromClubMypage
  */
-@WebServlet("/FromUserDisplay")
-public class FromUserDisplay extends HttpServlet {
+@WebServlet("/FromClubInfoUpdate")
+public class FromClubInfoUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromUserDisplay() {
+	public FromClubInfoUpdate() {
 		super();
 		pageDataManager = PageDataManager.getInstance();
 	}
@@ -39,17 +40,30 @@ public class FromUserDisplay extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String hashId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
 
 		switch (option) {
-		case "userInfoDisplayForAdmin": // 一般ユーザ管理者閲覧用画面へ
-			pageDataManager.toUserInfoDisplayForAdmin(request);
-			getServletContext().getRequestDispatcher("/userInfoDisplayForAdmin.jsp").forward(request, response);
+		case "confirm": // サークル情報更新処理
+			boolean result = pageDataManager.clubInfoUpdate(request, hashId);
+			if (result) { // 更新できる
+				pageDataManager.toClubMyPage(request, hashId);
+				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+			} else { // エラーがある
+				pageDataManager.toClubInfoUpdate(request, hashId);
+				getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
+			}
+			break;
+
+		case "myPage": // マイページ画面へ
+			pageDataManager.toClubMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			break;
 
 		case "top": // トップ画面へ
 			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
 			break;
 		}
 	}

@@ -46,7 +46,7 @@ public class FromUserMyPage extends HttpServlet {
 
 		switch (option) {
 		case "setting": // 一般ユーザ更新画面へ
-			pageDataManager.toUserUpdate(request, hashId);
+			pageDataManager.toUserUpdate(request, hashId, -1); // -1は入力によるエラーがないとき
 			getServletContext().getRequestDispatcher("/userUpdate.jsp").forward(request, response);
 			break;
 

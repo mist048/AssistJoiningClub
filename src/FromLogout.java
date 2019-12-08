@@ -8,18 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tool.PageDataManager;
+
 /**
  * Servlet implementation class FromLogout
  */
 @WebServlet("/FromLogout")
 public class FromLogout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromLogout() {
 		super();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -36,8 +40,11 @@ public class FromLogout extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session=request.getSession();
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
 		String option = request.getParameter("option");
+
+		pageDataManager.toTop(request);
 		switch (option) {
 		case "yes": // ログアウトする
 			// セッションを破棄する
@@ -46,7 +53,6 @@ public class FromLogout extends HttpServlet {
 			break;
 
 		case "no": // ログアウトしない
-			String user = (String) session.getAttribute("user");
 			if (user.equals("general")) { // 一般ユーザ
 				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 

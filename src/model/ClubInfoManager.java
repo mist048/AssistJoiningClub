@@ -11,4 +11,8 @@ public class ClubInfoManager {
 				"/img/hoge.jpg" };
 	}
 
+	public boolean update(String clubId, String link, String intro, String member, String icon, String home) {
+		return true;
+	}
+
 }

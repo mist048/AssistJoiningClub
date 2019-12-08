@@ -29,4 +29,21 @@ public class UserManager {
 	public void updateConfirm(String hashId, String name, String hashPassword, String mail) {
 	}
 
+	public boolean delete(String id, String password) {
+		return true;
+	}
+
+	public String[][] getAllUsers(int parseInt) {
+		return new String[][] {
+				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+						"ほげ",
+						"password",
+						"17fi999@ms.dendai.ac.jp" },
+				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+						"ほげ",
+						"password",
+						"17fi999@ms.dendai.ac.jp" }
+		};
+	}
+
 }

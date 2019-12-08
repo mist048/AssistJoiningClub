@@ -52,7 +52,7 @@ public class FromClubUpdate extends HttpServlet {
 				pageDataManager.toAccountDelete(request, user, null, hashId);
 			} else if (user.equals("admin")) { // 管理者
 				String clubId = request.getParameter("clubId"); // 削除されるID
-				pageDataManager.toAccountDelete(request, user, clubId, hashId);
+				pageDataManager.toAccountDelete(request, user, "club", clubId);
 			}
 			getServletContext().getRequestDispatcher("/accountDelete.jsp").forward(request, response);
 			break;
@@ -75,7 +75,7 @@ public class FromClubUpdate extends HttpServlet {
 				} else { // 管理者
 					String clubId = request.getParameter("clubId");
 					pageDataManager.clubUpdateConfirm(request, user, clubId); // 更新処理
-					pageDataManager.toClubInfoDisplayForAdmin(request, clubId);
+					pageDataManager.toClubInfoDisplayForAdmin(request);
 					getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
 				}
 			} else { // エラーがある
@@ -88,7 +88,7 @@ public class FromClubUpdate extends HttpServlet {
 			}
 			break;
 
-		case "myPage": // マイページへ
+		case "myPage": // マイページ画面へ
 			pageDataManager.toClubMyPage(request, hashId);
 			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			break;
