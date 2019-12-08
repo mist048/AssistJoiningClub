@@ -18,7 +18,7 @@ public class PageDataManager {
 		userManager = new UserManager();
 		clubManager = new ClubManager();
 		clubInfoManager = new ClubInfoManager();
-		favoriteManager=new FavoriteManager();
+		favoriteManager = new FavoriteManager();
 	}
 
 	public static PageDataManager getInstance() {
@@ -60,17 +60,43 @@ public class PageDataManager {
 
 	// お気に入りサークル一覧表示画面へのデータ
 	public void toFavoriteClubDisplay(HttpServletRequest request, String generalId) {
-		String[][] favoriteClubs=favoriteManager.getFavorite(generalId);
+		String[][] favoriteClubs = favoriteManager.getFavorite(generalId);
 		request.setAttribute("favoriteClubs", favoriteClubs);
 	}
 
 	// サークルアカウント更新画面へのデータ
-	public void toClubUpdate(HttpServletRequest request, String clubId) {
+	public void toClubUpdate(HttpServletRequest request, String clubId, int error) {
 		String[] club = clubManager.getClub(clubId);
+		request.setAttribute("id", club[Constant.ID]);
 		request.setAttribute("password", club[Constant.PASSWORD]);
 		request.setAttribute("name", club[Constant.NAME]);
 		request.setAttribute("mail", club[Constant.MAIL]);
 		request.setAttribute("recogn", club[Constant.RECOGN]);
+		if (error != -1) { // エラーがあれば
+			request.setAttribute("error", error);
+		}
+	}
+
+	// サークルアカウント更新判定
+	public int clubUpdate(HttpServletRequest request, String clubId) {
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String mail = request.getParameter("mail");
+		// パスワードをハッシュ値に変換する
+		String hashPassword = SHA256.hash(password);
+		int code = clubManager.update(clubId, name, hashPassword, mail); // 更新判定
+		return code;
+	}
+
+	// サークルアカウント更新処理
+	public void clubUpdateConfirm(HttpServletRequest request, String user, String clubId) {
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String mail = request.getParameter("mail");
+		String recogn = request.getParameter("recogn");
+		// パスワードをハッシュ値に変換する
+		String hashPassword = SHA256.hash(password);
+		clubManager.updateConfirm(Constant.CLUB, clubId, name, hashPassword, mail, recogn); // 更新処理
 	}
 
 	// サークル情報更新画面へのデータ
@@ -95,6 +121,34 @@ public class PageDataManager {
 		request.setAttribute("mail", club[Constant.MAIL]);
 		request.setAttribute("recogn", club[Constant.RECOGN]);
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
+	}
+
+	// サークルアカウント削除画面へ
+	public void toAccountDelete(HttpServletRequest request, String user, String deletedUser, String userId) {
+		String[] userInfo;
+		switch (user) {
+		case "general": // 一般ユーザ
+			userInfo = userManager.getUser(userId);
+			request.setAttribute("name", userInfo[Constant.NAME]);
+			break;
+
+		case "club": // サークルアカウント
+			userInfo = clubManager.getClub(userId);
+			request.setAttribute("name", userInfo[Constant.NAME]);
+			break;
+
+		case "admin": // 管理者
+			if (deletedUser.equals("general")) { // 一般ユーザが対象
+				userInfo = userManager.getUser(userId);
+				request.setAttribute("generalId", userInfo[Constant.ID]);
+				request.setAttribute("name", userInfo[Constant.NAME]);
+			} else if (deletedUser.equals("club")) { // サークルアカウントが対象
+				userInfo = clubManager.getClub(userId);
+				request.setAttribute("clubId", userInfo[Constant.ID]);
+				request.setAttribute("name", userInfo[Constant.NAME]);
+			}
+			break;
+		}
 	}
 
 	// サークル情報閲覧画面へのデータ
@@ -126,5 +180,16 @@ public class PageDataManager {
 
 		}
 		request.setAttribute("result", result);
+	}
+
+	// サークルアカウント管理者閲覧用画面へのデータ
+	public void toClubInfoDisplayForAdmin(HttpServletRequest request, String clubId) {
+		String[] club = clubManager.getClub(clubId);
+		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
+		request.setAttribute("id", club[Constant.ID]);
+		request.setAttribute("name", club[Constant.NAME]);
+		request.setAttribute("mail", club[Constant.MAIL]);
+		request.setAttribute("recogn", club[Constant.RECOGN]);
+		request.setAttribute("intro", clubInfo[Constant.INTRO]);
 	}
 }

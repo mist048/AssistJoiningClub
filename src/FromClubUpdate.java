@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ClubInfoManager;
-import model.ClubManager;
 import tool.Constant;
-import tool.SHA256;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromClubUpdate
@@ -19,16 +17,14 @@ import tool.SHA256;
 @WebServlet("/FromClubUpdate")
 public class FromClubUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ClubManager clubManager;
-	ClubInfoManager clubInfoManager;
+	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FromClubUpdate() {
 		super();
-		clubManager = new ClubManager();
-		clubInfoManager = new ClubInfoManager();
+		pageDataManager = PageDataManager.getInstance();
 	}
 
 	/**
@@ -46,85 +42,63 @@ public class FromClubUpdate extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
 		String hashId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
 
 		switch (option) {
 		case "delete": // サークルアカウント削除画面へ
-			String[] club = clubManager.getClub(hashId);
-			request.setAttribute("name", club[Constant.NAME]);
+			if (user.equals("club")) { // サークルアカウント
+				pageDataManager.toAccountDelete(request, user, null, hashId);
+			} else if (user.equals("admin")) { // 管理者
+				String clubId = request.getParameter("clubId"); // 削除されるID
+				pageDataManager.toAccountDelete(request, user, clubId, hashId);
+			}
 			getServletContext().getRequestDispatcher("/accountDelete.jsp").forward(request, response);
 			break;
 
 		case "confirm": // 更新処理
-			String name = request.getParameter("name");
-			String password = request.getParameter("password");
-			String mail = request.getParameter("mail");
-			String recogn = request.getParameter("recogn");
-			// ID、パスワードをハッシュ値に変換する
-			String hashPassword = SHA256.hash(password);
+			int code = -1;
+			// 更新判定
+			if (user.equals("club")) { // サークルアカウント
+				code = pageDataManager.clubUpdate(request, hashId);
+			} else if (user.equals("admin")) { // 管理者
+				String clubId = request.getParameter("clubId"); // 更新されるID
+				code = pageDataManager.clubUpdate(request, clubId);
+			}
 
-			int code = clubManager.update(hashId, name, hashPassword, mail); // 更新判定
 			if (code == Constant.SUCCESS) { // 更新できる
-				club = clubManager.getClub(hashId);
-				String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
-				request.setAttribute("name", club[Constant.NAME]);
-				request.setAttribute("mail", club[Constant.MAIL]);
-				request.setAttribute("recogn", club[Constant.RECOGN]);
-				request.setAttribute("intro", clubInfo[Constant.INTRO]);
-				String user = (String) session.getAttribute("user");
 				if (user.equals("club")) { // サークルアカウント
-					clubManager.updateConfirm(Constant.CLUB, hashId, name, hashPassword, mail, null); // 更新処理
+					pageDataManager.clubUpdateConfirm(request, user, hashId); // 更新処理
+					pageDataManager.toClubMyPage(request, hashId);
 					getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
-
 				} else { // 管理者
 					String clubId = request.getParameter("clubId");
-					clubManager.updateConfirm(Constant.ADMIN, clubId, name, hashPassword, mail, recogn); // 更新処理
-					request.setAttribute("clubId", clubId);
+					pageDataManager.clubUpdateConfirm(request, user, clubId); // 更新処理
+					pageDataManager.toClubInfoDisplayForAdmin(request, clubId);
 					getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
 				}
-
-			} else if (code == Constant.EXCEED_NUM_OF_CHAR) { // 定義された文字数を超えている
-				// 更新画面へのデータ
-				String user = (String) session.getAttribute("user");
-				if (user.equals("admin")) { // 管理者
+			} else { // エラーがある
+				if (user.equals("club")) { // サークルアカウント
+					pageDataManager.toClubUpdate(request, hashId, code);
+				} else if (user.equals("admin")) { // 管理者
 					String clubId = request.getParameter("clubId");
-					request.setAttribute("clubId", clubId);
+					pageDataManager.toClubUpdate(request, clubId, code);
 				}
-				request.setAttribute("error", Constant.EXCEED_NUM_OF_CHAR);
-				request.setAttribute("name", name);
-				request.setAttribute("password", password);
-				request.setAttribute("mail", mail);
-				request.setAttribute("recogn", recogn);
-				getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
+			}
+			break;
 
-			} else if (code == Constant.CONTAINS_EX_CHAR) { // 特殊な文字が含まれている
-				// 更新画面へのデータ
-				String user = (String) session.getAttribute("user");
-				if (user.equals("admin")) { // 管理者
-					String clubId = request.getParameter("clubId");
-					request.setAttribute("clubId", clubId);
-				}
-				request.setAttribute("error", Constant.CONTAINS_EX_CHAR);
-				request.setAttribute("name", name);
-				request.setAttribute("password", password);
-				request.setAttribute("mail", mail);
-				request.setAttribute("recogn", recogn);
-				getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
+		case "myPage": // マイページへ
+			pageDataManager.toClubMyPage(request, hashId);
+			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
+			break;
 
-			} else { // 空欄が含まれている
-				// 更新画面へのデータ
-				String user = (String) session.getAttribute("user");
-				if (user.equals("admin")) { // 管理者
-					String clubId = request.getParameter("clubId");
-					request.setAttribute("clubId", clubId);
-				}
-				request.setAttribute("error", Constant.CONTAINS_BLANK);
-				request.setAttribute("name", name);
-				request.setAttribute("password", password);
-				request.setAttribute("mail", mail);
-				request.setAttribute("recogn", recogn);
-				getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
+		case "top": // トップ画面へ
+			pageDataManager.toTop(request);
+			if (user.equals("club")) { // サークルアカウント
+				getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
+			} else if (user.equals("admin")) { // 管理者
+				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
 			}
 			break;
 		}

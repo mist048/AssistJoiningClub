@@ -46,7 +46,7 @@ public class FromClubMyPage extends HttpServlet {
 
 		switch (option) {
 		case "setting": // サークルアカウント更新画面へ
-			pageDataManager.toClubUpdate(request, hashId);
+			pageDataManager.toClubUpdate(request, hashId, -1); // -1は入力によるエラーがないとき
 			getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			break;
 
