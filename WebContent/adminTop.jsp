@@ -17,12 +17,24 @@
 
 <form action="FromTop" method="get">
 
-<p><input type="submit" value="ログアウト"></p>
+<nav class="teal">
+		<div class="nav-wrapper">
+			<ul class="right hide-on-med-and-down">
+				<li><a href="logout.jsp">ログアウト</a></li>
+
+			</ul>
+		</div>
+	</nav>
+
 <p>管理者ページ</p>
-<p><input type="submit" value="タグ一覧"></p>
-<p><input type="submit" value="サークルアカウント一覧"></p>
-<p><input type="submit" value="一般ユーザ一覧"></p>
-<p><input type="submit" value="公式サークルアカウント作成"></p>
+<p><input type="hidden" name="option" value="tagDisplay">
+	<a href="FromAdminTop">タグ一覧</a></p>
+<p><input type="hidden" name="option" value="clubDisplay">
+	<a href="FromAdminTop">サークルアカウント一覧</a></p>
+<p><input type="hidden" name="option" value="userDisplay">
+	<a href="FromAdminTop">一般ユーザ一覧</a></p>
+<p><input type="hidden" name="option" value="">
+	<a href="FromAdminTop">公式サークルアカウント作成</a></p>
 
 </form>
 

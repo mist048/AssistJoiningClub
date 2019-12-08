@@ -14,13 +14,14 @@
 </head>
 <body bgcolor=#f9f9f9>
 
+<form action="FromClubRegistration" method="get">
 
 	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">戻る</a></li>
+				<li><a href="ToTop">戻る</a></li>
 				<!-- トップ(viewerTop.jsp)に遷移 -->
 			</ul>
 		</div>
@@ -62,7 +63,8 @@
 
 					<div class="center-align">
 						<p>
-							<a class="waves-effect waves-light btn">確認画面</a>
+							<input type="hidden" name="user_name" value="">
+							<a class="waves-effect waves-light btn" href="FromClubRegistration">確認画面</a>
 						</p>
 
 					</div>
@@ -70,6 +72,8 @@
 			</div>
 		</div>
 	</div>
+
+</form>
 
 </body>
 </html>

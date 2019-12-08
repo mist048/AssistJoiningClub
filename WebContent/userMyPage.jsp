@@ -32,13 +32,13 @@
 </table>
 
 <div class="center-align">
-		<a class="waves-effect waves-light btn"> お気に入りリスト </a>
 		<input type="hidden" name="option" value="favoriteClubDisplay">
+		<a class="waves-effect waves-light btn" href="FromUserMyPage"> お気に入りリスト </a>
 </div>
 
 <div class="center-align">
-		<a class="waves-effect waves-light btn"> 設定 </a>
 		<input type="hidden" name="option" value="setting">
+		<a class="waves-effect waves-light btn" href="FromUserMyPage"> 設定 </a>
 </div>
 
 </form>
