@@ -480,6 +480,9 @@ public class PageDataManager {
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
 			allClubInfo[i][2] = clubInfo[Constant.INTRO];
 		}
+		if (allClubInfo.length > Constant.NUM_OF_DISPLAY) { // 表示数より多ければ次のページがあることを返す
+			request.setAttribute("next", true);
+		}
 		request.setAttribute("clubs", allClubInfo);
 		request.setAttribute("firstIndex", firstIndex);
 	}

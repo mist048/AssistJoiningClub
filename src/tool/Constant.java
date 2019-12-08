@@ -8,6 +8,10 @@ public class Constant {
 	public static final int CONTAINS_BLANK = 3; // 空欄が含まれている
 	public static final int DUPLICATE = 4; // 重複している
 
+	// 特殊文字
+	public static final char[] EX_CHAR = { '[', ']', '?', '/', '<', '~', '#', '`', '!', '@', '$', '%', '^', '&', '*',
+			'(', ')', '+', '=', '{', '|', ':', '\"', ';', '\'', '>', '}', ' ' };
+
 	// 登録情報
 	public static final int ID = 0; // ID
 	public static final int NAME = 1; // 名前
@@ -22,9 +26,14 @@ public class Constant {
 	public static final int ICON = 4; // アイコン
 	public static final int HOME = 5; // ホーム画像
 
+	// 情報の要素数
+	public static final int NUM_OF_USER_INFO = 4; // ユーザ情報の要素数
+
 	// ユーザの種類
 	public static final int GENERAL = 0; // 一般ユーザ
 	public static final int CLUB = 1; // サークルアカウント
 	public static final int ADMIN = 2; // 管理者
 	public static final int VIEWER = 3; // 閲覧者
+
+	public static final int NUM_OF_DISPLAY = 10; // 一覧表示数
 }
