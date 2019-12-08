@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,7 @@
 
 						<li class="collection-item avatar"><i
 							class="material-icons circle">person</i>
-							<form action="FromClubDisplay" method="post" name="form<%=i%>">
+							<form action="FromClubDisplay" method="get" name="form<%=i%>">
 								<span class="title"><%=clubs[i][Constant.NAME]%></span>
 								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
