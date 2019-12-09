@@ -19,21 +19,23 @@ public class UserDAO {
 	PreparedStatement prepStmt_I; // INSERT用
 	PreparedStatement prepStmt_U; // UPDATE用
 	PreparedStatement prepStmt_D; // DELETE用
-	PreparedStatement prepStmt_S; // SELECT用(id,passwprd)
+	PreparedStatement prepStmt_S; // SELECT用(IDによって)
+	PreparedStatement prepStmt_S_byId_pass; // SELECT用(ID,passwprdによって)
 	PreparedStatement prepStmt_S_all; // SELECT用(全部)
-	PreparedStatement prepStmt_S_id; // SELECT用(ID)
-	PreparedStatement prepStmt_S_mail; // SELECT用(mail)
+	PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
+	PreparedStatement prepStmt_S_byMail; // SELECT用(メールアドレスによって)
 
 	String db_name = "assitjoiningclub";
-	String strPrepSQL_I = "INSERT INTO user VALUES(?, ?, ?, ?)";
-	String strPrepSQL_U = "UPDATE user SET name=?, password=?, mail=? WHERE id=?";
-	String strPrepSQL_D = "DELETE FROM user WHERE id=?";
-	String strPrepSQL_S = "SELECT * FROM user WHERE id=? AND password=?";
-	String strPrepSQL_S_all = "SELECT * FROM user LIMIT ? OFFSET ?";
-	String strPrepSQL_S_id = "SELECT * FROM user WHERE id=?";
-	String strPrepSQL_S_mail = "SELECT * FROM user WHERE mail=?";
+	String strPrepSQL_I = "INSERT INTO general VALUES(?, ?, ?, ?)";
+	String strPrepSQL_U = "UPDATE general SET name=?, password=?, mail=? WHERE id=?";
+	String strPrepSQL_D = "DELETE FROM general WHERE id=?";
+	String strPrepSQL_S = "SELECT * FROM general WHERE id=?";
+	String strPrepSQL_S_byId_pass = "SELECT COUNT(*) AS cnt FROM general WHERE id=? AND password=?";
+	String strPrepSQL_S_all = "SELECT * FROM general LIMIT ? OFFSET ?";
+	String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM general";
+	String strPrepSQL_S_byMail = "SELECT COUNT(*) AS cnt FROM general WHERE mail=?";
 
-	private UserDAO() {
+	protected UserDAO() {
 		try { // ドライバマネージャとコネクション
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
@@ -42,23 +44,22 @@ public class UserDAO {
 			prepStmt_U = connection.prepareStatement(strPrepSQL_U);
 			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
 			prepStmt_S = connection.prepareStatement(strPrepSQL_S);
+			prepStmt_S_byId_pass = connection.prepareStatement(strPrepSQL_S_byId_pass);
 			prepStmt_S_all = connection.prepareStatement(strPrepSQL_S_all);
-			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
-			prepStmt_S_mail = connection.prepareStatement(strPrepSQL_S_mail);
+			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
+			prepStmt_S_byMail = connection.prepareStatement(strPrepSQL_S_byMail);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public boolean find(String id, String password) {
+	protected boolean find(String id, String password) {
 		int count = 0;
 		try {
 			prepStmt_S.setString(1, id);
 			prepStmt_S.setString(2, password);
 			resultSet = prepStmt_S.executeQuery();
-			while (resultSet.next()) { // 次の行があれば
-				count++;
-			}
+			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +71,7 @@ public class UserDAO {
 		}
 	}
 
-	public void insert(String id, String name, String password, String mail) {
+	protected void insert(String id, String name, String password, String mail) {
 		try {
 			prepStmt_I.setString(1, id);
 			prepStmt_I.setString(2, name);
@@ -81,7 +82,7 @@ public class UserDAO {
 		}
 	}
 
-	public void update(String id, String name, String password, String mail) {
+	protected void update(String id, String name, String password, String mail) {
 		try {
 			prepStmt_U.setString(4, id);
 			prepStmt_U.setString(1, name);
@@ -92,7 +93,7 @@ public class UserDAO {
 		}
 	}
 
-	public void delete(String id, String password) {
+	protected void delete(String id, String password) {
 		try {
 			prepStmt_D.setString(1, id);
 			prepStmt_D.executeUpdate();
@@ -101,11 +102,11 @@ public class UserDAO {
 		}
 	}
 
-	public int findByID(String id) {
+	protected int findByID(String id) {
 		int count = 0;
 		try {
-			prepStmt_S_id.setString(1, id);
-			resultSet = prepStmt_S_id.executeQuery();
+			prepStmt_S.setString(1, id);
+			resultSet = prepStmt_S.executeQuery();
 			while (resultSet.next()) { // 次の行があれば
 				count++;
 			}
@@ -116,14 +117,12 @@ public class UserDAO {
 		return count;
 	}
 
-	public int findByMail(String mail) {
+	protected int findByMail(String mail) {
 		int count = 0;
 		try {
-			prepStmt_S_mail.setString(1, mail);
-			resultSet = prepStmt_S_mail.executeQuery();
-			while (resultSet.next()) { // 次の行があれば
-				count++;
-			}
+			prepStmt_S_byMail.setString(1, mail);
+			resultSet = prepStmt_S_byMail.executeQuery();
+			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,11 +130,11 @@ public class UserDAO {
 		return count;
 	}
 
-	public User getUser(String id) {
+	protected User getUser(String id) {
 		User user = new User();
 		try {
-			prepStmt_S_id.setString(1, id);
-			resultSet = prepStmt_S_id.executeQuery();
+			prepStmt_S.setString(1, id);
+			resultSet = prepStmt_S.executeQuery();
 			user.setId(resultSet.getString("id"));
 			user.setName(resultSet.getString("name"));
 			user.setPassword(resultSet.getString("password"));
@@ -147,11 +146,11 @@ public class UserDAO {
 		return user;
 	}
 
-	public User[] getAllUsers(int firstIndex) {
+	protected User[] getAllUsers(int firstIndex) {
 		ArrayList<User> allUsers = new ArrayList<User>();
 		try {
 			prepStmt_S_all.setInt(1, firstIndex);
-			prepStmt_S_all.setInt(2, Constant.NUM_OF_DISPLAY + 1);
+			prepStmt_S_all.setInt(2, Constant.MAX_OF_DISPLAYS + 1);
 			resultSet = prepStmt_S.executeQuery();
 			while (resultSet.next()) { // 次の行があれば
 				User user = new User();
@@ -167,6 +166,18 @@ public class UserDAO {
 		}
 		User[] allUserInfo = (User[]) allUsers.toArray();
 		return allUserInfo;
+	}
+
+	protected int getNumOfUsers() {
+		int count = 0;
+		try {
+			resultSet = prepStmt_S_count.executeQuery();
+			count = resultSet.getInt("cnt");
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

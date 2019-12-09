@@ -46,6 +46,9 @@ public class PageDataManager {
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
 			allClubInfo[i][2] = clubInfo[Constant.INTRO];
 		}
+		if (allClubInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+			request.setAttribute("next", true);
+		}
 		request.setAttribute("clubs", allClubInfo);
 		request.setAttribute("firstIndex", firstIndex);
 	}
@@ -431,6 +434,9 @@ public class PageDataManager {
 			firstIndex = "0";
 		}
 		String[][] allTags = tagManager.getAllTags(Integer.parseInt(firstIndex)); // タグ情報をfirstIndexから10件取得
+		if (allTags.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+			request.setAttribute("next", true);
+		}
 		request.setAttribute("allTags", allTags);
 		request.setAttribute("firstIndex", firstIndex);
 	}
@@ -453,6 +459,9 @@ public class PageDataManager {
 			firstIndex = "0";
 		}
 		String[][] allUserInfo = userManager.getAllUsers(Integer.parseInt(firstIndex)); // 一般ユーザ情報をfirstIndexから10件取得
+		if (allUserInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+			request.setAttribute("next", true);
+		}
 		request.setAttribute("users", allUserInfo);
 		request.setAttribute("firstIndex", firstIndex);
 	}
@@ -480,7 +489,7 @@ public class PageDataManager {
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
 			allClubInfo[i][2] = clubInfo[Constant.INTRO];
 		}
-		if (allClubInfo.length > Constant.NUM_OF_DISPLAY) { // 表示数より多ければ次のページがあることを返す
+		if (allClubInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("clubs", allClubInfo);

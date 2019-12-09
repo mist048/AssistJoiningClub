@@ -12,8 +12,11 @@ public class UserManager {
 		errorCheck = ErrorCheck.getInstance();
 	}
 
-	public boolean login(String hashId, String hashPassword) {
-		return true;
+	public boolean login(String id, String password) {
+		if (userDAO.find(id, password)) {
+			return true;
+		}
+		return false;
 	}
 
 	public String[] getUser(String id) {
@@ -24,11 +27,7 @@ public class UserManager {
 		userInfo[Constant.NAME] = user.getName();
 		userInfo[Constant.PASSWORD] = user.getPassword();
 		userInfo[Constant.MAIL] = user.getMail();
-		// return userInfo; // 本番用
-		return new String[] { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-				"ほげ",
-				"password",
-				"17fi999@ms.dendai.ac.jp" };
+		return userInfo;
 	}
 
 	public int register(String id, String name, String password, String mail) {
@@ -93,17 +92,17 @@ public class UserManager {
 			allUserInfo[i][Constant.PASSWORD] = allUsers[i].getPassword();
 			allUserInfo[i][Constant.MAIL] = allUsers[i].getMail();
 		}
-		// return allUserInfo; // 本番用
-		return new String[][] {
-				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-						"ほげ",
-						"password",
-						"17fi999@ms.dendai.ac.jp" },
-				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-						"ほげ",
-						"password",
-						"17fi999@ms.dendai.ac.jp" }
-		};
+		return allUserInfo;
+	}
+
+	public int numOfPages() {
+		int count = 0;
+		count = userDAO.getNumOfUsers();
+		int numOfPages = count / Constant.MAX_OF_DISPLAYS;
+		if (count % Constant.MAX_OF_DISPLAYS != 0) {
+			numOfPages += 1;
+		}
+		return numOfPages;
 	}
 
 }

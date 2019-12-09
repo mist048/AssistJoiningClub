@@ -1,14 +1,35 @@
 package model;
 
 import tool.Constant;
+import tool.ErrorCheck;
 
 public class ClubManager {
+	private ClubDAO clubDAO;
+	private ErrorCheck errorCheck;
 
-	public boolean login(String hashId, String hashPassword) {
-		return true;
+	public ClubManager() {
+		clubDAO = new ClubDAO();
+		errorCheck = ErrorCheck.getInstance();
 	}
 
-	public String[] getClub(String hashId) {
+	public boolean login(String id, String password) {
+		if (clubDAO.find(id, password)) {
+			return true;
+		}
+		return false;
+	}
+
+	public String[] getClub(String id) {
+		Club club = new Club();
+		club = clubDAO.getClub(id);
+		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO];
+		clubInfo[Constant.ID] = club.getId();
+		clubInfo[Constant.NAME] = club.getName();
+		clubInfo[Constant.PASSWORD] = club.getPassword();
+		clubInfo[Constant.MAIL] = club.getMail();
+		clubInfo[Constant.RECOGN] = club.getRecogn();
+		clubInfo[Constant.CLUB_INFO_ID] = club.getClubInfoId();
+		//return clubInfo; // 本番用
 		return new String[] { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
 				"ホゲサークル",
 				"password",
