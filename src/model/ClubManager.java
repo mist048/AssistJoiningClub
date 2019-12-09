@@ -38,14 +38,54 @@ public class ClubManager {
 				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" };
 	}
 
-	public int register(int club, String id, String name, String password, String mail) {
+	public int register(int user, String id, String name, String password, String mail) {
+		String[] club = new String[Constant.NUM_OF_CLUB_INFO];
+		if (user == Constant.VIEWER) {
+			if (clubDAO.findById(id) != 0) { // IDが重複している
+				return Constant.DUPLICATE;
+			}
+		}
+		if (clubDAO.findByMail(mail) != 0) { // メールアドレスが重複している
+			return Constant.DUPLICATE;
+		}
+		for (int i = 0; i < club.length; i++) {
+			if (i != Constant.NAME) {
+				if (errorCheck.notAsciiCheck(club[i])) { // ASCII文字以上を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}
+			if (user != Constant.ADMIN && (i != Constant.ID || i != Constant.MAIL)) {
+				if (errorCheck.blankCheck(club[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}
+		}
 		return Constant.SUCCESS;
 	}
 
-	public void registerConfirm(int viewer, String hashId, String name, String hashPassword, String mail) {
+	public void registerConfirm(int user, String id, String name, String password, String mail) {
+		if (user == Constant.VIEWER) {
+			clubDAO.insert(id, name, password, mail, "非公認");
+		} else if (user == Constant.ADMIN) {
+			clubDAO.insert(id, name, password, mail, "公認");
+		}
 	}
 
-	public int update(String hashId, String name, String hashPassword, String mail) {
+	public int update(String id, String name, String password, String mail) {
+		String[] club = new String[Constant.NUM_OF_CLUB_INFO];
+		if (clubDAO.findByMail(mail) > 1) { // メールアドレスが重複している
+			return Constant.DUPLICATE;
+		}
+		for (int i = 0; i < club.length; i++) {
+			if (i != Constant.NAME) {
+				if (errorCheck.notAsciiCheck(club[i])) { // ASCII文字以上を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}
+			if (errorCheck.blankCheck(club[i])) { // 特殊な文字を含んでいる
+				return Constant.CONTAINS_EX_CHAR;
+			}
+		}
 		return Constant.SUCCESS;
 	}
 

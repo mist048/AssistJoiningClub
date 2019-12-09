@@ -102,7 +102,7 @@ public class UserDAO {
 		}
 	}
 
-	protected int findByID(String id) {
+	protected int findById(String id) {
 		int count = 0;
 		try {
 			prepStmt_S.setString(1, id);

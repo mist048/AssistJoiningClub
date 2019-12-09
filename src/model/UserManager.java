@@ -32,7 +32,7 @@ public class UserManager {
 
 	public int register(String id, String name, String password, String mail) {
 		String[] user = new String[Constant.NUM_OF_USER_INFO];
-		if (userDAO.findByID(id) != 0 || userDAO.findByMail(mail) != 0) { // IDかメールアドレスが重複している
+		if (userDAO.findById(id) != 0 || userDAO.findByMail(mail) != 0) { // IDかメールアドレスが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < user.length; i++) {
@@ -54,7 +54,7 @@ public class UserManager {
 
 	public int update(String id, String name, String password, String mail) {
 		String[] user = new String[Constant.NUM_OF_USER_INFO];
-		if (userDAO.findByID(id) > 1 || userDAO.findByMail(mail) > 1) { // IDかメールアドレスが重複している
+		if (userDAO.findByMail(mail) > 1) { // メールアドレスが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < user.length; i++) {
