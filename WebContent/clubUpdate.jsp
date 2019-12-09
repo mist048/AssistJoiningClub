@@ -15,18 +15,22 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-<form action="FromClubUpdate" method="get">
+
 
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="clubMyPage">ユーザ</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
-			</ul>
+			<form action="FromClubUpdate" method="get" name = form0>
+				<a href="#" class="brand-logo center"></a>
+				<ul class="left hide-on-med-and-down">
+					<li><input type="hidden" name="option" value="myPage">
+						<a href="FromClubUpdate"><%= session.getAttribute("")%></a></li>
+				</ul>
+				<ul class="right hide-on-med-and-down">
+					<li><input type="hidden" name="option" value="top">
+						<a href="FromClubUpdate">トップ</a></li>
+				</ul>
+			</form>
 		</div>
 	</nav>
 
@@ -68,8 +72,11 @@
 
 
 						<p>
+							<form action="FromClubUpdate" method="get" name = form0>
+							<input type="hidden" name="name" value="#">
 							<input type="hidden" name="option" value="confirm">
-							<a class="waves-effect waves-light btn" href = "FromClubUpdate">確定</a>
+							<a class="waves-effect waves-light btn" href = "javascript:form0.submit()">確定</a>
+							</form>
 						</p>
 
 					</div>
@@ -79,9 +86,6 @@
 		</div>
 	</div>
 
-
-
-</form>
 
 </body>
 </html>
