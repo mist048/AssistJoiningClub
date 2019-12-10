@@ -44,7 +44,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 
@@ -61,7 +61,7 @@
 		</div>
 	</div>
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
