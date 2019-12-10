@@ -40,12 +40,7 @@ public class ClubManager {
 
 	public int register(int user, String id, String name, String password, String mail) {
 		String[] club = new String[Constant.NUM_OF_CLUB_INFO];
-		if (user == Constant.VIEWER) {
-			if (clubDAO.findById(id) != 0) { // IDが重複している
-				return Constant.DUPLICATE;
-			}
-		}
-		if (clubDAO.findByMail(mail) != 0) { // メールアドレスが重複している
+		if (clubDAO.findById(id) || clubDAO.findByMail(mail)) { // IDが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < club.length; i++) {
@@ -72,17 +67,20 @@ public class ClubManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] club = new String[Constant.NUM_OF_CLUB_INFO];
-		if (clubDAO.findByMail(mail) > 1) { // メールアドレスが重複している
-			return Constant.DUPLICATE;
+		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO];
+		Club club = clubDAO.getClub(id);
+		if (!club.getMail().equals(mail)) { // メールアドレスを変更していれば
+			if (clubDAO.findByMail(mail)) { // メールアドレスが重複している
+				return Constant.DUPLICATE;
+			}
 		}
-		for (int i = 0; i < club.length; i++) {
+		for (int i = 0; i < clubInfo.length; i++) {
 			if (i != Constant.NAME) {
-				if (errorCheck.notAsciiCheck(club[i])) { // ASCII文字以上を含んでいる
+				if (errorCheck.notAsciiCheck(clubInfo[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.blankCheck(club[i])) { // 特殊な文字を含んでいる
+			if (errorCheck.blankCheck(clubInfo[i])) { // 特殊な文字を含んでいる
 				return Constant.CONTAINS_EX_CHAR;
 			}
 		}

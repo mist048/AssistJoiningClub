@@ -12,7 +12,7 @@ import model.UserManager;
 
 public class PageDataManager {
 	private static PageDataManager pageDataManager = new PageDataManager();
-	private UserManager userManager;;
+	private UserManager userManager;
 	private ClubManager clubManager;
 	private ClubInfoManager clubInfoManager;
 	private FavoriteManager favoriteManager;
@@ -507,5 +507,10 @@ public class PageDataManager {
 		request.setAttribute("recogn", club[Constant.RECOGN]);
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
 	}
+
+	// サークルアカウント管理者閲覧用画面へのデータ
+		public void toClubInfoDisplayForAdmin(HttpServletRequest request) {
+
+		}
 
 }

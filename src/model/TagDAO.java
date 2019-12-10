@@ -1,4 +1,4 @@
-package last;
+package model;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class TagDAO {
-	//éqÇ±ÇÃï”ÇÕòbÇµçáÇ¢Ç≈ïœçXÇ∑ÇÈïKóvÇ†ÇË
+	//ÔøΩqÔøΩÔøΩÔøΩÃï”ÇÕòbÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ≈ïœçXÔøΩÔøΩÔøΩÔøΩKÔøΩvÔøΩÔøΩÔøΩÔøΩ
 	final private static String dbname = "tag";   // Postgre SQL DB name
 	final private static String user = "postgres";     // Postgre SQL user name
 	final private static String password = "password"; // Postgre SQL password
@@ -15,7 +15,7 @@ public class TagDAO {
 //	final private static String sqlHostname = "localhost";
 	final private static String url = "jdbc:postgresql://" + sqlHostname + "/" + dbname;
 	final private static String driverClassName = "org.postgresql.Driver";
-	
+
 	protected void insert(String name) {
 		java.sql.Connection connection;
 		String sql0 = "COUNT(*) From tag";
@@ -31,7 +31,7 @@ public class TagDAO {
 			int n=Integer.valueOf(id);
 			n++;
 			id = "tag" + Integer.toString(n);
-			
+
 			pstmt.setString(1, id);
 			pstmt.setString(2, name);
 
@@ -44,7 +44,7 @@ public class TagDAO {
 		}
 
 	}
-	
+
 	protected void update(String id,String name) {
 
 		java.sql.Connection connection;
@@ -54,7 +54,7 @@ public class TagDAO {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
+
 			pstmt.setString(1, id);
 			pstmt.setString(2, name);
 
@@ -67,16 +67,16 @@ public class TagDAO {
 		}
 
 	}
-	
+
 	protected void delete(String id) {
 		java.sql.Connection connection;
-		String sql1 = "DELETE FROMÅ@tag WHERE id = ?";
+		String sql1 = "DELETE FROMÔøΩ@tag WHERE id = ?";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
+
 			pstmt.setString(1, id);
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -86,18 +86,18 @@ public class TagDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	protected boolean findByName(String name) {
 		java.sql.Connection connection;
-		String sql1 = "SELECT id FROMÅ@tag WHERE name = ?";
+		String sql1 = "SELECT id FROMÔøΩ@tag WHERE name = ?";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
+
 			pstmt.setString(1, name);
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -105,42 +105,42 @@ public class TagDAO {
 
 	        ArrayList<String> list = new ArrayList<String>();
 
-	        
 
-	        while (resultSet.next()) { 
+
+	        while (resultSet.next()) {
 
 	            list.add(resultSet.getString("name"));
 
 	        }
-	        
+
 			resultSet.close();
 			connection.close();
 			if(list != null) {
 	        	return true;
 	        }
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
-	
+
 	protected Tag[] getAllTags() {
 		java.sql.Connection connection;
-		String sql1 = "SELECT * FROMÅ@tag WHERE * ";
+		String sql1 = "SELECT * FROMÔøΩ@tag WHERE * ";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
+
 			ResultSet resultSet = pstmt.executeQuery();
 
 
 	        ArrayList<Tag> list = new ArrayList<Tag>();
 
-	        while (resultSet.next()) { 
+	        while (resultSet.next()) {
 	        	Tag tag0 = new Tag();
 	        	tag0.setId(resultSet.getString("id"));
 	        	tag0.setId(resultSet.getString("name"));
@@ -153,26 +153,26 @@ public class TagDAO {
 	        	tags[i] = tagInList;
 	        	i++;
 	        }
-	        
+
 			resultSet.close();
 			connection.close();
 			return tags;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 	protected String[] getAllIds() {
 
 		java.sql.Connection connection;
-		String sql1 = "SELECT * FROMÅ@tag WHERE * ";
+		String sql1 = "SELECT * FROMÔøΩ@tag WHERE * ";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
+
 			ResultSet resultSet = pstmt.executeQuery();
 
 
@@ -188,35 +188,35 @@ public class TagDAO {
 	        	allId[i] = idInList;
 	        	i++;
 	        }
-	        
+
 			resultSet.close();
 			connection.close();
 			return allId;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 
 	}
-	
+
 	protected Tag getTag(String id) {
 
 		java.sql.Connection connection;
-		String sql1 = "SELECT * FROMÅ@tag WHERE id = ? ";
+		String sql1 = "SELECT * FROMÔøΩ@tag WHERE id = ? ";
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
-			
+
 			ResultSet resultSet = pstmt.executeQuery();
 
 
 	        ArrayList<Tag> list = new ArrayList<Tag>();
 
-	        while (resultSet.next()) { 
+	        while (resultSet.next()) {
 	        	Tag tag0 = new Tag();
 	        	tag0.setId(resultSet.getString("id"));
 	        	tag0.setId(resultSet.getString("name"));
@@ -235,7 +235,7 @@ public class TagDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 
 	}

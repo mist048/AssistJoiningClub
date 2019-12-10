@@ -1,4 +1,4 @@
-package last;
+package model;
 
 public class TagManager {
 	Tag tag;
@@ -28,7 +28,7 @@ public class TagManager {
 			dao.delete(n);
 			hold.deleteByTagId(n);
 		}
-		
+
 	}
 	public Tag[] getAllTags(){
 		return dao.getAllTags();
