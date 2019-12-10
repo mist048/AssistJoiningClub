@@ -156,9 +156,9 @@ public class ClubDAO {
 			e.printStackTrace();
 		}
 		Club[] clubs=new Club[hited.size()];
-		Iterator iterator = hited.iterator();
+		Iterator<String> iterator = hited.iterator();
 		for(int i=0;i<clubs.length;i++) {
-			clubs[i]=getClub((String)iterator.next());
+			clubs[i]=getClub(iterator.next());
 		}
 		return clubs;
 	}
