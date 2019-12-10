@@ -14,7 +14,7 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-<form action="FromClubRegistration" method="get">
+
 
 	<nav class="teal">
 
@@ -28,7 +28,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
@@ -37,10 +37,10 @@
 				<div class="card-content">
 
 					<h6>
-						新規サークルアカウント登録</br>
+						新規サークルアカウント登録<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 
@@ -62,18 +62,19 @@
 					</p>
 
 					<div class="center-align">
+					<form action="FromClubRegistration" method="get" name = "form0">
 						<p>
 							<input type="hidden" name="user_name" value="">
-							<a class="waves-effect waves-light btn" href="FromClubRegistration">確認画面</a>
+							<a class="waves-effect waves-light btn" href="javascript:form0.submit()">確認画面</a>
 						</p>
-
+					</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-</form>
+
 
 </body>
 </html>

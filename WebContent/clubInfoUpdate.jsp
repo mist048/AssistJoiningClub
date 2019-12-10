@@ -39,10 +39,10 @@
 				<div class="card-content">
 
 					<h6>
-						サークル情報編集</br>
+						サークル情報編集<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 					<p>
@@ -82,8 +82,8 @@
 
 						<input type="hidden" name="option" value="delete">
 						<a class="waves-effect waves-teal btn-flat" href = "FromClubInfoUpdate"> <span
-							class="red-text">アカウントを削除</span></a></br>
-						</br>
+							class="red-text">アカウントを削除</span></a><br/>
+						<br/>
 
 
 						<p>

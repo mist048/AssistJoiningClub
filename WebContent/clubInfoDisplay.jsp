@@ -43,7 +43,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
@@ -52,31 +52,30 @@
 				<div class="card-content">
 
 					<h6>
-						<%= session.getAttribute("club")%></br>
+						<%= session.getAttribute("club")%><br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 
 					<table>
-<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
-<tr><td>サークル名</td><td><%= session.getAttribute("name")%></td></tr>
-<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
-<tr><td>公認</td><td><%= session.getAttribute("recogn")%></td></tr>
-<tr><td>リンク</td><td><%= session.getAttribute("link")%></td></tr>
-<tr><td>サークル説明文</td><td><%= session.getAttribute("intro")%></td></tr>
-<tr><td>メンバー</td><td><%= session.getAttribute("member")%></td></tr>
-<tr><td>アイコン</td><td><%= session.getAttribute("icon")%></td></tr>
-<tr><td>ホーム画像</td><td><%= session.getAttribute("home")%></td></tr>
-</table>
+					<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
+					<tr><td>サークル名</td><td><%= session.getAttribute("name")%></td></tr>
+					<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
+					<tr><td>公認</td><td><%= session.getAttribute("recogn")%></td></tr>
+					<tr><td>リンク</td><td><%= session.getAttribute("link")%></td></tr>
+					<tr><td>サークル説明文</td><td><%= session.getAttribute("intro")%></td></tr>
+					<tr><td>メンバー</td><td><%= session.getAttribute("member")%></td></tr>
+					<tr><td>アイコン</td><td><%= session.getAttribute("icon")%></td></tr>
+					<tr><td>ホーム画像</td><td><%= session.getAttribute("home")%></td></tr>
+					</table>
 
 
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 </form>
 
 </body>

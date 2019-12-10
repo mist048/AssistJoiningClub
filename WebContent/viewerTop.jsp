@@ -44,7 +44,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 
@@ -61,7 +61,7 @@
 		</div>
 	</div>
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
@@ -112,7 +112,7 @@
 								id="autocomplete-input" class="autocomplete">
 
 						</div>
-						<form action="#">
+
 							<p>
 								<label> <input name="submit" type="radio" /> <span>フリーワード</span>
 								</label>
@@ -121,15 +121,16 @@
 								<label> <input name="submit" type="radio" /> <span>タグ</span>
 								</label>
 							</p>
-						</form>
 
 						<p>
-							</br>
+							<br/>
 						</p>
 
 						<div class="center-align">
-							<a class="waves-effect waves-light btn">検索</a> <input
-								type="hidden" name="option" value="search">
+						<form action="FromTop" method="post" name ="formSerch">
+							<input type="hidden" name="option" value="searchResultDisplay">
+							<a class="waves-effect waves-light btn" href= "javascript:formSerch.submit()">検索</a>
+						</form>
 						</div>
 					</div>
 				</div>
@@ -144,7 +145,7 @@
 							<a class="waves-effect waves-light btn"
 								href="clubRegistration.jsp">サークル新規登録</a>
 							<p>
-								</br>
+								<br/>
 							</p>
 							<a class="waves-effect waves-light btn"
 								href="userRegistration.jsp">ユーザ新規登録</a>

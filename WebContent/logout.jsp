@@ -16,47 +16,43 @@
 <body bgcolor=#f9f9f9>
 	<nav class="teal">
 
-		<div class="nav-wrapper">
-			<a href="" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="ToTop">戻る</a></li>
-			</ul>
-		</div>
+
 	</nav>
 
 
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
-	<form action="FromLogout" method="get">
+
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
 						<h6>
-							ログアウトしますか？</br>
+							ログアウトしますか？<br />
 						</h6>
-						<p>
-							</br>
-						</p>
 
-						<p>
+							<br/>
 
-						<a href = "FromLogout" class="waves-effect waves-light btn"> はい </a>
+						<form action="FromLogout" method="get" name ="formLogoutYes" style="display: inline">
 						<input type="hidden" name="option" value="yes">
-						<a href = "FromLogout" class="waves-effect waves-light btn"> いいえ </a>
-						<input type="hidden" name="option" value="no">
+						<a href = "javascript:formLogoutYes.submit()" class="waves-effect waves-light btn"> はい </a>
+						</form>
 
-						</p>
+						<form action="FromLogout" method="get" name ="formLogoutNo" style="display: inline">
+						<input type="hidden" name="option" value="no">
+						<a href = "javascript:formLogoutNo.submit()" class="waves-effect waves-light btn"> いいえ </a>
+						</form>
+
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
-	</form>
+
 </body>
 </html>

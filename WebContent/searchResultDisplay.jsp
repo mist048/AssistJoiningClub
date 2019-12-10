@@ -36,10 +36,10 @@
 				<div class="card-content">
 
 					<h6>
-						検索結果</br>
+						検索結果<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 					<p><label>入力キーワード: <%= session.getAttribute("result")%></label></p>

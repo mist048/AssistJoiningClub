@@ -18,17 +18,16 @@
 
 
 	<nav class="teal">
-
 		<div class="nav-wrapper">
 			<form action="FromClubUpdate" method="get" name = form0>
 				<a href="#" class="brand-logo center"></a>
 				<ul class="left hide-on-med-and-down">
 					<li><input type="hidden" name="option" value="myPage">
-						<a href="FromClubUpdate"><%= session.getAttribute("")%></a></li>
+						<a href="javascript:form0.submit()">マイページ</a></li>
 				</ul>
 				<ul class="right hide-on-med-and-down">
 					<li><input type="hidden" name="option" value="top">
-						<a href="FromClubUpdate">トップ</a></li>
+						<a href="javascript:form0.submit()">トップ</a></li>
 				</ul>
 			</form>
 		</div>
@@ -45,10 +44,10 @@
 				<div class="card-content">
 
 					<h6>
-						サークルアカウント更新</br>
+						サークルアカウント更新<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 					<p>
@@ -67,18 +66,18 @@
 
 						<input type="hidden" name="option" value="delete">
 						<a class="waves-effect waves-teal btn-flat" href = "FromClubUpdate"> <span
-							class="red-text">アカウントを削除</span></a></br>
-						</br>
+							class="red-text">アカウントを削除</span></a><br/>
+						<br/>
 
 
+						<form action="FromClubUpdate" method="get" name = form0>
 						<p>
-							<form action="FromClubUpdate" method="get" name = form0>
-							<input type="hidden" name="name" value="#">
+
 							<input type="hidden" name="option" value="confirm">
 							<a class="waves-effect waves-light btn" href = "javascript:form0.submit()">確定</a>
-							</form>
-						</p>
 
+						</p>
+						</form>
 					</div>
 
 				</div>

@@ -54,7 +54,7 @@
 
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 <form action="FromClubDisplay" method="post">

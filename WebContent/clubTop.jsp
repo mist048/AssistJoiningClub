@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>culbTop</title>
+<title>clubTop</title>
 
 <!-- materealize CDN -->
 
@@ -49,7 +50,7 @@
 </nav>
 
 <p>
-	</br>
+	<br/>
 </p>
 
 
@@ -68,7 +69,7 @@
 				</div>
 			</div>
 <p>
-	</br>
+	<br/>
 </p>
 
 
@@ -82,78 +83,25 @@
 
 					<ul class="collection">
 
+						<%
+							String[][] clubs = (String[][]) request.getAttribute("clubs");
+							for (int i = 0; i < clubs.length; i++) {
+						%>
 						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-							</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle green">person</i> <span
-							class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle red">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle green">person</i> <span
-							class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle red">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle green">person</i> <span
-							class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle red">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
-
-						<li class="collection-item avatar"><i
-							class="material-icons circle red">person</i> <span class="title">サークル名</span>
-							<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
-								class="waves-effect waves-teal btn-flat">詳細</i>
-							<input type="hidden" name="option" value="clubInfoDisplay">
-						</a></li>
+							class="material-icons circle">person</i>
+							<form action="FromTop" method="post" name="form<%=i%>">
+								<span class="title"><%=clubs[i][Constant.NAME]%></span>
+								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
+								<input type="hidden" name="option" value="clubInfoDisplay">
+								<input type="hidden" name="clubId"
+									value=<%=clubs[i][Constant.ID]%>> <a
+									href="javascript:form<%=i%>.submit()" class="secondary-content">
+									<i class="waves-effect waves-teal btn-flat">詳細</i>
+								</a>
+							</form></li>
+						<%
+							}
+						%>
 
 					</ul>
 
@@ -189,11 +137,13 @@
 						</form>
 
 						<p>
-							</br>
+							<br/>
 						</p>
 						<div class = "center-align">
-						<a class="waves-effect waves-light btn">検索</a>
-						<input type="hidden" name="option" value="search">
+						<form action="FromTop" method="post" name ="formSerch">
+							<input type="hidden" name="option" value="searchResultDisplay">
+							<a class="waves-effect waves-light btn" href= "javascript:formSerch.submit()">検索</a>
+						</form>
 						</div>
 					</div>
 				</div>

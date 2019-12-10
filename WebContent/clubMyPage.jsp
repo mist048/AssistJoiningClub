@@ -14,21 +14,22 @@
 
 </head>
 <body bgcolor=#f9f9f9>
-<form action="FromClubMyPage" method="post">
+
 	<nav class="teal">
 
 		<div class="nav-wrapper">
+		<form action="FromClubMyPage" method="post" name ="form0">
 			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="">ユーザ</a></li>
-			</ul>
 			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
+				<input type="hidden" name="option" value="top">
+				<input type="hidden" name="firstIndex" value= <%request.setAttribute("firstIndex", 1);%> >
+				<li><a href="javascript:form0.submit()">トップ</a></li>
 			</ul>
+		</form>
 		</div>
 	</nav>
 	<p>
-		</br>
+		<br/>
 	</p>
 
 
@@ -38,10 +39,10 @@
 				<div class="card-content">
 					<div class="center-align">
 						<h6>
-							マイサークル情報</br>
+							マイサークル情報<br/>
 						</h6>
 						<p>
-							</br>
+							<br/>
 						<table>
 							<tr>
 								<td>サークル名</td>
@@ -62,16 +63,20 @@
 						</table>
 
 
-						</br>
+						<br/>
 
 
 						<div class="center-align">
-							<p>
+
+							<form action="FromClubMyPage" method="post" name ="form1" style="display: inline">
 								<input type="hidden" name="option" value="setting">
-								<a class="waves-effect waves-light btn" href="FromClubMyPage">設定</a>
+								<a class="waves-effect waves-light btn" href="javascript:form1.submit()">設定</a>
+							</form>
+
+							<form action="FromClubMyPage" method="post" name ="form2" style="display: inline">
 								<input type="hidden" name="option" value="edit">
-								<a class="waves-effect waves-light btn" href="FromClubMyPage">編集</a>
-							</p>
+								<a class="waves-effect waves-light btn" href="javascript:form2.submit()">編集</a>
+							</form>
 
 						</div>
 					</div>
@@ -80,6 +85,6 @@
 			</div>
 		</div>
 	</div>
-</form>
+
 </body>
 </html>

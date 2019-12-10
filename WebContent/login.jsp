@@ -19,20 +19,10 @@
 
 	<nav class="teal">
 
-		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="">戻る</a></li>
-			</ul>
 
-			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
-			</ul>
-
-		</div>
 	</nav>
 	<p>
-		</br>
+		<br/>
 	</p>
 
 
@@ -41,39 +31,29 @@
 			<div class="card">
 				<div class="card-content">
 					<h5>
-						システムにログイン</br>
+						システムにログイン<br/>
 					</h5>
 					<p>
-						</br>
+						<br/>
 					</p>
 
-					<!--
 
-					<form action="#">
 						<p>
-							<label> <input name="group1" type="radio" /> <span>一般</span>
+							<label> <input name="user" value = "general" type="radio" /> <span>一般</span>
 							</label>
 						</p>
 
 						<p>
-							<label> <input name="group1" type="radio" /> <span>サークル</span>
+							<label> <input name="user" value = "club" type="radio" /> <span>サークル</span>
 							</label>
 						</p>
 
 						<p>
-							<label> <input name="group1" type="radio" /> <span>管理者</span>
+							<label> <input name="user" value = "admin" type="radio" /> <span>管理者</span>
 							</label>
 						</p>
-					</form>
-					  -->
 
-					<p>
-						<select name="user">
-							<option value="general" label="一般ユーザ"></option>
-							<option value="club" label="サークル"></option>
-							<option value="admin" label="管理者"></option>
-						</select>
-					</p>
+
 					<p>
 						<label>ID<input type="text" name="id" size="20"
 							maxlength="10"></label>
@@ -83,10 +63,13 @@
 							maxlength="16"></label>
 					</p>
 					<p>
-						</br>
+						<br/>
 					</p>
 					<div class="center-align">
-						<a href = "FromLogin" class="waves-effect waves-light btn">ログイン </a>
+					<form action="" method="post" name ="formLogin">
+					<input type="hidden" name="option" value="login">
+						<a href = "javascript:formLogin.submit()" class="waves-effect waves-light btn">ログイン </a>
+					</form>
 					</div>
 
 				</div>
