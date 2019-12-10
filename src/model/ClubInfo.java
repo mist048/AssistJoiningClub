@@ -3,7 +3,6 @@ package model;
 public class ClubInfo {
     private String id;
     private String link;
-    private String recogn;
     private String intro;
     private int member;
     private int submember;
@@ -24,14 +23,6 @@ public class ClubInfo {
 
     protected void setLink(String link) {
         this.link = link;
-    }
-
-    protected String getRecogn() {
-        return recogn;
-    }
-
-    protected void setRecogn(String recogn) {
-        this.recogn = recogn;
     }
 
     protected String getIntro() {

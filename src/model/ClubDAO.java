@@ -30,7 +30,7 @@ public class ClubDAO {
 	private String strPrepSQL_U = "UPDATE " + db_name + " SET name=?, password=?, mail=?, recogn=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM " + db_name + " WHERE id=?";
 	private String strPrepSQL_S = "SELECT * FROM " + db_name + " LIMIT 50 OFFSET ?";
-	private String strPrepSQL_S_id_pass = "SELECT * FROM " + db_name + " WHERE id=? AND password=?";
+	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM " + db_name + " WHERE id=? AND password=?";
 	private String strPrepSQL_S_id = "SELECT * FROM " + db_name + " WHERE id=?";
 	private String strPrepSQL_S_mail = "SELECT * FROM " + db_name + " WHERE mail=?";
 	private String strPrepSQL_S_keyword = "SELECT * FROM " + db_name + " WHERE name LIKE ?";
@@ -59,7 +59,7 @@ public class ClubDAO {
 			prepStmt_S_id_pass.setString(1, id);
 			prepStmt_S_id_pass.setString(2, password);
 			resultSet = prepStmt_S_id_pass.executeQuery();
-			if (resultSet == null) {
+			if (resultSet.getInt("count") == 0) {
 				resultSet.close();
 				return false;
 			}
@@ -70,7 +70,9 @@ public class ClubDAO {
 		return true;
 	}
 
-	protected void insert(String id, String name, String password, String mail, String recogn,String clubinfoid) { //	追加
+	protected void insert(String id, String name, String password, String mail, String recogn) { //	追加
+		String clubinfoid = new String();
+
 		try {
 			prepStmt_I.setString(1, id);
 			prepStmt_I.setString(2, name);
@@ -139,10 +141,10 @@ public class ClubDAO {
 		return true;
 	}
 
-	protected Club findByKeyword(String keyword[]) { //	検索
+	protected Club[] findByKeyword(String keyword[]) { //	検索
 		String keywords = "%";
 		for (int i = 0; i < keyword.length; i++) {
-			keywords += keyword[i]+"%";
+			keywords += keyword[i] + "%";
 		}
 		Club club = new Club();
 		try {
@@ -172,14 +174,12 @@ public class ClubDAO {
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			while (resultSet.next()) { // 同じ名前の場合は最後が有効
-				club.setId(resultSet.getString(Constant.ID));
-				club.setName(resultSet.getString(Constant.NAME));
-				club.setPassword(resultSet.getString(Constant.PASSWORD));
-				club.setMail(resultSet.getString(Constant.MAIL));
-				club.setRecogn(resultSet.getString(Constant.RECOGN));
-				club.setClubInfoId(resultSet.getString(Constant.CLUB_INFO_ID));
-			}
+			club.setId(resultSet.getString(Constant.ID));
+			club.setName(resultSet.getString(Constant.NAME));
+			club.setPassword(resultSet.getString(Constant.PASSWORD));
+			club.setMail(resultSet.getString(Constant.MAIL));
+			club.setRecogn(resultSet.getString(Constant.RECOGN));
+			club.setClubInfoId(resultSet.getString(Constant.CLUB_INFO_ID));
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
