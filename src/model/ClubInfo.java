@@ -5,7 +5,6 @@ public class ClubInfo {
     private String link;
     private String intro;
     private int member;
-    private int submember;
     private String icon;
     private String home;
 
@@ -39,14 +38,6 @@ public class ClubInfo {
 
     protected void setMember(int member) {
         this.member = member;
-    }
-
-    protected int getSubmember() {
-        return submember;
-    }
-
-    protected void setSubmember(int submember) {
-        this.submember = submember;
     }
 
     protected String getIcon() {
