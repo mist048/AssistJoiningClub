@@ -102,7 +102,7 @@ public class UserDAO {
 		}
 	}
 
-	protected int findById(String id) {
+	protected boolean findById(String id) {
 		int count = 0;
 		try {
 			prepStmt_S.setString(1, id);
@@ -114,10 +114,14 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return count;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	protected int findByMail(String mail) {
+	protected boolean findByMail(String mail) {
 		int count = 0;
 		try {
 			prepStmt_S_byMail.setString(1, mail);
@@ -127,7 +131,11 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return count;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	protected User getUser(String id) {

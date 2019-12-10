@@ -32,7 +32,7 @@ public class UserManager {
 
 	public int register(String id, String name, String password, String mail) {
 		String[] user = new String[Constant.NUM_OF_USER_INFO];
-		if (userDAO.findById(id) != 0 || userDAO.findByMail(mail) != 0) { // IDかメールアドレスが重複している
+		if (userDAO.findById(id) || userDAO.findByMail(mail)) { // IDかメールアドレスが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < user.length; i++) {
@@ -53,17 +53,20 @@ public class UserManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] user = new String[Constant.NUM_OF_USER_INFO];
-		if (userDAO.findByMail(mail) > 1) { // メールアドレスが重複している
-			return Constant.DUPLICATE;
+		String[] userInfo = new String[Constant.NUM_OF_USER_INFO];
+		User user = userDAO.getUser(id);
+		if (!user.getMail().equals(mail)) { // メールアドレスを変更していれば
+			if (userDAO.findByMail(mail)) { // メールアドレスが重複している
+				return Constant.DUPLICATE;
+			}
 		}
-		for (int i = 0; i < user.length; i++) {
+		for (int i = 0; i < userInfo.length; i++) {
 			if (i != Constant.NAME) {
-				if (errorCheck.notAsciiCheck(user[i])) { // ASCII文字以上を含んでいる
+				if (errorCheck.notAsciiCheck(userInfo[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.blankCheck(user[i])) { // 特殊な文字を含んでいる
+			if (errorCheck.blankCheck(userInfo[i])) { // 特殊な文字を含んでいる
 				return Constant.CONTAINS_EX_CHAR;
 			}
 		}
