@@ -98,6 +98,22 @@
 
 					</ul>
 
+					<div class="center-align">
+
+
+						<ul class="pagination">
+							<li class="disabled"><a href="#!"><i
+									class="material-icons">chevron_left</i></a></li>
+							<li class="active teal"><a href="#!">1</a></li>
+							<li class="waves-effect"><a href="#!">2</a></li>
+							<li class="waves-effect"><a href="#!">3</a></li>
+							<li class="waves-effect"><a href="#!">4</a></li>
+							<li class="waves-effect"><a href="#!">5</a></li>
+							<li class="waves-effect"><a href="#!"><i
+									class="material-icons">chevron_right</i></a></li>
+						</ul>
+					</div>
+
 
 				</div>
 			</div>
@@ -142,13 +158,27 @@
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 
 
-<p><input type="submit" value="問い合わせ"></p>
-
+		<footer class="page-footer teal">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">お問い合わせ</h5>
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="">お問い合わせ</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
+						href="https://mlab.im.dendai.ac.jp/~hirota/2019_WSP/">サーバプログラミング演習</a>
+				</div>
+			</div>
+		</footer>
 
 </body>
 </html>

@@ -75,13 +75,13 @@
 
 
 	<div class="row">
-		<div class="col s12 m8 l7 offset-l1">
-			<div class="card">
-				<div class="card-content">
-					<h6 class="teal-text">サークル一覧</h6>
-					<hr class="teal">
+			<div class="col s12 m8 l7 offset-l1">
+				<div class="card">
+					<div class="card-content">
+						<h6 class="teal-text">サークル一覧</h6>
+						<hr class="teal">
 
-					<ul class="collection">
+						<ul class="collection">
 
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
@@ -103,14 +103,108 @@
 							}
 						%>
 
-					</ul>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle green">person</i> <span
+								class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle red">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle green">person</i> <span
+								class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle red">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle green">person</i> <span
+								class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle red">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+							<li class="collection-item avatar"><i
+								class="material-icons circle red">person</i> <span class="title">サークル名</span>
+								<p>説明文(最初20文字)</p> <a href="#!" class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i> <input
+									type="hidden" name="option" value="clubInfoDisplay">
+							</a></li>
+
+						</ul>
+
+						<div class="center-align">
+
+
+							<ul class="pagination">
+								<li class="disabled"><a href="#!"><i
+										class="material-icons">chevron_left</i></a></li>
+								<li class="active teal"><a href="#!">1</a></li>
+								<li class="waves-effect"><a href="#!">2</a></li>
+								<li class="waves-effect"><a href="#!">3</a></li>
+								<li class="waves-effect"><a href="#!">4</a></li>
+								<li class="waves-effect"><a href="#!">5</a></li>
+								<li class="waves-effect"><a href="#!"><i
+										class="material-icons">chevron_right</i></a></li>
+							</ul>
+						</div>
+
+
+					</div>
 
 
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
+			<div class="row">
 			<div class="col s12 m4 l3">
 				<div class="card">
 					<div class="card-content">
@@ -153,11 +247,32 @@
 
 	</div>
 
+
+
+		<footer class="page-footer teal">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">お問い合わせ</h5>
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="">お問い合わせ</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
+						href="https://mlab.im.dendai.ac.jp/~hirota/2019_WSP/">サーバプログラミング演習</a>
+				</div>
+			</div>
+		</footer>
+
 	<p>
 		<input type="submit" value="問い合わせ">
 	</p>
 
-</form>
+	</form>
 
 </body>
 </html>

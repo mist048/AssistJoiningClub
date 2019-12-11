@@ -31,7 +31,7 @@
 		<br/>
 	</p>
 
-	<div class="row">
+	<div class="row" style = "margin-top: 50px;">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
@@ -44,7 +44,7 @@
 					</p>
 
 
-					<p>
+					<p style = "margin-top: 20px;">
 						<label>サークル名<input type="text" name="name" size="20"
 							maxlength="50"></label>
 					</p>
