@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,47 +28,48 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
-	<div class="row" style = "margin-top: 50px;">
+	<div class="row" style="margin-top: 50px;">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
 
 					<h6>
-						新規サークルアカウント登録<br/>
+						新規サークルアカウント登録<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
 
-
-					<p style = "margin-top: 20px;">
-						<label>サークル名<input type="text" name="name" size="20"
-							maxlength="50"></label>
-					</p>
-					<p>
-						<label>メールアドレス<input type="email" name="email" size="50"
-							maxlength="256"></label>
-					</p>
-					<p>
-						<label>ID<input type="text" name="id" size="20"
-							maxlength="10"></label>
-					</p>
-					<p>
-						<label>パスワード<input type="password" name="pass" size="20"
-							maxlength="16"></label>
-					</p>
-
-					<div class="center-align">
-					<form action="FromClubRegistration" method="get" name = "form0">
-						<p>
-							<input type="hidden" name="user_name" value="">
-							<a class="waves-effect waves-light btn" href="javascript:form0.submit()">確認画面</a>
+					<form action="FromClubRegistration" method="get" name="form0">
+						<p style="margin-top: 20px;">
+							<label>サークル名<input type="text" name="name" size="20"
+								maxlength="50"></label>
 						</p>
+						<p>
+							<label>メールアドレス<input type="email" name="mail" size="50"
+								maxlength="256"></label>
+						</p>
+						<p>
+							<label>ID<input type="text" name="id" size="20"
+								maxlength="10"></label>
+						</p>
+						<p>
+							<label>パスワード<input type="password" name="password" size="20"
+								maxlength="16"></label>
+						</p>
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="confirm"> <a
+									class="waves-effect waves-light btn"
+									href="javascript:form0.submit()">確認画面</a>
+							</p>
+						</div>
 					</form>
-					</div>
+					
 				</div>
 			</div>
 		</div>
