@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tool.PageDataManager;
-import tool.SHA256;
 
 /**
  * Servlet implementation class FromLogin
@@ -45,15 +44,10 @@ public class FromLogin extends HttpServlet {
 		String option = request.getParameter("option");
 		// String user = request.getParameter("user"); // 本番用
 		String user = "club"; // テスト用
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		// ID、パスワードをハッシュ値に変換する
-		String hashId = SHA256.hash(id);
-		String hashPassword = SHA256.hash(password);
 
 		switch (option) {
 		case "login": // ログイン処理
-			boolean result = pageDataManager.login(session, request, user, hashId, hashPassword);
+			boolean result = pageDataManager.login(session, request, user);
 			if (result) { // ログイン成功
 				if (user.equals("general")) { // 一般ユーザ
 					getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);

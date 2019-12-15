@@ -54,35 +54,36 @@ public class PageDataManager {
 	}
 
 	// ログイン処理
-	public boolean login(HttpSession session, HttpServletRequest request, String user, String id, String password) {
+	public boolean login(HttpSession session, HttpServletRequest request, String user) {
 		boolean result = false;
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		// ID、パスワードをハッシュ値に変換する
+		String hashId = SHA256.hash(id);
+		String hashPassword = SHA256.hash(password);
 		switch (user) {
 		case "general": // 一般ユーザ
-			result = userManager.login(id, password); // ログイン処理
-			if (result) { // ログイン成功
-				session.setAttribute("user", user);
-				session.setAttribute("userId", id);
-				toUserMyPage(request, id);
-			}
+			result = userManager.login(hashId, hashPassword); // ログイン処理
+			toUserMyPage(request, hashId);
 			break;
 
 		case "club": // サークルアカウント
-			result = clubManager.login(id, password); // ログイン処理
+			result = clubManager.login(hashId, hashPassword); // ログイン処理
 			if (result) { // ログイン成功
-				session.setAttribute("user", user);
-				session.setAttribute("userId", id);
-				toClubMyPage(request, id);
+				toClubMyPage(request, hashId);
 			}
 			break;
 
 		case "admin": // 管理者
-			result = adminManager.login(id, password); // ログイン処理
+			result = adminManager.login(hashId, hashPassword); // ログイン処理
 			if (result) { // ログイン成功
-				session.setAttribute("user", user);
-				session.setAttribute("userId", id);
 				toTop(request);
 			}
 			break;
+		}
+		if (result) { // ログイン成功
+			session.setAttribute("user", user);
+			session.setAttribute("userId", hashId);
 		}
 		session.setAttribute("login", result);
 		return result;
@@ -509,8 +510,8 @@ public class PageDataManager {
 	}
 
 	// サークルアカウント管理者閲覧用画面へのデータ
-		public void toClubInfoDisplayForAdmin(HttpServletRequest request) {
+	public void toClubInfoDisplayForAdmin(HttpServletRequest request) {
 
-		}
+	}
 
 }
