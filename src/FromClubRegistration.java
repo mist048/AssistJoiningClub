@@ -59,15 +59,6 @@ public class FromClubRegistration extends HttpServlet {
 				getServletContext().getRequestDispatcher("/clubRegistration.jsp").forward(request, response);
 			}
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			if (user == null) { // 閲覧者
-				getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
-			} else if (user.equals("admin")) { // 管理者
-				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			}
-			break;
 		}
 	}
 

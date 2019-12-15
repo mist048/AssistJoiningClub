@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tool.PageDataManager;
-import tool.SHA256;
 
 /**
  * Servlet implementation class FromClubRegistrationConfirm
@@ -43,22 +42,12 @@ public class FromUserRegistrationConfirm extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String option = request.getParameter("option");
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		// ID、パスワードをハッシュ値に変換する
-		String hashId = SHA256.hash(id);
-		String hashPassword = SHA256.hash(password);
 
 		switch (option) {
 		case "register": // 登録処理
 			pageDataManager.userRegistrationConfirm(request);
-			pageDataManager.login(session, request, "general", hashId, hashPassword);
+			pageDataManager.login(session, request, "general");
 			getServletContext().getRequestDispatcher("/accountRegistrationComplete.jsp").forward(request, response);
-			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
 			break;
 		}
 	}

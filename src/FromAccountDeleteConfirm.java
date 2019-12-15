@@ -72,27 +72,6 @@ public class FromAccountDeleteConfirm extends HttpServlet {
 				}
 			}
 			break;
-
-		case "myPage": // マイページ画面へ
-			if (user.equals("general")) { // 一般ユーザ
-				pageDataManager.toUserMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
-			} else if (user.equals("club")) { // サークルアカウント
-				pageDataManager.toClubMyPage(request, hashId);
-				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
-			}
-			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			if (user.equals("general")) { // 一般ユーザ
-				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
-			} else if (user.equals("club")) { // サークルアカウント
-				getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
-			} else if (user.equals("admin")) { // 管理者
-				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			}
-			break;
 		}
 	}
 

@@ -54,11 +54,6 @@ public class FromClubMyPage extends HttpServlet {
 			pageDataManager.toClubInfoUpdate(request, hashId);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

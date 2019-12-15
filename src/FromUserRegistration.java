@@ -56,11 +56,6 @@ public class FromUserRegistration extends HttpServlet {
 				getServletContext().getRequestDispatcher("/userRegistration.jsp").forward(request, response);
 			}
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/viewerTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

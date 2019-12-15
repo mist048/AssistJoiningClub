@@ -59,11 +59,6 @@ public class FromTagEdit extends HttpServlet {
 			pageDataManager.toTagDisplay(request);
 			getServletContext().getRequestDispatcher("/tagDisplay.jsp").forward(request, response);
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

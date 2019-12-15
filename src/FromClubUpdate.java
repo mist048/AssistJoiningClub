@@ -87,20 +87,6 @@ public class FromClubUpdate extends HttpServlet {
 				}
 			}
 			break;
-
-		case "myPage": // マイページ画面へ
-			pageDataManager.toClubMyPage(request, hashId);
-			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
-			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			if (user.equals("club")) { // サークルアカウント
-				getServletContext().getRequestDispatcher("/clubTop.jsp").forward(request, response);
-			} else if (user.equals("admin")) { // 管理者
-				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			}
-			break;
 		}
 	}
 

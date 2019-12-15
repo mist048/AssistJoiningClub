@@ -54,16 +54,6 @@ public class FromFavoriteClubDisplay extends HttpServlet {
 			pageDataManager.toFavoriteClubDelete(request, hashId);
 			getServletContext().getRequestDispatcher("/favoriteClubDelete.jsp").forward(request, response);
 			break;
-
-		case "myPage": // マイページ画面へ
-			pageDataManager.toUserMyPage(request, hashId);
-			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
-			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

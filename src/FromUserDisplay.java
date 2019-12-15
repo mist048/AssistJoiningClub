@@ -46,11 +46,6 @@ public class FromUserDisplay extends HttpServlet {
 			pageDataManager.toUserInfoDisplayForAdmin(request);
 			getServletContext().getRequestDispatcher("/userInfoDisplayForAdmin.jsp").forward(request, response);
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

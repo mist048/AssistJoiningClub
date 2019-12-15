@@ -46,11 +46,6 @@ public class FromClubDisplay extends HttpServlet {
 			pageDataManager.toClubInfoDisplayForAdmin(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
 			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			break;
 		}
 	}
 

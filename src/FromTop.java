@@ -54,16 +54,6 @@ public class FromTop extends HttpServlet {
 			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
-
-		case "userMyPage": // 一般ユーザマイページへ
-			pageDataManager.toUserMyPage(request, hashId);
-			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
-			break;
-
-		case "clubMyPage": // サークルアカウントマイページへ
-			pageDataManager.toClubMyPage(request, hashId);
-			getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
-			break;
 		}
 	}
 

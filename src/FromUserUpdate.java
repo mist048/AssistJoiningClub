@@ -88,20 +88,6 @@ public class FromUserUpdate extends HttpServlet {
 				getServletContext().getRequestDispatcher("/userUpdate.jsp").forward(request, response);
 			}
 			break;
-
-		case "myPage": // マイページ画面へ
-			pageDataManager.toUserMyPage(request, hashId);
-			getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
-			break;
-
-		case "top": // トップ画面へ
-			pageDataManager.toTop(request);
-			if (user.equals("general")) { // 一般ユーザ
-				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
-			} else if (user.equals("admin")) { // 管理者
-				getServletContext().getRequestDispatcher("/adminTop.jsp").forward(request, response);
-			}
-			break;
 		}
 	}
 
