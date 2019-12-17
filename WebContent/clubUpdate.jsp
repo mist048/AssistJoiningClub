@@ -19,17 +19,13 @@
 
 	<nav class="teal">
 		<div class="nav-wrapper">
-			<form action="FromClubUpdate" method="get" name = form0>
 				<a href="#" class="brand-logo center"></a>
 				<ul class="left hide-on-med-and-down">
-					<li><input type="hidden" name="option" value="myPage">
-						<a href="javascript:form0.submit()">マイページ</a></li>
+					<li><a href="clubMyPage">マイページ</a></li>
 				</ul>
 				<ul class="right hide-on-med-and-down">
-					<li><input type="hidden" name="option" value="top">
-						<a href="javascript:form0.submit()">トップ</a></li>
+					<li><a href="ToTop">トップ</a></li>
 				</ul>
-			</form>
 		</div>
 	</nav>
 
@@ -51,30 +47,32 @@
 					</p>
 
 					<p>
-						<label>サークル名<input type="text" name="name" value = "<%= session.getAttribute("name")%>"
+						<label>サークル名<input type="text" name="name" value = "<%= request.getAttribute("name")%>"
 						size="20" maxlength="50"></label>
 					</p>
 					<p>
-						<label>メールアドレス<input type="email" name="mail" value = "<%= session.getAttribute("mail")%>"
+						<label>メールアドレス<input type="email" name="mail" value = "<%= request.getAttribute("mail")%>"
 						size="50" maxlength="256"></label>
 					</p>
 					<p>
-						<label>パスワード<input type="password" name="pass" value = "<%= session.getAttribute("password")%>"
+						<label>パスワード<input type="password" name="pass" value = "<%= request.getAttribute("password")%>"
 						size="20" maxlength="16"></label>
 					</p>
-					<div class="center-align">
 
+
+					<div class="center-align">
+						<form action="FromClubUpdate" method="get" name = formDelete>
 						<input type="hidden" name="option" value="delete">
-						<a class="waves-effect waves-teal btn-flat" href = "FromClubUpdate"> <span
+						<a class="waves-effect waves-teal btn-flat" href = "javascript:formDelete.submit()"> <span
 							class="red-text">アカウントを削除</span></a><br/>
 						<br/>
+						</form>
 
-
-						<form action="FromClubUpdate" method="get" name = form0>
+						<form action="FromClubUpdate" method="get" name = formConfirm>
 						<p>
 
 							<input type="hidden" name="option" value="confirm">
-							<a class="waves-effect waves-light btn" href = "javascript:form0.submit()">確定</a>
+							<a class="waves-effect waves-light btn" href = "javascript:formConfirm.submit()">確定</a>
 
 						</p>
 						</form>

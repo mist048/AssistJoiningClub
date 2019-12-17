@@ -36,15 +36,8 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-
-			<a  class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="">管理者</a></li>
-			</ul>
-
-
 			<form action="ToTop" method="post">
-			<ul class="right hide-on-med-and-down">
+			<ul class="left hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
 			</form>
@@ -57,7 +50,6 @@
 		<br/>
 	</p>
 
-<form action="FromClubDisplay" method="post">
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
@@ -76,7 +68,7 @@
 							<form action="FromClubDisplay" method="get" name="form<%=i%>">
 								<span class="title"><%=clubs[i][Constant.NAME]%></span>
 								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
-								<input type="hidden" name="option" value="clubInfoDisplay">
+								<input type="hidden" name="option" value="userInfoDisplayForAdmin">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
@@ -94,7 +86,6 @@
 			</div>
 		</div>
 	</div>
-</form>
 
 </body>
 </html>

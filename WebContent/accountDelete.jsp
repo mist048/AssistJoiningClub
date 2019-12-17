@@ -47,7 +47,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
@@ -56,18 +56,18 @@
 				<div class="card-content">
 
 					<h6>
-						アカウント削除</br>
+						アカウント削除<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 
 					<p>
-						<label>ID <%= session.getAttribute("id")%></label>
+						<label>ID <%= request.getAttribute("id")%></label>
 					</p>
 					<p>
-						<label>ユーザ <%= session.getAttribute("name")%></label>
+						<label>ユーザ <%= request.getAttribute("name")%></label>
 					</p>
 
 

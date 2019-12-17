@@ -31,7 +31,6 @@
 </head>
 <body>
 
-<form action="FromAccountDeleteConfirm" method="get">
 	<nav class="teal">
 
 		<div class="nav-wrapper">
@@ -46,7 +45,7 @@
 	</nav>
 
 	<p>
-		</br>
+		<br/>
 	</p>
 
 	<div class="row">
@@ -55,10 +54,10 @@
 				<div class="card-content">
 
 					<h6>
-						パスワードを確認</br>
+						パスワードを確認<br/>
 					</h6>
 					<p>
-						</br>
+						<br/>
 					</p>
 
 
@@ -73,17 +72,17 @@
 					</p>
 
 					<div class="center-align">
+					<form action="FromAccountDeleteConfirm" method="get" name="formDelete">
 						<p>
-							<input type="hidden" name="user_name" value="">
-							<a class="waves-effect waves-light btn" href="FromAccountDeleteConfirm">削除</a>
+							<input type="hidden" name="option" value="delete">
+							<a class="waves-effect waves-light btn" href="javascript:formDelete.submit()">削除</a>
 						</p>
-
+					</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
 
 </body>
 </html>
