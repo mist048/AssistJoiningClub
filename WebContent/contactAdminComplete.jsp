@@ -13,8 +13,43 @@
 
 </head>
 
-<body>
-<p>問い合わせを完了しました。</p>
-<p><input type="submit" value="了解"></p>
+<body bgcolor=#f9f9f9>
+
+
+
+	<nav class="teal">
+
+	</nav>
+
+
+	<p>
+	</p>
+
+
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+
+					<h6>
+						問い合わせを完了しました。<br/>
+					</h6>
+					<p>
+						<br/>
+					</p>
+
+
+					<div class="center-align">
+						<p>
+							<a class="waves-effect waves-light btn" href = "ToTop">了解</a>
+						</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </body>
 </html>
