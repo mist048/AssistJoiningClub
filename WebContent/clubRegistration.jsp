@@ -43,7 +43,7 @@
 						<br />
 					</p>
 
-					<form action="FromClubRegistration" method="get" name="form0">
+					<form action="FromClubRegistration" method="get" name="formConfirm">
 						<p style="margin-top: 20px;">
 							<label>サークル名<input type="text" name="name" size="20"
 								maxlength="50"></label>
@@ -65,11 +65,11 @@
 							<p>
 								<input type="hidden" name="option" value="confirm"> <a
 									class="waves-effect waves-light btn"
-									href="javascript:form0.submit()">確認画面</a>
+									href="javascript:formConfirm.submit()">確認画面</a>
 							</p>
 						</div>
 					</form>
-					
+
 				</div>
 			</div>
 		</div>

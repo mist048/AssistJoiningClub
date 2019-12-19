@@ -15,7 +15,7 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-<form action="" method="get">
+
 
 	<nav class="teal">
 
@@ -46,35 +46,35 @@
 					</p>
 
 					<p>
-						<label>サークル名<input type="text" name="name" value = "<%= session.getAttribute("name")%>"
+						<label>サークル名<input type="text" name="name" value = "<%= request.getAttribute("name")%>"
 						size="20" maxlength="50"></label>
 					</p>
 					<p>
-						<label>メールアドレス<input type="email" name="mail" value = "<%= session.getAttribute("mail")%>"
+						<label>メールアドレス<input type="email" name="mail" value = "<%= request.getAttribute("mail")%>"
 						size="50" maxlength="256"></label>
 					</p>
 					<p>
-						<label>公認<input type="text" name="recgon" value = "<%= session.getAttribute("recgon")%>"
+						<label>公認<input type="text" name="recgon" value = "<%= request.getAttribute("recgon")%>"
 						size="20" maxlength="50"></label>
 					</p>
 					<p>
-						<label>リンク<input type="text" name="link" value = "<%= session.getAttribute("link")%>"
+						<label>リンク<input type="text" name="link" value = "<%= request.getAttribute("link")%>"
 						size="20" maxlength="256"></label>
 					</p>
 					<p>
 						<label>紹介文<textarea name="intro" maxlength="2000" cols="100" rows="20">
-						<%= session.getAttribute("intro")%></textarea></label>
+						<%= request.getAttribute("intro")%></textarea></label>
 					</p>
 					<p>
-						<label>メンバー<input type="text" name="member" value = "<%= session.getAttribute("member")%>"
+						<label>メンバー<input type="text" name="member" value = "<%= request.getAttribute("member")%>"
 						size="20" maxlength="16"></label>
 					</p>
 					<p>
-						<label>アイコン<input type="text" name="icon" value = "<%= session.getAttribute("icon")%>"
+						<label>アイコン<input type="text" name="icon" value = "<%= request.getAttribute("icon")%>"
 						size="20" maxlength="16"></label>
 					</p>
 					<p>
-						<label>ホーム画像<input type="text" name="home" value = "<%= session.getAttribute("home")%>"
+						<label>ホーム画像<input type="text" name="home" value = "<%= request.getAttribute("home")%>"
 						size="20" maxlength="16"></label>
 					</p>
 
@@ -86,11 +86,14 @@
 						<br/>
 
 
+						<form action="FromClubInfoUpdate" method="get" name ="formConfirm">
 						<p>
-							<input type="hidden" name="option" value="confirm">
-							<a class="waves-effect waves-light btn" href = "FromClubInfoUpdate">確定</a>
-						</p>
 
+							<input type="hidden" name="option" value="confirm">
+							<a class="waves-effect waves-light btn" href= "javascript:formConfirm.submit()">確定</a>
+
+						</p>
+						</form>
 					</div>
 
 				</div>
@@ -106,7 +109,7 @@
 <input type="submit" value="追加">
 </p>
 
-</form>
+
 
 </body>
 </html>
