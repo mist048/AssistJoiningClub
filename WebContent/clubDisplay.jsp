@@ -54,7 +54,9 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-				<h6>サークル一覧</h6>
+					<div class="center-align">
+						<h6>サークル一覧</h6>
+					</div>
 
 					<ul class="collection">
 
@@ -68,7 +70,7 @@
 							<form action="FromClubDisplay" method="get" name="form<%=i%>">
 								<span class="title"><%=clubs[i][Constant.NAME]%></span>
 								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
-								<input type="hidden" name="option" value="userInfoDisplayForAdmin">
+								<input type="hidden" name="option" value="clubInfoDisplayForAdmin">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">

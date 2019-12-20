@@ -39,9 +39,12 @@
 			<div class="card">
 				<div class="card-content">
 
-					<h6>
-						サークルアカウント更新<br/>
-					</h6>
+					<div class="center-align">
+						<h6>
+							サークルアカウント更新<br/>
+						</h6>
+					</div>
+
 					<p>
 						<br/>
 					</p>

@@ -30,19 +30,51 @@
 		</div>
 	</nav>
 
-<p>ユーザ情報</p>
 
-<table>
-<tr><td>ユーザ名</td><td><%= session.getAttribute("name")%></td></tr>
-<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
-<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
-<tr><td>パスワード</td><td><%= session.getAttribute("password")%></td></tr>
-</table>
+	<p>
+	</p>
+
+
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+					<div class="center-align">
+						<div class="center-align">
+							<h6>
+								ユーザ情報<br/>
+							</h6>
+						</div>
 
 						<p>
-							<input type="hidden" name="option" value="setting">
-							<a class="waves-effect waves-light btn" href = "FromUserInfoDisplayForAdmin">設定</a>
+							<br/>
 						</p>
+
+						<table>
+						<tr><td>ユーザ名</td><td><%= request.getAttribute("name")%></td></tr>
+						<tr><td>メールアドレス</td><td><%= request.getAttribute("mail")%></td></tr>
+						<tr><td>ID</td><td><%= request.getAttribute("id")%></td></tr>
+						</table>
+					</div>
+
+					<br/>
+
+					<div class="center-align">
+					<form action="FromUserInfoDisplayForAdmin" method="post" name ="formSetting">
+						<p>
+							<input type="hidden" name="generalId" value="">
+							<input type="hidden" name="option" value="setting">
+							<a class="waves-effect waves-light btn" href = "javascript:formSetting.submit()">設定</a>
+						</p>
+					</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 
 </form>

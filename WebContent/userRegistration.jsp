@@ -39,43 +39,51 @@
 		</div>
 	</nav>
 
-	<!--  <form action="FromUserRegistration" method="get"> -->
 
 	<div class="row" style = "margin-top: 50px;">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-
-					<h6>
-						新規一般ユーザ登録
-					</h6>
-
-					<p style = "margin-top: 20px;">
-						<label>ユーザ名<input type="text" name="name" size="20"
-							maxlength="50"></label>
-					</p>
-					<p>
-						<label>メールアドレス<input type="email" name="email" size="50"
-							maxlength="256"></label>
-					</p>
-					<p>
-						<label>ID<input type="text" name="id" size="20"
-							maxlength="10"></label>
-					</p>
-					<p>
-						<label>パスワード<input type="password" name="pass" size="20"
-							maxlength="16"></label>
-					</p>
-
 					<div class="center-align">
-						<a href="FromUserRegistration"
-							class="waves-effect waves-light btn"> 確認画面 </a>
+						<h6>
+							新規一般ユーザ登録
+						</h6>
 					</div>
+
+					<p>
+						<br />
+					</p>
+
+					<form action="FromUserRegistration" method="get">
+						<p style = "margin-top: 20px;">
+							<label>ユーザ名<input type="text" name="name" size="20"
+								maxlength="50"></label>
+						</p>
+						<p>
+							<label>メールアドレス<input type="email" name="email" size="50"
+								maxlength="256"></label>
+						</p>
+						<p>
+							<label>ID<input type="text" name="id" size="20"
+							maxlength="10"></label>
+						</p>
+						<p>
+							<label>パスワード<input type="password" name="pass" size="20"
+								maxlength="16"></label>
+						</p>
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="confirm"> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formConfirm.submit()">確認画面</a>
+							</p>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- </form> -->
 </body>
 </html>

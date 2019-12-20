@@ -14,37 +14,23 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-<form action="FromAccountRegistrationComplete" method="get">
-
-	<nav class="teal">
-
-		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="ToTop">戻る</a></li>
-				<!-- トップ(viewerTop.jsp)に遷移 -->
-			</ul>
-			<ul class="right hide-on-med-and-down">
-					<li><input type="hidden" name="option" value="top">
-						<a href="javascript:form0.submit()">トップ</a></li>
-			</ul>
-		</div>
-	</nav>
-
+	<nav class="teal"></nav>
 	<p>
-		<br />
+		<br/>
 	</p>
 
 	<div class="row" style="margin-top: 50px;">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
+					<div class="center-align">
+						<h6>
+							アカウントを登録しました。<br/>
+						</h6>
+					</div>
 
-					<h6>
-						アカウントを登録しました。<br/>
-					</h6>
 					<p>
-						<br />
+						<br/>
 					</p>
 
 					<form action="FromClubRegistration" method="get" name="form0">
@@ -53,7 +39,7 @@
 							<p>
 								<input type="hidden" name="option" value="confirm"> <a
 									class="waves-effect waves-light btn"
-									href="javascript:form0.submit()">了解</a>
+									href="javascript:formConfirm.submit()">了解</a>
 							</p>
 						</div>
 					</form>
@@ -63,8 +49,6 @@
 		</div>
 	</div>
 
-
-</form>
 
 </body>
 </html>

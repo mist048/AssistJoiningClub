@@ -12,29 +12,62 @@
 <!-- materialize CDN -->
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
-<form action="FromUserRegistrationConfirm" method="get">
+	<nav class="teal">
+		<div class="nav-wrapper">
+				<a href="#" class="brand-logo center"></a>
+				<ul class="left hide-on-med-and-down">
+					<li><a href="clubMyPage">マイページ</a></li>
+				</ul>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="ToTop">トップ</a></li>
+				</ul>
+		</div>
+	</nav>
 
-<div class="center-align">
-		<a class="waves-effect waves-light btn"> トップ </a>
-		<input type="hidden" name="option" value="top">
-</div>
 
-<p>登録情報</p>
+	<p>
+	</p>
 
-<table>
-<tr><td>ユーザ名</td><td><%= session.getAttribute("name")%></td></tr>
-<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
-<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
-<tr><td>パスワード</td><td><%= session.getAttribute("password")%></td></tr>
-</table>
 
-<div class="center-align">
-		<a class="waves-effect waves-light btn"> 登録 </a>
-</div>
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+					<div class="center-align">
+						<h6>登録情報</h6>
+					</div>
 
-</form>
+						<table>
+							<tr>
+								<td>ユーザ名</td>
+								<td><%=request.getAttribute("name")%></td>
+							</tr>
+							<tr>
+								<td>メールアドレス</td>
+								<td><%=request.getAttribute("mail")%></td>
+							</tr>
+							<tr>
+								<td>パスワード</td>
+								<td><%=request.getAttribute("password")%></td>
+							</tr>
+						</table>
+
+					<div class="center-align">
+					<form action="FromClubRegistrationConfirm" method="post" name ="formRegister">
+						<p>
+							<input type="hidden" name="user_name" value="register"> <a
+								class="waves-effect waves-light btn"
+								href= "javascript:formRegister.submit()">登録</a>
+						</p>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

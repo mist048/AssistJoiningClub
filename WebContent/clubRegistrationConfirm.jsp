@@ -12,51 +12,62 @@
 <!-- materialize CDN -->
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
-	<form action="FromClubRegistrationConfirm" method="get">
-
-		<nav class="teal">
-
-			<div class="nav-wrapper">
+	<nav class="teal">
+		<div class="nav-wrapper">
 				<a href="#" class="brand-logo center"></a>
 				<ul class="left hide-on-med-and-down">
-					<li><a href="clubRegistration">戻る</a></li>
+					<li><a href="clubMyPage">マイページ</a></li>
 				</ul>
-			</div>
-		</nav>
-
-		<p>登録情報</p>
-
-		<table>
-			<tr>
-				<td>サークル名</td>
-				<td><%=request.getAttribute("name")%></td>
-			</tr>
-			<tr>
-				<td>メールアドレス</td>
-				<td><%=request.getAttribute("mail")%></td>
-			</tr>
-			<tr>
-				<td>ID</td>
-				<td><%=request.getAttribute("id")%></td>
-			</tr>
-			<tr>
-				<td>パスワード</td>
-				<td><%=request.getAttribute("password")%></td>
-			</tr>
-		</table>
-
-		<div class="center-align">
-			<p>
-				<input type="hidden" name="user_name" value=""> <a
-					class="waves-effect waves-light btn"
-					href="FromClubRegistrationConfirm">登録</a>
-			</p>
-
+				<ul class="right hide-on-med-and-down">
+					<li><a href="ToTop">トップ</a></li>
+				</ul>
 		</div>
+	</nav>
 
-	</form>
+
+	<p>
+	</p>
+
+
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+					<div class="center-align">
+						<h6>登録情報</h6>
+					</div>
+
+						<table>
+							<tr>
+								<td>サークル名</td>
+								<td><%=request.getAttribute("name")%></td>
+							</tr>
+							<tr>
+								<td>メールアドレス</td>
+								<td><%=request.getAttribute("mail")%></td>
+							</tr>
+							<tr>
+								<td>パスワード</td>
+								<td><%=request.getAttribute("password")%></td>
+							</tr>
+						</table>
+
+					<div class="center-align">
+					<form action="FromClubRegistrationConfirm" method="post" name ="formRegister">
+						<p>
+							<input type="hidden" name="user_name" value="register"> <a
+								class="waves-effect waves-light btn"
+								href= "javascript:formRegister.submit()">登録</a>
+						</p>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

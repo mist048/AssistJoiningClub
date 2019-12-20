@@ -13,35 +13,74 @@
 
 </head>
 
-<body>
+<body bgcolor=#f9f9f9>
 
-<form action="FromUserMyPage" method="get">
+	<nav class="teal">
 
-<div class="center-align">
-		<a class="waves-effect waves-light btn"> トップ </a>
-		<input type="hidden" name="option" value="top">
-</div>
+		<div class="nav-wrapper">
+		<form action="FromClubMyPage" method="post" name ="form0">
+			<a href="#" class="brand-logo center"></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
+		</form>
+		</div>
+	</nav>
+
+	<p>
+		<br/>
+	</p>
+
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+					<div class="center-align">
+						<h6>
+							アカウント情報<br/>
+						</h6>
+						<p>
+							<br/>
+						<table>
+							<tr>
+								<td>ID</td>
+								<td><%= request.getAttribute("id")%></td>
+							</tr>
+							<tr>
+								<td>ユーザ</td>
+								<td><%= request.getAttribute("name")%></td>
+							</tr>
+							<tr>
+								<td>メールアドレス</td>
+								<td><%= request.getAttribute("mail")%></td>
+							</tr>
+						</table>
 
 
-<p>アカウント情報</p>
+						<br/>
 
-<table>
-<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
-<tr><td>ユーザ名</td><td><%= session.getAttribute("name")%></td></tr>
-<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
-</table>
 
-<div class="center-align">
-		<input type="hidden" name="option" value="favoriteClubDisplay">
-		<a class="waves-effect waves-light btn" href="FromUserMyPage"> お気に入りリスト </a>
-</div>
+						<div class="center-align">
 
-<div class="center-align">
-		<input type="hidden" name="option" value="setting">
-		<a class="waves-effect waves-light btn" href="FromUserMyPage"> 設定 </a>
-</div>
+							<form action="FromClubMyPage" method="post" name ="formSetting" style="display: inline">
+								<input type="hidden" name="option" value="setting">
+								<a class="waves-effect waves-light btn"
+									href="javascript:formSetting.submit()">設定</a>
+							</form>
 
-</form>
+							<form action="FromClubMyPage" method="post" name ="formFavorite" style="display: inline">
+								<input type="hidden" name="option" value="favoriteClubDisplay">
+								<a class="waves-effect waves-light btn"
+									href="javascript:formFavorite.submit()">お気に入り</a>
+							</form>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

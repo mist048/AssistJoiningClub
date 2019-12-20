@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,28 +25,59 @@
 
 <body>
 
-<form action="FromUserDisplay" method="get">
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
+			<form action="ToTop" method="post">
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">ユーザ</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
+			</form>
 		</div>
 	</nav>
 
 
-<p>一般ユーザ一覧</p>
+<p>
+		<br/>
+	</p>
 
-<table>
-<tr><td><a href="FromUserDisplay"><%= session.getAttribute("name")%></a></td></tr>
-</table>
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+				<div class="center-align">
+					<h6>ユーザ一覧</h6>
+				</div>
 
-</form>
+					<ul class="collection">
+
+						<%
+							String[][] users = (String[][]) request.getAttribute("users");
+							for (int i = 0; i < users.length; i++) {
+						%>
+
+						<li class="collection-item avatar"><i
+							class="material-icons circle">person</i>
+							<form action="FromUserDisplay" method="get" name="form<%=i%>">
+								<span class="title"><%=users[i][Constant.NAME]%></span>
+								<input type="hidden" name="option" value="userInfoDisplayForAdmin">
+								<input type="hidden" name="generalId"
+									value=<%=users[i][Constant.ID]%>> <a
+									href="javascript:form<%=i%>.submit()" class="secondary-content">
+									<i class="waves-effect waves-teal btn-flat">詳細</i>
+								</a>
+							</form></li>
+
+						<%
+							}
+						%>
+					</ul>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
