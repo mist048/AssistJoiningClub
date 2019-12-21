@@ -199,12 +199,10 @@ public class PageDataManager {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
-		String recogn = request.getParameter("recogn");
 		request.setAttribute("id", id);
 		request.setAttribute("password", password);
 		request.setAttribute("name", name);
 		request.setAttribute("mail", mail);
-		request.setAttribute("recogn", recogn);
 		request.setAttribute("error", error);
 	}
 
@@ -218,11 +216,7 @@ public class PageDataManager {
 		String hashId = SHA256.hash(id);
 		String hashPassword = SHA256.hash(password);
 		int code = -1;
-		if (user == null) { // 閲覧者
-			code = clubManager.register(Constant.VIEWER, hashId, name, hashPassword, mail); // 登録判定
-		} else if (user.equals("admin")) { // 管理者
-			code = clubManager.register(Constant.ADMIN, "", name, "", mail); // 登録判定
-		}
+		code = clubManager.register(id, name, password, mail); // 登録判定
 		return code;
 	}
 
@@ -232,12 +226,10 @@ public class PageDataManager {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
-		String recogn = request.getParameter("recogn");
 		request.setAttribute("id", id);
 		request.setAttribute("password", password);
 		request.setAttribute("name", name);
 		request.setAttribute("mail", mail);
-		request.setAttribute("recogn", recogn);
 	}
 
 	// サークルアカウント登録処理
@@ -249,11 +241,7 @@ public class PageDataManager {
 		// ID、パスワードをハッシュ値に変換する
 		String hashId = SHA256.hash(id);
 		String hashPassword = SHA256.hash(password);
-		if (user == null) { // 閲覧者
-			clubManager.registerConfirm(Constant.VIEWER, hashId, name, hashPassword, mail); // 登録処理
-		} else { // 管理者
-			clubManager.registerConfirm(Constant.ADMIN, "", name, "", mail); // 登録処理
-		}
+		clubManager.registerConfirm(hashId, name, hashPassword, mail); // 登録処理
 	}
 
 	// サークルアカウント更新画面へのデータ

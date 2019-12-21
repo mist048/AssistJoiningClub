@@ -16,19 +16,18 @@
 
 	<nav class="teal">
 		<div class="nav-wrapper">
-				<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="clubMyPage">マイページ</a></li>
-				</ul>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="ToTop">トップ</a></li>
-				</ul>
+			<a href="#" class="brand-logo center"></a>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="clubMyPage">マイページ</a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
 		</div>
 	</nav>
 
 
-	<p>
-	</p>
+	<p></p>
 
 
 	<div class="row">
@@ -39,29 +38,45 @@
 						<h6>登録情報</h6>
 					</div>
 
-						<table>
-							<tr>
-								<td>サークル名</td>
-								<td><%=request.getAttribute("name")%></td>
-							</tr>
-							<tr>
-								<td>メールアドレス</td>
-								<td><%=request.getAttribute("mail")%></td>
-							</tr>
-							<tr>
-								<td>パスワード</td>
-								<td><%=request.getAttribute("password")%></td>
-							</tr>
-						</table>
+					<%
+						String id = (String) request.getAttribute("id");
+						String name = (String) request.getAttribute("name");
+						String password = (String) request.getAttribute("password");
+						String mail = (String) request.getAttribute("mail");
+					%>
+
+					<table>
+						<tr>
+							<td>サークルID</td>
+							<td><%=id%></td>
+						</tr>
+						<tr>
+							<td>サークル名</td>
+							<td><%=name%></td>
+						</tr>
+						<tr>
+							<td>パスワード</td>
+							<td><%=password%></td>
+						</tr>
+						<tr>
+							<td>メールアドレス</td>
+							<td><%=mail%></td>
+						</tr>
+					</table>
 
 					<div class="center-align">
-					<form action="FromClubRegistrationConfirm" method="post" name ="formRegister">
-						<p>
-							<input type="hidden" name="user_name" value="register"> <a
-								class="waves-effect waves-light btn"
-								href= "javascript:formRegister.submit()">登録</a>
-						</p>
-					</form>
+						<form action="FromClubRegistrationConfirm" method="post"
+							name="formRegister">
+							<p>
+								<input type="hidden" name="option" value="register"> <input
+									type="hidden" name="id" value=<%=id%>> <input
+									type="hidden" name="name" value=<%=name%>> <input
+									type="hidden" name="password" value=<%=password%>> <input
+									type="hidden" name="mail" value=<%=mail%>> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formRegister.submit()">登録</a>
+							</p>
+						</form>
 					</div>
 				</div>
 			</div>

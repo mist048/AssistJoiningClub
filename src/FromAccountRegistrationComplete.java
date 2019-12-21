@@ -46,7 +46,6 @@ public class FromAccountRegistrationComplete extends HttpServlet {
 
 		switch (option) {
 		case "complete": // トップ画面へ
-			System.out.print("きたよ");
 			pageDataManager.toTop(request);
 			switch (user) {
 			case "general": // 一般ユーザ

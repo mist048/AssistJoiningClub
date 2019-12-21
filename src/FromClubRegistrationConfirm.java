@@ -47,9 +47,7 @@ public class FromClubRegistrationConfirm extends HttpServlet {
 		switch (option) {
 		case "register": // 登録処理
 			pageDataManager.clubRegistrationConfirm(request, user);
-			if (user == null) { // 閲覧者
-				pageDataManager.login(session, request, "club");
-			}
+			pageDataManager.login(session, request, "club");
 			getServletContext().getRequestDispatcher("/accountRegistrationComplete.jsp").forward(request, response);
 			break;
 		}

@@ -26,6 +26,7 @@ public class ClubDAO {
 	private PreparedStatement prepStmt_S_id_pass; // SELECT用(id,passwprd)
 	private PreparedStatement prepStmt_S_id; // SELECT用(ID)
 	private PreparedStatement prepStmt_S_mail; // SELECT用(mail)
+	private PreparedStatement prepStmt_S_clubinfoid; // SELECT用(clubinfoid)
 	private PreparedStatement prepStmt_S_keyword; // SELECT用(keyword)
 	private PreparedStatement prepStmt_I_info; // INSERT用(clubinfoテーブル)
 
@@ -35,7 +36,8 @@ public class ClubDAO {
 	private String strPrepSQL_S = "SELECT * FROM club LIMIT 50 OFFSET ?";
 	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM club WHERE id=? AND password=?";
 	private String strPrepSQL_S_id = "SELECT * FROM club WHERE id=?";
-	private String strPrepSQL_S_mail = "SELECT * FROM club WHERE mail=?";
+	private String strPrepSQL_S_mail = "SELECT COUNT(*) AS cnt FROM club WHERE mail=?";
+	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
 	private String strPrepSQL_S_keyword = "SELECT id FROM club WHERE name LIKE ?";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
 
@@ -51,6 +53,7 @@ public class ClubDAO {
 			prepStmt_S_id_pass = connection.prepareStatement(strPrepSQL_S_id_pass);
 			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
 			prepStmt_S_mail = connection.prepareStatement(strPrepSQL_S_mail);
+			prepStmt_S_clubinfoid = connection.prepareStatement(strPrepSQL_S_clubinfoid);
 			prepStmt_S_keyword = connection.prepareStatement(strPrepSQL_S_keyword);
 			prepStmt_I_info = connection.prepareStatement(strPrepSQL_I_info);
 		} catch (Exception e) {
@@ -63,6 +66,7 @@ public class ClubDAO {
 			prepStmt_S_id_pass.setString(1, id);
 			prepStmt_S_id_pass.setString(2, password);
 			resultSet = prepStmt_S_id_pass.executeQuery();
+			resultSet.next();
 			if (resultSet.getInt("count") == 0) {
 				resultSet.close();
 				return false;
@@ -113,33 +117,58 @@ public class ClubDAO {
 	}
 
 	protected boolean findById(String id) { //	重複確認（id）
+		int count = 0;
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			if (resultSet == null) {
-				resultSet.close();
-				return false;
+			while (resultSet.next()) {
+				count++;
 			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	protected boolean findByMail(String mail) { //	重複確認（mail）
+		int count = 0;
 		try {
 			prepStmt_S_mail.setString(1, mail);
 			resultSet = prepStmt_S_mail.executeQuery();
-			if (resultSet == null) {
-				resultSet.close();
-				return false;
-			}
+			resultSet.next();
+			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected boolean findByClubinfoid(String clubinfoid) { //	重複確認（clubinfoid）
+		int count = 0;
+		try {
+			prepStmt_S_clubinfoid.setString(1, clubinfoid);
+			resultSet = prepStmt_S_clubinfoid.executeQuery();
+			resultSet.next();
+			count = resultSet.getInt("cnt");
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	protected Club[] findByKeyword(String keyword[]) { //	検索
@@ -169,12 +198,13 @@ public class ClubDAO {
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			club.setId(resultSet.getString(Constant.ID));
-			club.setName(resultSet.getString(Constant.NAME));
-			club.setPassword(resultSet.getString(Constant.PASSWORD));
-			club.setMail(resultSet.getString(Constant.MAIL));
-			club.setRecogn(resultSet.getString(Constant.RECOGN));
-			club.setClubInfoId(resultSet.getString(Constant.CLUB_INFO_ID));
+			resultSet.next();
+			club.setId(resultSet.getString("id"));
+			club.setName(resultSet.getString("name"));
+			club.setPassword(resultSet.getString("password"));
+			club.setMail(resultSet.getString("mail"));
+			club.setRecogn(resultSet.getString("recogn"));
+			club.setClubInfoId(resultSet.getString("clubinfoid"));
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();

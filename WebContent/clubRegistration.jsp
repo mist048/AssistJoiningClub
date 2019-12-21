@@ -43,23 +43,25 @@
 						<br />
 					</p>
 
-					<form action="FromClubRegistration" method="get" name="formConfirm">
+					<form action="FromClubRegistration" method="post"
+						name="formConfirm">
 						<p style="margin-top: 20px;">
+							<label>サークルID<input type="text" name="id" size="20"
+								maxlength="10"></label>
+						</p>
+						<p>
 							<label>サークル名<input type="text" name="name" size="20"
 								maxlength="50"></label>
+						</p>
+						<p>
+							<label>パスワード<input type="password" name="password"
+								size="20" maxlength="16"></label>
 						</p>
 						<p>
 							<label>メールアドレス<input type="email" name="mail" size="50"
 								maxlength="256"></label>
 						</p>
-						<p>
-							<label>ID<input type="text" name="id" size="20"
-								maxlength="10"></label>
-						</p>
-						<p>
-							<label>パスワード<input type="password" name="password" size="20"
-								maxlength="16"></label>
-						</p>
+
 
 						<div class="center-align">
 							<p>

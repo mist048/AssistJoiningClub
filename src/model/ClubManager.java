@@ -2,6 +2,7 @@ package model;
 
 import tool.Constant;
 import tool.ErrorCheck;
+import tool.SHA256;
 
 public class ClubManager {
 	private ClubDAO clubDAO;
@@ -38,32 +39,43 @@ public class ClubManager {
 				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" };
 	}
 
-	public int register(int user, String id, String name, String password, String mail) {
-		String[] club = new String[Constant.NUM_OF_CLUB_INFO];
+	public int register(String id, String name, String password, String mail) {
+		String[] club = new String[Constant.NUM_OF_USER_INFO];
+		club[Constant.ID] = id;
+		club[Constant.NAME] = name;
+		club[Constant.PASSWORD] = password;
+		club[Constant.MAIL] = mail;
 		if (clubDAO.findById(id) || clubDAO.findByMail(mail)) { // IDが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < club.length; i++) {
+			if (errorCheck.blankCheck(club[i])) { // 空欄を含んでいる
+				return Constant.CONTAINS_BLANK;
+			}
 			if (i != Constant.NAME) {
 				if (errorCheck.notAsciiCheck(club[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (user != Constant.ADMIN && (i != Constant.ID || i != Constant.MAIL)) {
-				if (errorCheck.blankCheck(club[i])) { // 特殊な文字を含んでいる
-					return Constant.CONTAINS_EX_CHAR;
-				}
+			if (errorCheck.exCharCheck(club[i])) { // 特殊な文字を含んでいる
+				return Constant.CONTAINS_EX_CHAR;
 			}
 		}
 		return Constant.SUCCESS;
 	}
 
-	public void registerConfirm(int user, String id, String name, String password, String mail) {
-		if (user == Constant.VIEWER) {
-			clubDAO.insert(id, name, password, mail, "非公認");
-		} else if (user == Constant.ADMIN) {
-			clubDAO.insert(id, name, password, mail, "公認");
+	public void registerConfirm(String id, String name, String password, String mail) {
+		// サークル情報IDの自動生成
+		int number = 0;
+		String clubinfoid = null;
+		while (true) {
+			clubinfoid = SHA256.hash(String.valueOf(number));
+			if (!clubDAO.findByClubinfoid(clubinfoid)) { // サークル情報IDが重複していなければ
+				break;
+			}
+			number++;
 		}
+		clubDAO.insert(id, name, password, mail, "非公認", clubinfoid);
 	}
 
 	public int update(String id, String name, String password, String mail) {
