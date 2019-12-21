@@ -17,7 +17,18 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-	<nav class="teal"></nav>
+	<nav class="teal">
+
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo center"></a>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="Totop">戻る</a></li>
+			</ul>
+		</div>
+
+	</nav>
+
+
 	<p>
 		<br />
 	</p>

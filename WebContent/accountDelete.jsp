@@ -31,19 +31,19 @@
 </head>
 <body>
 
-<form action="FromAccountDelete" method="get">
 
 	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="">ユーザ</a></li>
-			</ul>
+				<ul class="left hide-on-med-and-down">
+					<li><a href="ToMyPage">マイページ</a></li>
+				</ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>
+
 	</nav>
 
 	<p>
@@ -71,19 +71,19 @@
 					</p>
 
 
-					<div class="center-align">
-						<p>
-							<input type="hidden" name="user_name" value="">
-							<a class="waves-effect waves-light btn" href="FromAccountDelete">削除</a>
-						</p>
+					<form action="FromAccountDelete" method="get" name="form0">
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="user_name" value="">
+								<a class="waves-effect waves-light btn" href="javascript:form0.submit()">削除</a>
+							</p>
 
-					</div>
+						</div>
+				 	</form>
 				</div>
 			</div>
 		</div>
 	</div>
-
-</form>
 
 </body>
 </html>
