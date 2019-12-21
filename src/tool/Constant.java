@@ -38,7 +38,7 @@ public class Constant {
 
 	public static final int MAX_OF_DISPLAYS = 10; // 一覧表示数
 
-	public static final String POSTGRES_PASSWORD = "dRagoon8!"; // postgresのパスワード
+	public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
 
 	private Constant() {
 	}
