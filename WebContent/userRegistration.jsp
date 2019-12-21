@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,36 +40,34 @@
 	</nav>
 
 
-	<div class="row" style = "margin-top: 50px;">
+	<div class="row" style="margin-top: 50px;">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-						<h6>
-							新規一般ユーザ登録
-						</h6>
+						<h6>新規一般ユーザ登録</h6>
 					</div>
 
 					<p>
 						<br />
 					</p>
 
-					<form action="FromUserRegistration" method="get">
-						<p style = "margin-top: 20px;">
+					<form action="FromUserRegistration" method="post" name="formConfirm">
+						<p style="margin-top: 20px;">
+							<label>ID<input type="text" name="id" size="20"
+								maxlength="10"></label>
+						</p>
+						<p>
 							<label>ユーザ名<input type="text" name="name" size="20"
 								maxlength="50"></label>
 						</p>
 						<p>
-							<label>メールアドレス<input type="email" name="email" size="50"
+							<label>パスワード<input type="password" name="password"
+								size="20" maxlength="16"></label>
+						</p>
+						<p>
+							<label>メールアドレス<input type="email" name="mail" size="50"
 								maxlength="256"></label>
-						</p>
-						<p>
-							<label>ID<input type="text" name="id" size="20"
-							maxlength="10"></label>
-						</p>
-						<p>
-							<label>パスワード<input type="password" name="pass" size="20"
-								maxlength="16"></label>
 						</p>
 
 						<div class="center-align">

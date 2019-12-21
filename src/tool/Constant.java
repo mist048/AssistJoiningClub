@@ -37,4 +37,9 @@ public class Constant {
 	public static final int HOME = 5; // ホーム画像
 
 	public static final int MAX_OF_DISPLAYS = 10; // 一覧表示数
+
+	public static final String POSTGRES_PASSWORD = "dRagoon8!"; // postgresのパスワード
+
+	private Constant() {
+	}
 }

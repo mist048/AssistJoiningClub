@@ -11,10 +11,11 @@ import java.util.Iterator;
 import tool.Constant;
 
 public class ClubDAO {
+	String db_name = "assistjoiningclub";
 	final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	final String url = "jdbc:postgresql://localhost/assitjoiningclub"; // local
+	final String url = "jdbc:postgresql://localhost/" + db_name; // local
 	final String user = "postgres";
-	final String password = "akabane";
+	final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
 
@@ -142,12 +143,12 @@ public class ClubDAO {
 	}
 
 	protected Club[] findByKeyword(String keyword[]) { //	検索
-		HashSet<String> hited=new HashSet<String>();
+		HashSet<String> hited = new HashSet<String>();
 		try {
-			for(int i=0;i<keyword.length;i++) {
+			for (int i = 0; i < keyword.length; i++) {
 				prepStmt_S_keyword.setString(1, keyword[i]);
 				resultSet = prepStmt_S_keyword.executeQuery();
-				while(resultSet.next()) {
+				while (resultSet.next()) {
 					hited.add(resultSet.getString(Constant.ID));
 				}
 				resultSet.close();
@@ -155,10 +156,10 @@ public class ClubDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Club[] clubs=new Club[hited.size()];
+		Club[] clubs = new Club[hited.size()];
 		Iterator<String> iterator = hited.iterator();
-		for(int i=0;i<clubs.length;i++) {
-			clubs[i]=getClub(iterator.next());
+		for (int i = 0; i < clubs.length; i++) {
+			clubs[i] = getClub(iterator.next());
 		}
 		return clubs;
 	}

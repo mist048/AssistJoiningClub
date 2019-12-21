@@ -46,9 +46,10 @@ public class FromAccountRegistrationComplete extends HttpServlet {
 
 		switch (option) {
 		case "complete": // トップ画面へ
+			System.out.print("きたよ");
 			pageDataManager.toTop(request);
 			switch (user) {
-			case "gengeral": // 一般ユーザ
+			case "general": // 一般ユーザ
 				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 				break;
 			case "club": // サークルアカウント

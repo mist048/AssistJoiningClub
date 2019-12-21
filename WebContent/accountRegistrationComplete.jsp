@@ -33,13 +33,13 @@
 						<br/>
 					</p>
 
-					<form action="FromClubRegistration" method="get" name="form0">
+					<form action="FromAccountRegistrationComplete" method="post" name="formComplete">
 
 						<div class="center-align">
 							<p>
-								<input type="hidden" name="option" value="confirm"> <a
+								<input type="hidden" name="option" value="complete"> <a
 									class="waves-effect waves-light btn"
-									href="javascript:formConfirm.submit()">了解</a>
+									href="javascript:formComplete.submit()">了解</a>
 							</p>
 						</div>
 					</form>

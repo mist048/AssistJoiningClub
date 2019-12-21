@@ -32,16 +32,23 @@ public class UserManager {
 
 	public int register(String id, String name, String password, String mail) {
 		String[] user = new String[Constant.NUM_OF_USER_INFO];
+		user[Constant.ID] = id;
+		user[Constant.NAME] = name;
+		user[Constant.PASSWORD] = password;
+		user[Constant.MAIL] = mail;
 		if (userDAO.findById(id) || userDAO.findByMail(mail)) { // IDかメールアドレスが重複している
 			return Constant.DUPLICATE;
 		}
 		for (int i = 0; i < user.length; i++) {
+			if (errorCheck.blankCheck(user[i])) { // 空欄を含んでいる
+				return Constant.CONTAINS_BLANK;
+			}
 			if (i != Constant.NAME) {
 				if (errorCheck.notAsciiCheck(user[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.blankCheck(user[i])) { // 特殊な文字を含んでいる
+			if (errorCheck.exCharCheck(user[i])) { // 特殊な文字を含んでいる
 				return Constant.CONTAINS_EX_CHAR;
 			}
 		}

@@ -48,7 +48,7 @@ public class FromUserRegistration extends HttpServlet {
 			// 更新判定
 			code = pageDataManager.userRegistration(request);
 
-			if (code == Constant.SUCCESS) { // 更新できる
+			if (code == Constant.SUCCESS) { // 登録できる
 				pageDataManager.toUserRegistrationConfirm(request);
 				getServletContext().getRequestDispatcher("/userRegistrationConfirm.jsp").forward(request, response);
 			} else { // エラーがある

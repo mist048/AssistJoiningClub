@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import tool.Constant;
 
 public class UserDAO {
+	String db_name = "assistjoiningclub";
 	String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	String url = "jdbc:postgresql://localhost/test"; // local
+	String url = "jdbc:postgresql://localhost/" + db_name; // local
 	String user = "postgres";
-	String password = "akabane";
+	String password = Constant.POSTGRES_PASSWORD;
 	Connection connection;
 	ResultSet resultSet;
 
@@ -25,7 +26,6 @@ public class UserDAO {
 	PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
 	PreparedStatement prepStmt_S_byMail; // SELECT用(メールアドレスによって)
 
-	String db_name = "assitjoiningclub";
 	String strPrepSQL_I = "INSERT INTO general VALUES(?, ?, ?, ?)";
 	String strPrepSQL_U = "UPDATE general SET name=?, password=?, mail=? WHERE id=?";
 	String strPrepSQL_D = "DELETE FROM general WHERE id=?";
@@ -56,9 +56,10 @@ public class UserDAO {
 	protected boolean find(String id, String password) {
 		int count = 0;
 		try {
-			prepStmt_S.setString(1, id);
-			prepStmt_S.setString(2, password);
-			resultSet = prepStmt_S.executeQuery();
+			prepStmt_S_byId_pass.setString(1, id);
+			prepStmt_S_byId_pass.setString(2, password);
+			resultSet = prepStmt_S_byId_pass.executeQuery();
+			resultSet.next();
 			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {
@@ -77,6 +78,7 @@ public class UserDAO {
 			prepStmt_I.setString(2, name);
 			prepStmt_I.setString(3, password);
 			prepStmt_I.setString(4, mail);
+			prepStmt_I.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,6 +90,7 @@ public class UserDAO {
 			prepStmt_U.setString(1, name);
 			prepStmt_U.setString(2, password);
 			prepStmt_U.setString(3, mail);
+			prepStmt_U.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,6 +129,7 @@ public class UserDAO {
 		try {
 			prepStmt_S_byMail.setString(1, mail);
 			resultSet = prepStmt_S_byMail.executeQuery();
+			resultSet.next();
 			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {
@@ -143,6 +147,7 @@ public class UserDAO {
 		try {
 			prepStmt_S.setString(1, id);
 			resultSet = prepStmt_S.executeQuery();
+			resultSet.next();
 			user.setId(resultSet.getString("id"));
 			user.setName(resultSet.getString("name"));
 			user.setPassword(resultSet.getString("password"));

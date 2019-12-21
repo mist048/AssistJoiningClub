@@ -108,10 +108,7 @@ public class PageDataManager {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
-		// ID、パスワードをハッシュ値に変換する
-		String hashId = SHA256.hash(id);
-		String hashPassword = SHA256.hash(password);
-		int code = userManager.register(hashId, name, hashPassword, mail); // 登録判定
+		int code = userManager.register(id, name, password, mail); // 登録判定
 		return code;
 	}
 
@@ -507,11 +504,6 @@ public class PageDataManager {
 		request.setAttribute("mail", club[Constant.MAIL]);
 		request.setAttribute("recogn", club[Constant.RECOGN]);
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
-	}
-
-	// サークルアカウント管理者閲覧用画面へのデータ
-	public void toClubInfoDisplayForAdmin(HttpServletRequest request) {
-
 	}
 
 }
