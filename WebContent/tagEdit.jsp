@@ -17,14 +17,11 @@
 
 <form action="FromClubUpdate" method="get">
 
-<nav class="teal">
+	<nav class="teal">
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="tagDisplay.jsp">戻る</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>
 	</nav>

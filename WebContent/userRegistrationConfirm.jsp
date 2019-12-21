@@ -15,13 +15,12 @@
 <body bgcolor=#f9f9f9>
 
 	<nav class="teal">
+
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="clubMyPage">マイページ</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
+				<li><a href="userRegistration.jsp">戻る</a></li>
+				<!-- トップ(viewerTop.jsp)に遷移 -->
 			</ul>
 		</div>
 	</nav>

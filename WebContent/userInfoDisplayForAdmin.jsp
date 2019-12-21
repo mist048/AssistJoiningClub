@@ -17,15 +17,10 @@
 <form action="FromUserInfoDisplayForAdmin" method="get">
 
 	<nav class="teal">
-
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">ユーザ</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
-				<li><input type="hidden" name="option" value="top">
-				<a href="FromUserInfoDisplayForAdmin">トップ</a></li>
+				<li><a href="userDisplay.jsp">戻る</a></li>
 			</ul>
 		</div>
 	</nav>
