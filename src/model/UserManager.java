@@ -22,7 +22,7 @@ public class UserManager {
 	public String[] getUser(String id) {
 		User user = new User();
 		user = userDAO.getUser(id);
-		String[] userInfo = new String[Constant.NUM_OF_USER_INFO];
+		String[] userInfo = new String[Constant.NUM_OF_USER_FIELD];
 		userInfo[Constant.ID] = user.getId();
 		userInfo[Constant.NAME] = user.getName();
 		userInfo[Constant.PASSWORD] = user.getPassword();
@@ -31,7 +31,7 @@ public class UserManager {
 	}
 
 	public int register(String id, String name, String password, String mail) {
-		String[] user = new String[Constant.NUM_OF_USER_INFO];
+		String[] user = new String[Constant.NUM_OF_USER_FIELD];
 		user[Constant.ID] = id;
 		user[Constant.NAME] = name;
 		user[Constant.PASSWORD] = password;
@@ -60,7 +60,7 @@ public class UserManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] userInfo = new String[Constant.NUM_OF_USER_INFO];
+		String[] userInfo = new String[Constant.NUM_OF_USER_FIELD];
 		User user = userDAO.getUser(id);
 		if (!user.getMail().equals(mail)) { // メールアドレスを変更していれば
 			if (userDAO.findByMail(mail)) { // メールアドレスが重複している
@@ -95,7 +95,7 @@ public class UserManager {
 
 	public String[][] getAllUsers(int firstIndex) {
 		User[] allUsers = userDAO.getAllUsers(firstIndex);
-		String[][] allUserInfo = new String[allUsers.length][Constant.NUM_OF_USER_INFO];
+		String[][] allUserInfo = new String[allUsers.length][Constant.NUM_OF_USER_FIELD];
 		for (int i = 0; i < allUsers.length; i++) {
 			allUserInfo[i][Constant.ID] = allUsers[i].getId();
 			allUserInfo[i][Constant.NAME] = allUsers[i].getName();

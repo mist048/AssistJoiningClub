@@ -1,14 +1,24 @@
 package model;
 
-public class ClubInfoManager {
+import tool.Constant;
 
-	public String[] getClubInfo(String string) {
-		return new String[] { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-				"https://github.com/mist048/AssistJoiningClub",
-				"ほげほげ",
-				"20",
-				"/img/icon.jpg",
-				"/img/hoge.jpg" };
+public class ClubInfoManager {
+	private ClubInfoDAO clubInfoDAO;
+
+	public ClubInfoManager() {
+		clubInfoDAO = new ClubInfoDAO();
+	}
+
+	public String[] getClubInfo(String id) {
+		ClubInfo clubInfo = clubInfoDAO.getClubInfo(id);
+		String[] clubInfoArray = new String[Constant.NUM_OF_CLUB_INFO_FIELD];
+		clubInfoArray[Constant.ID] = clubInfo.getId();
+		clubInfoArray[Constant.LINK] = clubInfo.getLink();
+		clubInfoArray[Constant.INTRO] = clubInfo.getIntro();
+		clubInfoArray[Constant.MEMBER] = String.valueOf(clubInfo.getMember());
+		clubInfoArray[Constant.ICON] = clubInfo.getIcon();
+		clubInfoArray[Constant.HOME] = clubInfo.getHome();
+		return clubInfoArray;
 	}
 
 	public boolean update(String clubId, String link, String intro, String member, String icon, String home) {

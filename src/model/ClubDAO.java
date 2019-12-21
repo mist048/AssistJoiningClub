@@ -11,9 +11,8 @@ import java.util.Iterator;
 import tool.Constant;
 
 public class ClubDAO {
-	String db_name = "assistjoiningclub";
 	final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	final String url = "jdbc:postgresql://localhost/" + db_name; // local
+	final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
 	final String user = "postgres";
 	final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
@@ -33,7 +32,7 @@ public class ClubDAO {
 	private String strPrepSQL_I = "INSERT INTO club VALUES(?, ?, ?, ?, ?, ?)";
 	private String strPrepSQL_U = "UPDATE club SET name=?, password=?, mail=?, recogn=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM club WHERE id=?";
-	private String strPrepSQL_S = "SELECT * FROM club LIMIT 50 OFFSET ?";
+	private String strPrepSQL_S = "SELECT * FROM club LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM club WHERE id=? AND password=?";
 	private String strPrepSQL_S_id = "SELECT * FROM club WHERE id=?";
 	private String strPrepSQL_S_mail = "SELECT COUNT(*) AS cnt FROM club WHERE mail=?";
@@ -198,13 +197,14 @@ public class ClubDAO {
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			resultSet.next();
-			club.setId(resultSet.getString("id"));
-			club.setName(resultSet.getString("name"));
-			club.setPassword(resultSet.getString("password"));
-			club.setMail(resultSet.getString("mail"));
-			club.setRecogn(resultSet.getString("recogn"));
-			club.setClubInfoId(resultSet.getString("clubinfoid"));
+			while (resultSet.next()) {
+				club.setId(resultSet.getString("id"));
+				club.setName(resultSet.getString("name"));
+				club.setPassword(resultSet.getString("password"));
+				club.setMail(resultSet.getString("mail"));
+				club.setRecogn(resultSet.getString("recogn"));
+				club.setClubInfoId(resultSet.getString("clubinfoid"));
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -217,20 +217,20 @@ public class ClubDAO {
 		try {
 			prepStmt_S.setInt(1, firstIndex);
 			resultSet = prepStmt_S.executeQuery();
-			if (resultSet == null) {
+			while (resultSet.next()) {
 				Club club = new Club();
-				club.setId(resultSet.getString(Constant.ID));
-				club.setName(resultSet.getString(Constant.NAME));
-				club.setPassword(resultSet.getString(Constant.PASSWORD));
-				club.setMail(resultSet.getString(Constant.MAIL));
-				club.setRecogn(resultSet.getString(Constant.RECOGN));
-				club.setClubInfoId(resultSet.getString(Constant.CLUB_INFO_ID));
+				club.setId(resultSet.getString("id"));
+				club.setName(resultSet.getString("name"));
+				club.setPassword(resultSet.getString("password"));
+				club.setMail(resultSet.getString("mail"));
+				club.setRecogn(resultSet.getString("recogn"));
+				club.setClubInfoId(resultSet.getString("clubinfoid"));
 				clubs.add(club);
 			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (Club[]) clubs.toArray();
+		return clubs.toArray(new Club[clubs.size()]);
 	}
 }

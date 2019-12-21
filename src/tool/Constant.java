@@ -19,8 +19,9 @@ public class Constant {
 	public static final int VIEWER = 3; // 閲覧者
 
 	// 情報の要素数
-	public static final int NUM_OF_USER_INFO = 4; // 一般ユーザ情報の要素数
-	public static final int NUM_OF_CLUB_INFO = 6; // サークルアカウント情報の要素数
+	public static final int NUM_OF_USER_FIELD = 4; // アカウント情報の要素数
+	public static final int NUM_OF_CLUB_FIELD = 6; // サークルアカウント情報の要素数
+	public static final int NUM_OF_CLUB_INFO_FIELD = 6; // サークル情報の要素数
 
 	// 登録情報
 	public static final int ID = 0; // ID
@@ -31,12 +32,17 @@ public class Constant {
 	public static final int CLUB_INFO_ID = 5; // サークル情報ID
 	public static final int LINK = 1; // リンク
 	public static final int INTRO = 2; // 紹介文
-	public static final int DESCRIPTION = 2; // 説明文
 	public static final int MEMBER = 3; // 人数
 	public static final int ICON = 4; // アイコン
 	public static final int HOME = 5; // ホーム画像
 
-	public static final int MAX_OF_DISPLAYS = 10; // 一覧表示数
+	public static final int MAX_OF_DISPLAYS = 10; // 最大一覧表示数
+	public static final int NUM_OF_DISPLAY_CLUB_INFO = 4; // 表示サークル情報数
+	// 表示サークル情報
+	public static final int DISPLAY_ID = 0; // ID
+	public static final int DISPLAY_NAME = 1; // 名前
+	public static final int DISPLAY_INTRO = 2; // 紹介文
+	public static final int DISPLAY_ICON = 3; // アイコン
 
 	public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
 

@@ -23,24 +23,18 @@ public class ClubManager {
 	public String[] getClub(String id) {
 		Club club = new Club();
 		club = clubDAO.getClub(id);
-		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO];
+		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO_FIELD];
 		clubInfo[Constant.ID] = club.getId();
 		clubInfo[Constant.NAME] = club.getName();
 		clubInfo[Constant.PASSWORD] = club.getPassword();
 		clubInfo[Constant.MAIL] = club.getMail();
 		clubInfo[Constant.RECOGN] = club.getRecogn();
 		clubInfo[Constant.CLUB_INFO_ID] = club.getClubInfoId();
-		//return clubInfo; // 本番用
-		return new String[] { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-				"ホゲサークル",
-				"password",
-				"17fi999@ms.dendai.ac.jp",
-				"公認",
-				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" };
+		return clubInfo;
 	}
 
 	public int register(String id, String name, String password, String mail) {
-		String[] club = new String[Constant.NUM_OF_USER_INFO];
+		String[] club = new String[Constant.NUM_OF_USER_FIELD];
 		club[Constant.ID] = id;
 		club[Constant.NAME] = name;
 		club[Constant.PASSWORD] = password;
@@ -79,7 +73,7 @@ public class ClubManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO];
+		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO_FIELD];
 		Club club = clubDAO.getClub(id);
 		if (!club.getMail().equals(mail)) { // メールアドレスを変更していれば
 			if (clubDAO.findByMail(mail)) { // メールアドレスが重複している
@@ -115,17 +109,16 @@ public class ClubManager {
 	}
 
 	public String[][] getAllClubs(int firstIndex) {
-		return new String[][] { { "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-				"ホゲサークル",
-				"password",
-				"17fi999@ms.dendai.ac.jp",
-				"公認",
-				"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" },
-				{ "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-						"ホゲサークル",
-						"password",
-						"17fi999@ms.dendai.ac.jp",
-						"公認",
-						"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" } };
+		Club[] clubs = clubDAO.getAllClubs(firstIndex);
+		String[][] allClubs = new String[clubs.length][Constant.NUM_OF_CLUB_FIELD];
+		for (int i = 0; i < clubs.length; i++) {
+			allClubs[i][Constant.ID] = clubs[i].getId();
+			allClubs[i][Constant.NAME] = clubs[i].getName();
+			allClubs[i][Constant.PASSWORD] = clubs[i].getPassword();
+			allClubs[i][Constant.MAIL] = clubs[i].getMail();
+			allClubs[i][Constant.RECOGN] = clubs[i].getRecogn();
+			allClubs[i][Constant.CLUB_INFO_ID] = clubs[i].getClubInfoId();
+		}
+		return allClubs;
 	}
 }

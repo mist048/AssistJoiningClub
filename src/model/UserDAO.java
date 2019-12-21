@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import tool.Constant;
 
 public class UserDAO {
-	String db_name = "assistjoiningclub";
 	String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	String url = "jdbc:postgresql://localhost/" + db_name; // local
+	String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
 	String user = "postgres";
 	String password = Constant.POSTGRES_PASSWORD;
 	Connection connection;
@@ -160,7 +159,7 @@ public class UserDAO {
 	}
 
 	protected User[] getAllUsers(int firstIndex) {
-		ArrayList<User> allUsers = new ArrayList<User>();
+		ArrayList<User> users = new ArrayList<User>();
 		try {
 			prepStmt_S_all.setInt(1, firstIndex);
 			prepStmt_S_all.setInt(2, Constant.MAX_OF_DISPLAYS + 1);
@@ -171,20 +170,20 @@ public class UserDAO {
 				user.setName(resultSet.getString("name"));
 				user.setPassword(resultSet.getString("password"));
 				user.setMail(resultSet.getString("mail"));
-				allUsers.add(user);
+				users.add(user);
 			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		User[] allUserInfo = (User[]) allUsers.toArray();
-		return allUserInfo;
+		return users.toArray(new User[users.size()]);
 	}
 
 	protected int getNumOfUsers() {
 		int count = 0;
 		try {
 			resultSet = prepStmt_S_count.executeQuery();
+			resultSet.next();
 			count = resultSet.getInt("cnt");
 			resultSet.close();
 		} catch (Exception e) {

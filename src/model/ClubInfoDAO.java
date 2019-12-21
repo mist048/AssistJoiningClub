@@ -9,9 +9,9 @@ import tool.Constant;
 
 public class ClubInfoDAO {
 	final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	final String url = "jdbc:postgresql://localhost/assitjoiningclub"; // local
+	final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
 	final String user = "postgres";
-	final String password = "akabane";
+	final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
 
@@ -60,17 +60,19 @@ public class ClubInfoDAO {
 		}
 	}
 
-	protected ClubInfo getClubInfo(String id) {	//	ClubInfoクラスの作成
+	protected ClubInfo getClubInfo(String id) { //	ClubInfoクラスの作成
 		ClubInfo clubinfo = new ClubInfo();
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			clubinfo.setId(resultSet.getString(Constant.ID));
-			clubinfo.setLink(resultSet.getString(Constant.LINK));
-			clubinfo.setIntro(resultSet.getString(Constant.INTRO));
-			clubinfo.setMember(resultSet.getInt(Constant.MEMBER));
-			clubinfo.setIcon(resultSet.getString(Constant.ICON));
-			clubinfo.setHome(resultSet.getString(Constant.HOME));
+			while (resultSet.next()) {
+				clubinfo.setId(resultSet.getString("id"));
+				clubinfo.setLink(resultSet.getString("link"));
+				clubinfo.setIntro(resultSet.getString("intro"));
+				clubinfo.setMember(resultSet.getInt("member"));
+				clubinfo.setIcon(resultSet.getString("icon"));
+				clubinfo.setHome(resultSet.getString("home"));
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();

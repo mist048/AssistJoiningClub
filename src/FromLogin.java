@@ -42,8 +42,8 @@ public class FromLogin extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String option = request.getParameter("option");
-		// String user = request.getParameter("user"); // 本番用
-		String user = "club"; // テスト用
+		String user = request.getParameter("user");
+		System.out.print(user);
 
 		switch (option) {
 		case "login": // ログイン処理

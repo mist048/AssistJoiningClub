@@ -44,7 +44,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 
@@ -61,7 +61,7 @@
 		</div>
 	</div>
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -76,19 +76,24 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
 							for (int i = 0; i < clubs.length; i++) {
+								String icon = "person";
+								if (clubs[i][Constant.DISPLAY_ICON] != null) {
+									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
+								}
 						%>
-						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i>
+						<li class="collection-item avatar">
 							<form action="FromTop" method="post" name="form<%=i%>">
-								<span class="title"><%=clubs[i][Constant.NAME]%></span>
-								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
+								<i class="material-icons circle"><%=icon%> </i> <span
+									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
+								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
 								<input type="hidden" name="clubId"
-									value=<%=clubs[i][Constant.ID]%>> <a
+									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
 									<i class="waves-effect waves-teal btn-flat">詳細</i>
 								</a>
-							</form></li>
+							</form>
+						</li>
 						<%
 							}
 						%>
@@ -128,24 +133,25 @@
 
 						</div>
 
-							<p>
-								<label> <input name="submit" type="radio" /> <span>フリーワード</span>
-								</label>
-							</p>
-							<p>
-								<label> <input name="submit" type="radio" /> <span>タグ</span>
-								</label>
-							</p>
+						<p>
+							<label> <input name="submit" type="radio" /> <span>フリーワード</span>
+							</label>
+						</p>
+						<p>
+							<label> <input name="submit" type="radio" /> <span>タグ</span>
+							</label>
+						</p>
 
 						<p>
-							<br/>
+							<br />
 						</p>
 
 						<div class="center-align">
-						<form action="FromTop" method="post" name ="formSerch">
-							<input type="hidden" name="option" value="searchResultDisplay">
-							<a class="waves-effect waves-light btn" href= "javascript:formSerch.submit()">検索</a>
-						</form>
+							<form action="FromTop" method="post" name="formSerch">
+								<input type="hidden" name="option" value="searchResultDisplay">
+								<a class="waves-effect waves-light btn"
+									href="javascript:formSerch.submit()">検索</a>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -160,7 +166,7 @@
 							<a class="waves-effect waves-light btn"
 								href="clubRegistration.jsp">サークル新規登録</a>
 							<p>
-								<br/>
+								<br />
 							</p>
 							<a class="waves-effect waves-light btn"
 								href="userRegistration.jsp">ユーザ新規登録</a>
@@ -173,24 +179,24 @@
 
 	</div>
 
-		<footer class="page-footer teal">
+	<footer class="page-footer teal">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">お問い合わせ</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="">お問い合わせ</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
 			<div class="container">
-				<div class="row">
-					<div class="col l6 s12">
-						<h5 class="white-text">お問い合わせ</h5>
-						<ul>
-							<li><a class="grey-text text-lighten-3" href="">お問い合わせ</a></li>
-						</ul>
-					</div>
-				</div>
+				© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
+					href="https://mlab.im.dendai.ac.jp/~hirota/2019_WSP/">サーバプログラミング演習</a>
 			</div>
-			<div class="footer-copyright">
-				<div class="container">
-					© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
-						href="https://mlab.im.dendai.ac.jp/~hirota/2019_WSP/">サーバプログラミング演習</a>
-				</div>
-			</div>
-		</footer>
+		</div>
+	</footer>
 
 
 

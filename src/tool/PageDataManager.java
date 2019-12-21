@@ -39,12 +39,13 @@ public class PageDataManager {
 			firstIndex = "0";
 		}
 		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
-		String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
+		String[][] allClubInfo = new String[allClubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO]; // 閲覧用サークル情報
 		for (int i = 0; i < allClubs.length; i++) {
-			allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
-			allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
+			allClubInfo[i][Constant.DISPLAY_ID] = allClubs[i][Constant.ID];
+			allClubInfo[i][Constant.DISPLAY_NAME] = allClubs[i][Constant.NAME];
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-			allClubInfo[i][2] = clubInfo[Constant.INTRO];
+			allClubInfo[i][Constant.DISPLAY_INTRO] = clubInfo[Constant.INTRO];
+			allClubInfo[i][Constant.DISPLAY_ICON] = clubInfo[Constant.ICON];
 		}
 		if (allClubInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
 			request.setAttribute("next", true);
