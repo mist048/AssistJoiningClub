@@ -48,7 +48,7 @@ public class ToTop extends HttpServlet {
 		} else { // ログインしている場合
 			String user = (String) session.getAttribute("user");
 			switch (user) {
-			case "gengeral": // 一般ユーザ
+			case "general": // 一般ユーザ
 				getServletContext().getRequestDispatcher("/generalTop.jsp").forward(request, response);
 				break;
 			case "club": // サークルアカウント

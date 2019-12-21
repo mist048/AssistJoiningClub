@@ -32,7 +32,7 @@ public class UserDAO {
 	String strPrepSQL_S_id_pass = "SELECT COUNT(*) AS cnt FROM general WHERE id=? AND password=?";
 	String strPrepSQL_S_all = "SELECT * FROM general LIMIT ? OFFSET ?";
 	String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM general";
-	String strPrepSQL_S_mail = "SELECT COUNT(*) AS cnt FROM general WHERE mail=?";
+	String strPrepSQL_S_mail = "SELECT * FROM general WHERE mail=?";
 
 	protected UserDAO() {
 		try { // ドライバマネージャとコネクション
@@ -128,8 +128,9 @@ public class UserDAO {
 		try {
 			prepStmt_S_mail.setString(1, mail);
 			resultSet = prepStmt_S_mail.executeQuery();
-			resultSet.next();
-			count = resultSet.getInt("cnt");
+			while (resultSet.next()) {
+				count++;
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,6 +191,20 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	public String getMail(String id) {
+		String mail = null;
+		try {
+			prepStmt_S_id.setString(1, id);
+			resultSet = prepStmt_S_id.executeQuery();
+			resultSet.next();
+			mail = resultSet.getString("mail");
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mail;
 	}
 
 }

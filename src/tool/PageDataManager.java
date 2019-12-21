@@ -18,6 +18,7 @@ public class PageDataManager {
 	private FavoriteManager favoriteManager;
 	private AdminManager adminManager;
 	private TagManager tagManager;
+	ErrorCheck errorCheck;
 
 	private PageDataManager() {
 		userManager = new UserManager();
@@ -26,6 +27,7 @@ public class PageDataManager {
 		favoriteManager = new FavoriteManager();
 		adminManager = new AdminManager();
 		tagManager = new TagManager();
+		errorCheck = ErrorCheck.getInstance();
 	}
 
 	public static PageDataManager getInstance() {
@@ -493,6 +495,31 @@ public class PageDataManager {
 		request.setAttribute("mail", club[Constant.MAIL]);
 		request.setAttribute("recogn", club[Constant.RECOGN]);
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
+	}
+
+	// 管理者問い合わせ内容確認画面へのデータ
+	public int toContactInfoConfirm(HttpServletRequest request) {
+		String subject = request.getParameter("subject");
+		String info = request.getParameter("info");
+		int error = -1;
+		if (errorCheck.blankCheck(subject) || errorCheck.blankCheck(subject)) {
+			error = Constant.CONTAINS_BLANK;
+		}
+		if (errorCheck.exCharCheck(subject) || errorCheck.exCharCheck(info)) {
+			error = Constant.CONTAINS_EX_CHAR;
+		}
+		request.setAttribute("subject", subject);
+		request.setAttribute("info", info);
+		error = Constant.SUCCESS;
+		request.setAttribute("error", error);
+		return Constant.SUCCESS;
+	}
+
+	// 管理者問い合わせ確認通知画面へのデータ
+	public void contactAdmin(HttpServletRequest request,String user, String userId) {
+		String subject=(String)request.getAttribute("subject");
+		String info=(String)request.getAttribute("info");
+		adminManager.mailToAdmin(user,userId,subject,info);
 	}
 
 }

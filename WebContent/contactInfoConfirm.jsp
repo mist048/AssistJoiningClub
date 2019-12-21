@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +20,14 @@
 	<nav class="teal">
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="contactAdmin.jsp">戻る</a></li>
-				</ul>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="contactAdmin.jsp">戻る</a></li>
+			</ul>
 		</div>
 	</nav>
 
 
-	<p>
-	</p>
+	<p></p>
 
 
 	<div class="row">
@@ -37,25 +36,34 @@
 				<div class="card-content">
 
 					<h6>
-						問い合わせフォーム確認<br/>
+						問い合わせフォーム確認<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
 
+					<%
+						String subject = (String) request.getAttribute("subject");
+						String info = (String) request.getAttribute("info");
+					%>
+
 					<p>
-						<label>件名 <%=request.getAttribute("")%></label>
+						<label>件名 <%=subject%></label>
 					</p>
-					<textarea name="info" maxlength="2000" cols="100" rows="20" readonly>
-						<%=request.getAttribute("")%></textarea>
+					<textarea name="info" maxlength="2000" cols="100" rows="20"
+						readonly>
+						<%=info%></textarea>
 
 
 					<div class="center-align">
-						<form action="FromClubUpdate" method="get" name = formDecision>
-						<p>
-							<input type="hidden" name="option" value="decision">
-							<a class="waves-effect waves-light btn" href = "javascript:formDecision.submit()">確定</a>
-						</p>
+						<form action="FromContactInfoConfirm" method="post" name=formDecision>
+							<p>
+								<input type="hidden" name="option" value="decision"> <input
+									type="hidden" name="subject" value=<%=subject%>> <input
+									type="hidden" name="info" value=<%=info%>> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formDecision.submit()">確定</a>
+							</p>
 						</form>
 					</div>
 

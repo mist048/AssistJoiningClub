@@ -6,22 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import tool.Constant;
 import tool.PageDataManager;
 
 /**
- * Servlet implementation class FromContactAdmin
+ * Servlet implementation class FromContactInfoConfirm
  */
-@WebServlet("/FromContactAdmin")
-public class FromContactAdmin extends HttpServlet {
+@WebServlet("/FromContactInfoConfirm")
+public class FromContactInfoConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromContactAdmin() {
+	public FromContactInfoConfirm() {
 		super();
 		pageDataManager = PageDataManager.getInstance();
 	}
@@ -40,16 +40,15 @@ public class FromContactAdmin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		String userId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
 
 		switch (option) {
-		case "decision": // 管理者問い合わせ内容確認画面へ
-			int code = pageDataManager.toContactInfoConfirm(request);
-			if (code == Constant.SUCCESS) {
-				getServletContext().getRequestDispatcher("/contactInfoConfirm.jsp").forward(request, response);
-			} else {
-				getServletContext().getRequestDispatcher("/contactAdmin.jsp").forward(request, response);
-			}
+		case "decision": // 管理者問い合わせ完了通知画面へ
+			pageDataManager.contactAdmin(request, user, userId);
+			getServletContext().getRequestDispatcher("/contactAdminComplete.jsp").forward(request, response);
 			break;
 		}
 	}

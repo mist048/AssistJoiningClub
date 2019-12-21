@@ -35,7 +35,7 @@ public class ClubDAO {
 	private String strPrepSQL_S = "SELECT * FROM club LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM club WHERE id=? AND password=?";
 	private String strPrepSQL_S_id = "SELECT * FROM club WHERE id=?";
-	private String strPrepSQL_S_mail = "SELECT COUNT(*) AS cnt FROM club WHERE mail=?";
+	private String strPrepSQL_S_mail = "SELECT * FROM club WHERE mail=?";
 	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
 	private String strPrepSQL_S_keyword = "SELECT id FROM club WHERE name LIKE ?";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
@@ -232,5 +232,19 @@ public class ClubDAO {
 			e.printStackTrace();
 		}
 		return clubs.toArray(new Club[clubs.size()]);
+	}
+
+	public String getMail(String id) {
+		String mail = null;
+		try {
+			prepStmt_S_id.setString(1, id);
+			resultSet = prepStmt_S_id.executeQuery();
+			resultSet.next();
+			mail = resultSet.getString("mail");
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mail;
 	}
 }

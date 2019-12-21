@@ -43,7 +43,6 @@ public class FromLogin extends HttpServlet {
 		HttpSession session = request.getSession();
 		String option = request.getParameter("option");
 		String user = request.getParameter("user");
-		System.out.print(user);
 
 		switch (option) {
 		case "login": // ログイン処理

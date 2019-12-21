@@ -185,7 +185,7 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><a class="grey-text text-lighten-3" href="">お問い合わせ</a></li>
+						<li><a class="grey-text text-lighten-3" href="contactAdmin.jsp">お問い合わせ</a></li>
 					</ul>
 				</div>
 			</div>
