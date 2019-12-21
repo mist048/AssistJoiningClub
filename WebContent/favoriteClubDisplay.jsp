@@ -58,19 +58,24 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
 							for (int i = 0; i < clubs.length; i++) {
+								String icon = "person";
+								if (clubs[i][Constant.DISPLAY_ICON] != null) {
+									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
+								}
 						%>
-						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i>
-							<form action="FromFavoriteClubDisplay" method="post" name="form<%=i%>">
-								<span class="title"><%=clubs[i][Constant.NAME]%></span>
-								<p><%=clubs[i][Constant.DESCRIPTION]%></p>
+						<li class="collection-item avatar">
+							<form action="FromTop" method="post" name="form<%=i%>">
+								<i class="material-icons circle"><%=icon%> </i> <span
+									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
+								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
 								<input type="hidden" name="clubId"
-									value=<%=clubs[i][Constant.ID]%>> <a
+									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
 									<i class="waves-effect waves-teal btn-flat">詳細</i>
 								</a>
-							</form></li>
+							</form>
+						</li>
 						<%
 							}
 						%>
@@ -78,12 +83,26 @@
 
 					</ul>
 
-						<form action="FromFavoriteClubDisplay" method="get" name ="formEdit">
+					<div class="center-align">
+						<ul class="pagination">
+							<li class="disabled"><a href="#!"><i
+									class="material-icons">chevron_left</i></a></li>
+							<li class="active teal"><a href="#!">1</a></li>
+							<li class="waves-effect"><a href="#!">2</a></li>
+							<li class="waves-effect"><a href="#!">3</a></li>
+							<li class="waves-effect"><a href="#!">4</a></li>
+							<li class="waves-effect"><a href="#!">5</a></li>
+							<li class="waves-effect"><a href="#!"><i
+									class="material-icons">chevron_right</i></a></li>
+						</ul>
+					</div>
+
+					<form action="FromFavoriteClubDisplay" method="get" name ="formEdit">
 						<p>
 							<input type="hidden" name="option" value="edit">
 							<a class="waves-effect waves-light btn" href= "javascript:formEdit.submit()">編集</a>
 						</p>
-						</form>
+					</form>
 				</div>
 			</div>
 		</div>
