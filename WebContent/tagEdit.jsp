@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +14,7 @@
 
 </head>
 
-<body>
-
-<form action="FromClubUpdate" method="get">
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 		<div class="nav-wrapper">
@@ -26,16 +25,67 @@
 		</div>
 	</nav>
 
-<p>タグ編集画面</p>
+	<p>
+		<br/>
+	</p>
 
-<table>
-<tr>
-<td><%= session.getAttribute("allTags")%></td>
-<td><input type="submit" value="×"></td>
-</tr>
-</table>
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+					<div class="center-align">
+						<h6>タグ編集画面</h6>
+					</div>
 
-</form>
+					<ul class="collection">
 
+						<%
+							String[][] tags = (String[][]) request.getAttribute("allTags");
+							for (int i = 0; i < tags.length; i++) {
+						%>
+						<li class="collection-item avatar">
+							<form action="FromTagEdit" method="post" name="form<%=i%>">
+							<span class="title"><%=tags[i][Constant.DISPLAY_NAME]%></span>
+							<input type="hidden" name="option" value="delete"><a
+								href="javascript:form<%=i%>.submit()" class="secondary-content">
+								<i class="waves-effect waves-teal btn-flat">削除</i>
+							</a>
+							</form>
+						</li>
+						<%
+							}
+						%>
+
+					</ul>
+
+					<div class="center-align">
+						<ul class="pagination">
+							<li class="disabled"><a href="#!"><i
+									class="material-icons">chevron_left</i></a></li>
+							<li class="active teal"><a href="#!">1</a></li>
+							<li class="waves-effect"><a href="#!">2</a></li>
+							<li class="waves-effect"><a href="#!">3</a></li>
+							<li class="waves-effect"><a href="#!">4</a></li>
+							<li class="waves-effect"><a href="#!">5</a></li>
+							<li class="waves-effect"><a href="#!"><i
+									class="material-icons">chevron_right</i></a></li>
+						</ul>
+					</div>
+
+					<div class="center-align">
+
+						<form action="FromClubMyPage" method="post" name="formSave"
+							style="display: inline">
+							<input type="hidden" name="option" value="save"> <a
+								class="waves-effect waves-light btn"
+								href="javascript:formSave.submit()">保存</a>
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
