@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import tool.Constant;
+
 public class TagDAO {
 	//�q���̕ӂ͘b�������ŕύX����K�v����
-	final private static String dbname = "tag";   // Postgre SQL DB name
-	final private static String user = "postgres";     // Postgre SQL user name
-	final private static String password = "password"; // Postgre SQL password
-	final private static String sqlHostname = "pgs_7087";
-//	final private static String sqlHostname = "localhost";
+	final private static String dbname = "assistjoiningclub"; // Postgre SQL DB name
+	final private static String user = "postgres"; // Postgre SQL user name
+	final private static String password = Constant.POSTGRES_PASSWORD; // Postgre SQL password
+	//final private static String sqlHostname = "pgs_7087";
+	final private static String sqlHostname = "localhost";
 	final private static String url = "jdbc:postgresql://" + sqlHostname + "/" + dbname;
 	final private static String driverClassName = "org.postgresql.Driver";
 
@@ -27,8 +29,8 @@ public class TagDAO {
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql0);
-			String id=rs.toString();
-			int n=Integer.valueOf(id);
+			String id = rs.toString();
+			int n = Integer.valueOf(id);
 			n++;
 			id = "tag" + Integer.toString(n);
 
@@ -45,7 +47,7 @@ public class TagDAO {
 
 	}
 
-	protected void update(String id,String name) {
+	protected void update(String id, String name) {
 
 		java.sql.Connection connection;
 		String sql1 = "UPDATE tag id = ?, name = ?";
@@ -102,22 +104,19 @@ public class TagDAO {
 
 			ResultSet resultSet = pstmt.executeQuery();
 
+			ArrayList<String> list = new ArrayList<String>();
 
-	        ArrayList<String> list = new ArrayList<String>();
+			while (resultSet.next()) {
 
+				list.add(resultSet.getString("name"));
 
-
-	        while (resultSet.next()) {
-
-	            list.add(resultSet.getString("name"));
-
-	        }
+			}
 
 			resultSet.close();
 			connection.close();
-			if(list != null) {
-	        	return true;
-	        }
+			if (list != null) {
+				return true;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,43 +125,36 @@ public class TagDAO {
 		return false;
 	}
 
-	protected Tag[] getAllTags() {
+	protected Tag[] getAllTags(int firstIndex) {
 		java.sql.Connection connection;
-		String sql1 = "SELECT * FROM�@tag WHERE * ";
+		String sql1 = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
+
+		ArrayList<Tag> list = new ArrayList<Tag>();
 
 		try {
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
 			PreparedStatement pstmt = connection.prepareStatement(sql1);
 
+			pstmt.setInt(1, firstIndex);
 			ResultSet resultSet = pstmt.executeQuery();
 
-
-	        ArrayList<Tag> list = new ArrayList<Tag>();
-
-	        while (resultSet.next()) {
-	        	Tag tag0 = new Tag();
-	        	tag0.setId(resultSet.getString("id"));
-	        	tag0.setId(resultSet.getString("name"));
-	            list.add(tag0);
-	        }
-	        int size = list.size();
-	        Tag[] tags = new Tag[size];
-	        int i = 0;
-	        for(Tag tagInList:list) {
-	        	tags[i] = tagInList;
-	        	i++;
-	        }
+			while (resultSet.next()) {
+				Tag tag = new Tag();
+				tag.setId(resultSet.getString("id"));
+				tag.setName(resultSet.getString("name"));
+				list.add(tag);
+			}
 
 			resultSet.close();
 			connection.close();
-			return tags;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return list.toArray(new Tag[list.size()]);
 	}
+
 	protected String[] getAllIds() {
 
 		java.sql.Connection connection;
@@ -175,19 +167,18 @@ public class TagDAO {
 
 			ResultSet resultSet = pstmt.executeQuery();
 
+			ArrayList<String> list = new ArrayList<String>();
 
-	        ArrayList<String> list = new ArrayList<String>();
-
-	        while (resultSet.next()) {
-	            list.add(resultSet.getString("id"));
-	        }
-	        int size = list.size();
-	        String[] allId = new String[size];
-	        int i = 0;
-	        for(String idInList:list) {
-	        	allId[i] = idInList;
-	        	i++;
-	        }
+			while (resultSet.next()) {
+				list.add(resultSet.getString("id"));
+			}
+			int size = list.size();
+			String[] allId = new String[size];
+			int i = 0;
+			for (String idInList : list) {
+				allId[i] = idInList;
+				i++;
+			}
 
 			resultSet.close();
 			connection.close();
@@ -213,22 +204,21 @@ public class TagDAO {
 
 			ResultSet resultSet = pstmt.executeQuery();
 
+			ArrayList<Tag> list = new ArrayList<Tag>();
 
-	        ArrayList<Tag> list = new ArrayList<Tag>();
-
-	        while (resultSet.next()) {
-	        	Tag tag0 = new Tag();
-	        	tag0.setId(resultSet.getString("id"));
-	        	tag0.setId(resultSet.getString("name"));
-	            list.add(tag0);
-	        }
-	        int size = list.size();
-	        Tag[] tags = new Tag[size];
-	        int i = 0;
-	        for(Tag tagInList:list) {
-	        	tags[i] = tagInList;
-	        	i++;
-	        }
+			while (resultSet.next()) {
+				Tag tag0 = new Tag();
+				tag0.setId(resultSet.getString("id"));
+				tag0.setId(resultSet.getString("name"));
+				list.add(tag0);
+			}
+			int size = list.size();
+			Tag[] tags = new Tag[size];
+			int i = 0;
+			for (Tag tagInList : list) {
+				tags[i] = tagInList;
+				i++;
+			}
 			resultSet.close();
 			connection.close();
 			return tags[0];

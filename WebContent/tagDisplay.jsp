@@ -45,7 +45,7 @@
 							for (int i = 0; i < tags.length; i++) {
 						%>
 						<li class="collection-item avatar">
-							<span class="title"><%=tags[i][Constant.DISPLAY_NAME]%></span>
+							<span class="title"><%=tags[i][Constant.NAME]%></span>
 						</li>
 						<%
 							}

@@ -36,11 +36,12 @@ public class PageDataManager {
 
 	// トップ画面へのデータ
 	public void toTop(HttpServletRequest request) {
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) { // 最初のアクセスなら
-			firstIndex = "0";
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
 		}
-		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
+		String[][] allClubs = clubManager.getAllClubs(firstIndex); // サークルアカウント情報をfirstIndexから10件取得
 		String[][] allClubInfo = new String[allClubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO]; // 閲覧用サークル情報
 		for (int i = 0; i < allClubs.length; i++) {
 			allClubInfo[i][Constant.DISPLAY_ID] = allClubs[i][Constant.ID];
@@ -49,11 +50,13 @@ public class PageDataManager {
 			allClubInfo[i][Constant.DISPLAY_INTRO] = clubInfo[Constant.INTRO];
 			allClubInfo[i][Constant.DISPLAY_ICON] = clubInfo[Constant.ICON];
 		}
-		if (allClubInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+		int numOfPages = clubManager.getNumOfPages(); // ページ数
+		if (firstIndex < (numOfPages-1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("clubs", allClubInfo);
 		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// ログイン処理

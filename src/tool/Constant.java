@@ -22,6 +22,7 @@ public class Constant {
 	public static final int NUM_OF_USER_FIELD = 4; // アカウント情報の要素数
 	public static final int NUM_OF_CLUB_FIELD = 6; // サークルアカウント情報の要素数
 	public static final int NUM_OF_CLUB_INFO_FIELD = 6; // サークル情報の要素数
+	public static final int NUM_OF_TAG_FIELD = 2; // タグ情報の要素数
 
 	// 登録情報
 	public static final int ID = 0; // ID

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +14,6 @@
 </head>
 
 <body>
-
-<form action="FromTop" method="get">
 
 	<nav class="teal">
 		<div class="nav-wrapper">
@@ -33,42 +31,42 @@
 					<div class="center-align">
 						<div class="center-align">
 							<h6>
-								管理者ページ<br/>
+								管理者ページ<br />
 							</h6>
 						</div>
 
 						<div class="center-align">
-						<form action="FromAdminTop" method="post" name ="formTag">
-						<p>
-							<input type="hidden" name="option" value="tagDisplay">
-							<a class="waves-effect waves-light btn"
-								href = "javascript:formTag.submit()">タグ一覧</a>
-						</p>
-						</form>
+							<form action="FromAdminTop" method="post" name="formTag">
+								<p>
+									<input type="hidden" name="option" value="tagDisplay">
+									<a class="waves-effect waves-light btn"
+										href="javascript:formTag.submit()">タグ一覧</a>
+								</p>
+							</form>
 
-						<form action="FromAdminTop" method="post" name ="formClub">
-						<p>
-							<input type="hidden" name="option" value="clubDisplay">
-							<a class="waves-effect waves-light btn"
-								href = "javascript:formClub.submit()">サークルアカウント一覧</a>
-						</p>
-						</form>
+							<form action="FromAdminTop" method="post" name="formClub">
+								<p>
+									<input type="hidden" name="option" value="clubDisplay">
+									<a class="waves-effect waves-light btn"
+										href="javascript:formClub.submit()">サークルアカウント一覧</a>
+								</p>
+							</form>
 
-						<form action="FromAdminTop" method="post" name ="formUser">
-						<p>
-							<input type="hidden" name="option" value="userDisplay">
-							<a class="waves-effect waves-light btn"
-								href = "javascript:formUser.submit()">一般ユーザ一覧</a>
-						</p>
-						</form>
+							<form action="FromAdminTop" method="post" name="formUser">
+								<p>
+									<input type="hidden" name="option" value="userDisplay">
+									<a class="waves-effect waves-light btn"
+										href="javascript:formUser.submit()">一般ユーザ一覧</a>
+								</p>
+							</form>
 
-						<form action="FromAdminTop" method="post" name ="">
-						<p>
-							<input type="hidden" name="option" value="">
-							<a class="waves-effect waves-light btn"
-								href = "javascript:form.submit()">公式サークルアカウント作成</a>
-						</p>
-						</form>
+							<form action="FromAdminTop" method="post" name="">
+								<p>
+									<input type="hidden" name="option" value=""> <a
+										class="waves-effect waves-light btn"
+										href="javascript:form.submit()">公式サークルアカウント作成</a>
+								</p>
+							</form>
 						</div>
 
 					</div>
@@ -76,7 +74,6 @@
 			</div>
 		</div>
 	</div>
-</form>
 
 </body>
 </html>

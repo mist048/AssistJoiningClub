@@ -105,7 +105,7 @@ public class UserManager {
 		return allUserInfo;
 	}
 
-	public int numOfPages() {
+	public int getNumOfPages() {
 		int count = 0;
 		count = userDAO.getNumOfUsers();
 		int numOfPages = count / Constant.MAX_OF_DISPLAYS;

@@ -1,4 +1,4 @@
-package last;
+package model;
 
 public class HoldTag {
 	private String clubId;

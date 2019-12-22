@@ -9,30 +9,30 @@ import java.util.ArrayList;
 import tool.Constant;
 
 public class UserDAO {
-	String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	String user = "postgres";
-	String password = Constant.POSTGRES_PASSWORD;
-	Connection connection;
-	ResultSet resultSet;
+	private String driverClassName = "org.postgresql.Driver"; // ここからいつもの
+	private String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
+	private String user = "postgres";
+	private String password = Constant.POSTGRES_PASSWORD;
+	private Connection connection;
+	private ResultSet resultSet;
 
-	PreparedStatement prepStmt_I; // INSERT用
-	PreparedStatement prepStmt_U; // UPDATE用
-	PreparedStatement prepStmt_D; // DELETE用
-	PreparedStatement prepStmt_S_id; // SELECT用(IDによって)
-	PreparedStatement prepStmt_S_id_pass; // SELECT用(ID,passwprdによって)
-	PreparedStatement prepStmt_S_all; // SELECT用(全部)
-	PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
-	PreparedStatement prepStmt_S_mail; // SELECT用(メールアドレスによって)
+	private PreparedStatement prepStmt_I; // INSERT用
+	private PreparedStatement prepStmt_U; // UPDATE用
+	private PreparedStatement prepStmt_D; // DELETE用
+	private PreparedStatement prepStmt_S_id; // SELECT用(IDによって)
+	private PreparedStatement prepStmt_S_id_pass; // SELECT用(ID,passwprdによって)
+	private PreparedStatement prepStmt_S_all; // SELECT用(全部)
+	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
+	private PreparedStatement prepStmt_S_mail; // SELECT用(メールアドレスによって)
 
-	String strPrepSQL_I = "INSERT INTO general VALUES(?, ?, ?, ?)";
-	String strPrepSQL_U = "UPDATE general SET name=?, password=?, mail=? WHERE id=?";
-	String strPrepSQL_D = "DELETE FROM general WHERE id=?";
-	String strPrepSQL_S_id = "SELECT * FROM general WHERE id=?";
-	String strPrepSQL_S_id_pass = "SELECT COUNT(*) AS cnt FROM general WHERE id=? AND password=?";
-	String strPrepSQL_S_all = "SELECT * FROM general LIMIT ? OFFSET ?";
-	String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM general";
-	String strPrepSQL_S_mail = "SELECT * FROM general WHERE mail=?";
+	private String strPrepSQL_I = "INSERT INTO general VALUES(?, ?, ?, ?)";
+	private String strPrepSQL_U = "UPDATE general SET name=?, password=?, mail=? WHERE id=?";
+	private String strPrepSQL_D = "DELETE FROM general WHERE id=?";
+	private String strPrepSQL_S_id = "SELECT * FROM general WHERE id=?";
+	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) AS cnt FROM general WHERE id=? AND password=?";
+	private String strPrepSQL_S_all = "SELECT * FROM general LIMIT ? OFFSET ?";
+	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM general";
+	private String strPrepSQL_S_mail = "SELECT * FROM general WHERE mail=?";
 
 	protected UserDAO() {
 		try { // ドライバマネージャとコネクション
@@ -184,8 +184,9 @@ public class UserDAO {
 		int count = 0;
 		try {
 			resultSet = prepStmt_S_count.executeQuery();
-			resultSet.next();
-			count = resultSet.getInt("cnt");
+			while (resultSet.next()) {
+				count = resultSet.getInt("cnt");
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,11 +1,11 @@
-package last;
+package model;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class HoldTagDAO {
-	//q‚±‚Ì•Ó‚Í˜b‚µ‡‚¢‚Å•ÏX‚·‚é•K—v‚ ‚è
+	//ï¿½qï¿½ï¿½ï¿½Ì•Ó‚Í˜bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å•ÏXï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½
 	final private static String dbname = "holdtag";   // Postgre SQL DB name
 	final private static String user = "postgres";     // Postgre SQL user name
 	final private static String password = "password"; // Postgre SQL password
@@ -20,7 +20,7 @@ public class HoldTagDAO {
 	
 	protected void delete(String clubId) {
 		java.sql.Connection connection;
-		String sql1 = "DELETE FROM@tag WHERE id = ?";
+		String sql1 = "DELETE FROMï¿½@tag WHERE id = ?";
 
 		try {
 			Class.forName(driverClassName);

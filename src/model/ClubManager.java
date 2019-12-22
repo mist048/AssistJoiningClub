@@ -149,4 +149,14 @@ public class ClubManager {
 		Club club = clubDAO.getClub(id);
 		return club.getPassword();
 	}
+	
+	public int getNumOfPages() {
+		int count = 0;
+		count = clubDAO.getNumOfClubs();
+		int numOfPages = count / Constant.MAX_OF_DISPLAYS;
+		if (count % Constant.MAX_OF_DISPLAYS != 0) {
+			numOfPages += 1;
+		}
+		return numOfPages;
+	}
 }

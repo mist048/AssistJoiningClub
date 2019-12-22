@@ -11,10 +11,10 @@ import java.util.Iterator;
 import tool.Constant;
 
 public class ClubDAO {
-	final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	final String user = "postgres";
-	final String password = Constant.POSTGRES_PASSWORD;
+	private final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
+	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
+	private final String user = "postgres";
+	private final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
 
@@ -27,6 +27,7 @@ public class ClubDAO {
 	private PreparedStatement prepStmt_S_mail; // SELECT用(mail)
 	private PreparedStatement prepStmt_S_clubinfoid; // SELECT用(clubinfoid)
 	private PreparedStatement prepStmt_S_keyword; // SELECT用(keyword)
+	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
 	private PreparedStatement prepStmt_I_info; // INSERT用(clubinfoテーブル)
 	private PreparedStatement prepStmt_D_info; // DELETE用(clubinfoテーブル)
 
@@ -39,6 +40,7 @@ public class ClubDAO {
 	private String strPrepSQL_S_mail = "SELECT * FROM club WHERE mail=?";
 	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
 	private String strPrepSQL_S_keyword = "SELECT id FROM club WHERE name LIKE ?";
+	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM club";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
 	private String strPrepSQL_D_info = "DELETE FROM clubinfo WHERE id=?";
 
@@ -56,6 +58,7 @@ public class ClubDAO {
 			prepStmt_S_mail = connection.prepareStatement(strPrepSQL_S_mail);
 			prepStmt_S_clubinfoid = connection.prepareStatement(strPrepSQL_S_clubinfoid);
 			prepStmt_S_keyword = connection.prepareStatement(strPrepSQL_S_keyword);
+			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
 			prepStmt_I_info = connection.prepareStatement(strPrepSQL_I_info);
 			prepStmt_D_info = connection.prepareStatement(strPrepSQL_D_info);
 		} catch (Exception e) {
@@ -252,5 +255,19 @@ public class ClubDAO {
 			e.printStackTrace();
 		}
 		return mail;
+	}
+	
+	protected int getNumOfClubs() {
+		int count = 0;
+		try {
+			resultSet = prepStmt_S_count.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt("cnt");
+			}
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
