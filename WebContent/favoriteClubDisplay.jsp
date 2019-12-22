@@ -64,7 +64,7 @@
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromTop" method="post" name="form<%=i%>">
+							<form action="FromFavoriteClubDisplay" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>

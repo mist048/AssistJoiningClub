@@ -54,32 +54,38 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
+					<div class="center-align">
+						<h6>アカウント削除</h6>
+					</div>
 
-					<h6>
-						アカウント削除<br/>
-					</h6>
 					<p>
 						<br/>
 					</p>
 
+					<%
+						String id = (String) request.getAttribute("id");
+						String name = (String) request.getAttribute("name");
+					%>
 
-					<p>
-						<label>ID <%= request.getAttribute("id")%></label>
-					</p>
-					<p>
-						<label>ユーザ <%= request.getAttribute("name")%></label>
-					</p>
+					<table>
+						<tr>
+							<td>ユーザID</td>
+							<td><%=id%></td>
+						</tr>
+						<tr>
+							<td>ユーザ名</td>
+							<td><%=name%></td>
+						</tr>
+					</table>
 
+					<div class="center-align">
+						<p>
+							<input type="hidden" name="id" value=<%=id%>>
+							<input type="hidden" name="name" value=<%=name%>>
+							<a class="waves-effect waves-light btn" href="accountDeleteConfirm.jsp">削除</a>
+						</p>
+					</div>
 
-					<form action="FromAccountDelete" method="get" name="form0">
-						<div class="center-align">
-							<p>
-								<input type="hidden" name="user_name" value="">
-								<a class="waves-effect waves-light btn" href="javascript:form0.submit()">削除</a>
-							</p>
-
-						</div>
-				 	</form>
 				</div>
 			</div>
 		</div>

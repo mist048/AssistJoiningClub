@@ -21,9 +21,6 @@
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="">ユーザ</a></li>
-			</ul>
-			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>

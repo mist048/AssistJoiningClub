@@ -39,24 +39,34 @@
 						<h6>
 							マイサークル情報<br/>
 						</h6>
+
 						<p>
 							<br/>
+						</p>
+
+					<%
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String recogn = (String) request.getAttribute("recogn");
+						String intro = (String) request.getAttribute("intro");
+					%>
+
 						<table>
 							<tr>
 								<td>サークル名</td>
-								<td><%= request.getAttribute("name")%></td>
+								<td><%=name%></td>
 							</tr>
 							<tr>
 								<td>メールアドレス</td>
-								<td><%= request.getAttribute("mail")%></td>
+								<td><%=mail%></td>
 							</tr>
 							<tr>
 								<td>公認</td>
-								<td><%= request.getAttribute("recogn")%></td>
+								<td><%=recogn%></td>
 							</tr>
 							<tr>
 								<td>サークル説明文</td>
-								<td><%= request.getAttribute("intro")%></td>
+								<td><%=intro%></td>
 							</tr>
 						</table>
 
@@ -68,6 +78,10 @@
 
 							<form action="FromClubMyPage" method="post" name ="formSetting" style="display: inline">
 								<input type="hidden" name="option" value="setting">
+								<input type="hidden" name="name" value=<%=name%>>
+								<input type="hidden" name="mail" value=<%=mail%>>
+								<input type="hidden" name="recogn" value=<%=recogn%>>
+								<input type="hidden" name="intro" value=<%=intro%>>
 								<a class="waves-effect waves-light btn" href="javascript:formSetting.submit()">設定</a>
 							</form>
 
