@@ -45,7 +45,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -54,31 +54,30 @@
 				<div class="card-content">
 
 					<h6>
-						パスワードを確認<br/>
+						パスワードを確認<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
 
 
-					<p>
-						パスワードを確認
-						アカウント削除リクエストを完了するために登録されているパスワードを入力してください.
-					</p>
+					<p>パスワードを確認 アカウント削除リクエストを完了するために登録されているパスワードを入力してください.</p>
 
-					<p>
-						<label>パスワード<input type="password" name="pass" size="20"
-							maxlength="16"></label>
-					</p>
-
-					<div class="center-align">
-					<form action="FromAccountDeleteConfirm" method="get" name="formDelete">
+					<form action="FromAccountDeleteConfirm" method="post"
+						name="formDelete">
 						<p>
-							<input type="hidden" name="option" value="delete">
-							<a class="waves-effect waves-light btn" href="javascript:formDelete.submit()">削除</a>
+							<label>パスワード<input type="password" name="password" size="20"
+								maxlength="16"></label>
 						</p>
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="delete"> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formDelete.submit()">削除</a>
+							</p>
+						</div>
 					</form>
-					</div>
 				</div>
 			</div>
 		</div>

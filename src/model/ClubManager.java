@@ -73,14 +73,23 @@ public class ClubManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] clubInfo = new String[Constant.NUM_OF_CLUB_INFO_FIELD];
 		Club club = clubDAO.getClub(id);
+		String[] clubInfo = new String[Constant.NUM_OF_USER_FIELD];
+		clubInfo[Constant.ID] = club.getId();
+		clubInfo[Constant.NAME] = club.getName();
+		clubInfo[Constant.PASSWORD] = club.getPassword();
+		clubInfo[Constant.MAIL] = club.getMail();
 		if (!club.getMail().equals(mail)) { // メールアドレスを変更していれば
 			if (clubDAO.findByMail(mail)) { // メールアドレスが重複している
 				return Constant.DUPLICATE;
 			}
 		}
 		for (int i = 0; i < clubInfo.length; i++) {
+			if (i != Constant.PASSWORD) {
+				if (errorCheck.blankCheck(clubInfo[i])) { // 空欄を含んでいる
+					return Constant.CONTAINS_BLANK;
+				}
+			}
 			if (i != Constant.NAME) {
 				if (errorCheck.notAsciiCheck(clubInfo[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
@@ -93,11 +102,25 @@ public class ClubManager {
 		return Constant.SUCCESS;
 	}
 
-	public void updateConfirm(int admin, String hashId, String name, String hashPassword, String mail, String recogn) {
+	public void updateConfirm(int user, String id, String name, String password, String mail, String recogn) {
+		switch (user) {
+		case Constant.CLUB: // サークルアカウント
+			clubDAO.update(id, name, password, mail, "非公認");
+			break;
+
+		case Constant.ADMIN: // 管理者
+			clubDAO.update(id, name, password, mail, recogn);
+			break;
+		}
 	}
 
-	public boolean delete(String hashId, String hashPassword) {
-		return true;
+	public boolean delete(String id, String password) {
+		Club club = clubDAO.getClub(id);
+		if (clubDAO.find(id, password)) {
+			clubDAO.delete(id, club.getClubInfoId());
+			return true;
+		}
+		return false;
 	}
 
 	public String[][] searchByKeyword(String keyword) {
@@ -120,5 +143,10 @@ public class ClubManager {
 			allClubs[i][Constant.CLUB_INFO_ID] = clubs[i].getClubInfoId();
 		}
 		return allClubs;
+	}
+
+	public String getPassword(String id) {
+		Club club = clubDAO.getClub(id);
+		return club.getPassword();
 	}
 }

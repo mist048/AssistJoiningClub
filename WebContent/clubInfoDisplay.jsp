@@ -28,8 +28,8 @@
 </head>
 <body>
 
-<form action="FromClubInfoDisplay" method="get">
-	<nav class="teal">
+	<form action="FromClubInfoDisplay" method="get">
+		<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
@@ -42,41 +42,85 @@
 		</div>
 	</nav>
 
-	<p>
-		<br/>
-	</p>
+		<p>
+			<br />
+		</p>
 
-	<div class="row">
-		<div class="col s12 m8 l6 offset-m2 offset-l3">
-			<div class="card">
-				<div class="card-content">
+		<div class="row">
+			<div class="col s12 m8 l6 offset-m2 offset-l3">
+				<div class="card">
+					<div class="card-content">
 
-					<h6>
-						<%= session.getAttribute("club")%><br/>
-					</h6>
-					<p>
-						<br/>
-					</p>
+						<%
+							String name = (String) request.getAttribute("name");
+							String mail = (String) request.getAttribute("mail");
+							String recogn = (String) request.getAttribute("recogn");
+							String link = "";
+							if (request.getAttribute("link") != null) {
+								link = (String) request.getAttribute("link");
+							}
+							String intro = "";
+							if (request.getAttribute("intro") != null) {
+								intro = (String) request.getAttribute("intro");
+							}
+							String member = "";
+							if (request.getAttribute("member") != null) {
+								member = (String) request.getAttribute("member");
+							}
+							String icon = "";
+							if (request.getAttribute("icon") != null) {
+								icon = (String) request.getAttribute("icon");
+							}
+							String home = "";
+							if (request.getAttribute("home") != null) {
+								home = (String) request.getAttribute("home");
+							}
+						%>
+
+						<h6>
+							<%=name%><br />
+						</h6>
+						<p>
+							<br />
+						</p>
 
 
-					<table>
-					<tr><td>ID</td><td><%= session.getAttribute("id")%></td></tr>
-					<tr><td>サークル名</td><td><%= session.getAttribute("name")%></td></tr>
-					<tr><td>メールアドレス</td><td><%= session.getAttribute("mail")%></td></tr>
-					<tr><td>公認</td><td><%= session.getAttribute("recogn")%></td></tr>
-					<tr><td>リンク</td><td><%= session.getAttribute("link")%></td></tr>
-					<tr><td>サークル説明文</td><td><%= session.getAttribute("intro")%></td></tr>
-					<tr><td>メンバー</td><td><%= session.getAttribute("member")%></td></tr>
-					<tr><td>アイコン</td><td><%= session.getAttribute("icon")%></td></tr>
-					<tr><td>ホーム画像</td><td><%= session.getAttribute("home")%></td></tr>
-					</table>
-
+						<table>
+							<tr>
+								<td>メールアドレス</td>
+								<td><%=mail%></td>
+							</tr>
+							<tr>
+								<td>公認</td>
+								<td><%=recogn%></td>
+							</tr>
+							<tr>
+								<td>リンク</td>
+								<td><%=link%></td>
+							</tr>
+							<tr>
+								<td>サークル説明文</td>
+								<td><%=intro%></td>
+							</tr>
+							<tr>
+								<td>メンバー</td>
+								<td><%=member%></td>
+							</tr>
+							<tr>
+								<td>アイコン</td>
+								<td><%=icon%></td>
+							</tr>
+							<tr>
+								<td>ホーム画像</td>
+								<td><%=home%></td>
+							</tr>
+						</table>
 
 					</div>
 				</div>
 			</div>
 		</div>
-</form>
+	</form>
 
 </body>
 </html>

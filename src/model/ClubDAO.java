@@ -28,6 +28,7 @@ public class ClubDAO {
 	private PreparedStatement prepStmt_S_clubinfoid; // SELECT用(clubinfoid)
 	private PreparedStatement prepStmt_S_keyword; // SELECT用(keyword)
 	private PreparedStatement prepStmt_I_info; // INSERT用(clubinfoテーブル)
+	private PreparedStatement prepStmt_D_info; // DELETE用(clubinfoテーブル)
 
 	private String strPrepSQL_I = "INSERT INTO club VALUES(?, ?, ?, ?, ?, ?)";
 	private String strPrepSQL_U = "UPDATE club SET name=?, password=?, mail=?, recogn=? WHERE id=?";
@@ -39,6 +40,7 @@ public class ClubDAO {
 	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
 	private String strPrepSQL_S_keyword = "SELECT id FROM club WHERE name LIKE ?";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
+	private String strPrepSQL_D_info = "DELETE FROM clubinfo WHERE id=?";
 
 	protected ClubDAO() {
 		try { // ドライバマネージャとコネクション
@@ -55,6 +57,7 @@ public class ClubDAO {
 			prepStmt_S_clubinfoid = connection.prepareStatement(strPrepSQL_S_clubinfoid);
 			prepStmt_S_keyword = connection.prepareStatement(strPrepSQL_S_keyword);
 			prepStmt_I_info = connection.prepareStatement(strPrepSQL_I_info);
+			prepStmt_D_info = connection.prepareStatement(strPrepSQL_D_info);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,10 +109,12 @@ public class ClubDAO {
 		}
 	}
 
-	protected void delete(String id) { //	削除
+	protected void delete(String id, String clubinfoid) { //	削除
 		try {
 			prepStmt_D.setString(1, id);
 			prepStmt_D.executeUpdate();
+			prepStmt_D_info.setString(1, clubinfoid);
+			prepStmt_D_info.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,8 +144,9 @@ public class ClubDAO {
 		try {
 			prepStmt_S_mail.setString(1, mail);
 			resultSet = prepStmt_S_mail.executeQuery();
-			resultSet.next();
-			count = resultSet.getInt("cnt");
+			while (resultSet.next()) {
+				count++;
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();

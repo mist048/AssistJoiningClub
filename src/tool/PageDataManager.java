@@ -275,8 +275,13 @@ public class PageDataManager {
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
 		String recogn = request.getParameter("recogn");
-		// パスワードをハッシュ値に変換する
-		String hashPassword = SHA256.hash(password);
+		String hashPassword = null;
+		if (password.equals("")) { // パスワードが空欄だったら前のパスワードに変更
+			hashPassword = clubManager.getPassword(clubId);
+		} else {
+			// パスワードをハッシュ値に変換する
+			hashPassword = SHA256.hash(password);
+		}
 		switch (user) {
 		case "club": // サークルアカウント
 			clubManager.updateConfirm(Constant.CLUB, clubId, name, hashPassword, mail, recogn); // 更新処理
@@ -516,10 +521,10 @@ public class PageDataManager {
 	}
 
 	// 管理者問い合わせ確認通知画面へのデータ
-	public void contactAdmin(HttpServletRequest request,String user, String userId) {
-		String subject=(String)request.getAttribute("subject");
-		String info=(String)request.getAttribute("info");
-		adminManager.mailToAdmin(user,userId,subject,info);
+	public void contactAdmin(HttpServletRequest request, String user, String userId) {
+		String subject = (String) request.getAttribute("subject");
+		String info = (String) request.getAttribute("info");
+		adminManager.mailToAdmin(user, userId, subject, info);
 	}
 
 }

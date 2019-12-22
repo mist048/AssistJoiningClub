@@ -15,7 +15,10 @@ public class ClubInfoManager {
 		clubInfoArray[Constant.ID] = clubInfo.getId();
 		clubInfoArray[Constant.LINK] = clubInfo.getLink();
 		clubInfoArray[Constant.INTRO] = clubInfo.getIntro();
-		clubInfoArray[Constant.MEMBER] = String.valueOf(clubInfo.getMember());
+		clubInfoArray[Constant.MEMBER] = null;
+		if (clubInfo.getMember() > 0) {
+			clubInfoArray[Constant.MEMBER] = String.valueOf(clubInfo.getMember());
+		}
 		clubInfoArray[Constant.ICON] = clubInfo.getIcon();
 		clubInfoArray[Constant.HOME] = clubInfo.getHome();
 		return clubInfoArray;

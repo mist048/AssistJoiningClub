@@ -36,9 +36,9 @@
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="ToMyPage">マイページ</a></li>
-				</ul>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="ToMyPage">マイページ</a></li>
+			</ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -47,7 +47,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -59,7 +59,7 @@
 					</div>
 
 					<p>
-						<br/>
+						<br />
 					</p>
 
 					<%
