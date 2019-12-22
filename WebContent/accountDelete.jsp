@@ -36,9 +36,9 @@
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="ToMyPage">マイページ</a></li>
-				</ul>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="ToMyPage">マイページ</a></li>
+			</ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -47,7 +47,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -56,30 +56,23 @@
 				<div class="card-content">
 
 					<h6>
-						アカウント削除<br/>
+						アカウント削除<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
-
 
 					<p>
-						<label>ID <%= request.getAttribute("id")%></label>
-					</p>
-					<p>
-						<label>ユーザ <%= request.getAttribute("name")%></label>
+						<label>ユーザ <%=request.getAttribute("name")%></label>
 					</p>
 
+					<div class="center-align">
+						<p>
+							<a class="waves-effect waves-light btn"
+								href="accountDeleteConfirm.jsp">削除</a>
+						</p>
 
-					<form action="FromAccountDelete" method="get" name="form0">
-						<div class="center-align">
-							<p>
-								<input type="hidden" name="user_name" value="">
-								<a class="waves-effect waves-light btn" href="javascript:form0.submit()">削除</a>
-							</p>
-
-						</div>
-				 	</form>
+					</div>
 				</div>
 			</div>
 		</div>

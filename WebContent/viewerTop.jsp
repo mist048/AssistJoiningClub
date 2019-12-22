@@ -76,6 +76,10 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
 							for (int i = 0; i < clubs.length; i++) {
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
+								}
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
@@ -85,7 +89,7 @@
 							<form action="FromTop" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
-								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
+								<p><%=intro%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
@@ -185,7 +189,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><a class="grey-text text-lighten-3" href="contactAdmin.jsp">お問い合わせ</a></li>
+						<li><a class="grey-text text-lighten-3"
+							href="contactAdmin.jsp">お問い合わせ</a></li>
 					</ul>
 				</div>
 			</div>

@@ -36,7 +36,7 @@
 		<div class="nav-wrapper">
 			<ul class="right hide-on-med-and-down">
 				<li><a
-					href="http://localhost:8080/AssistJoiningClub/logout.jsp">ログアウト</a></li>
+					href="logout.jsp">ログアウト</a></li>
 			</ul>
 
 			<ul class="left hide-on-med-and-down">
@@ -84,18 +84,28 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
 							for (int i = 0; i < clubs.length; i++) {
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
+								}
+								String icon = "person";
+								if (clubs[i][Constant.DISPLAY_ICON] != null) {
+									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
+								}
 						%>
-						<li class="collection-item avatar"><form action="FromTop"
-								method="post" name="form<%=i%>">
-								<i class="material-icons circle">person</i> <span class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
-								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
+						<li class="collection-item avatar">
+							<form action="FromTop" method="post" name="form<%=i%>">
+								<i class="material-icons circle"><%=icon%> </i> <span
+									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
+								<p><%=intro%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
 									<i class="waves-effect waves-teal btn-flat">詳細</i>
 								</a>
-							</form></li>
+							</form>
+						</li>
 						<%
 							}
 						%>
