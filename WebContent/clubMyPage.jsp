@@ -84,13 +84,6 @@
 								<a class="waves-effect waves-light btn" href="javascript:formSetting.submit()">設定</a>
 							</form>
 
-							<form action="FromClubMyPage" method="post" name="formSetting"
-								style="display: inline">
-								<input type="hidden" name="option" value="setting"> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formSetting.submit()">設定</a>
-							</form>
-
 							<form action="FromClubMyPage" method="post" name="formEdit"
 								style="display: inline">
 								<input type="hidden" name="option" value="edit"> <a

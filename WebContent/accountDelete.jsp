@@ -69,10 +69,6 @@
 
 					<table>
 						<tr>
-							<td>ユーザID</td>
-							<td><%=id%></td>
-						</tr>
-						<tr>
 							<td>ユーザ名</td>
 							<td><%=name%></td>
 						</tr>
