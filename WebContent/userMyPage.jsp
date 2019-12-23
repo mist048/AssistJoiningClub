@@ -62,13 +62,13 @@
 
 						<div class="center-align">
 
-							<form action="FromClubMyPage" method="post" name ="formSetting" style="display: inline">
+							<form action="FromUserMyPage" method="post" name ="formSetting" style="display: inline">
 								<input type="hidden" name="option" value="setting">
 								<a class="waves-effect waves-light btn"
 									href="javascript:formSetting.submit()">設定</a>
 							</form>
 
-							<form action="FromClubMyPage" method="post" name ="formFavorite" style="display: inline">
+							<form action="FromUserMyPage" method="post" name ="formFavorite" style="display: inline">
 								<input type="hidden" name="option" value="favoriteClubDisplay">
 								<a class="waves-effect waves-light btn"
 									href="javascript:formFavorite.submit()">お気に入り</a>
