@@ -182,6 +182,12 @@ public class PageDataManager {
 		request.setAttribute("mail", general[Constant.MAIL]);
 	}
 
+	// お気に入り登録・削除処理
+	public void favorite(HttpServletRequest request, String generalId) {
+		String clubId=request.getParameter("clubId");
+		favoriteManager.update(generalId,clubId);
+	}
+
 	// お気に入りサークル一覧表示画面へのデータ
 	public void toFavoriteClubDisplay(HttpServletRequest request, String generalId) {
 		String[][] favoriteClubs = favoriteManager.getFavorite(generalId);
