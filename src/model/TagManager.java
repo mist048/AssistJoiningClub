@@ -5,7 +5,7 @@ import tool.Constant;
 public class TagManager {
 	private TagDAO tagDAO;
 	private HoldTagDAO holdTagDAO;
-	
+
 	public TagManager() {
 		tagDAO=new TagDAO();
 		holdTagDAO=new HoldTagDAO();
@@ -49,7 +49,13 @@ public class TagManager {
 		return tagsArray;
 	}
 
-	public String[] getAllIds() {
-		return tagDAO.getAllIds();
+	public int getNumOfPages() {
+		int count = 0;
+		count = tagDAO.getNumOfTags();
+		int numOfPages = count / Constant.MAX_OF_DISPLAYS;
+		if (count % Constant.MAX_OF_DISPLAYS != 0) {
+			numOfPages += 1;
+		}
+		return numOfPages;
 	}
 }

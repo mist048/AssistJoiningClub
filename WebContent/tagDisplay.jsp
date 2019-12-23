@@ -71,7 +71,7 @@
 
 					<div class="center-align">
 
-							<form action="FromClubMyPage" method="post" name="formTagedit"
+							<form action="FromTagDisplay" method="post" name="formTagedit"
 								style="display: inline">
 								<input type="hidden" name="option" value="tagEdit"> <a
 									class="waves-effect waves-light btn"

@@ -1,43 +1,61 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import tool.Constant;
 
 public class TagDAO {
-	//�q���̕ӂ͘b�������ŕύX����K�v����
-	final private static String dbname = "assistjoiningclub"; // Postgre SQL DB name
-	final private static String user = "postgres"; // Postgre SQL user name
-	final private static String password = Constant.POSTGRES_PASSWORD; // Postgre SQL password
-	//final private static String sqlHostname = "pgs_7087";
-	final private static String sqlHostname = "localhost";
-	final private static String url = "jdbc:postgresql://" + sqlHostname + "/" + dbname;
-	final private static String driverClassName = "org.postgresql.Driver";
+	private final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
+	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
+	private final String user = "postgres";
+	private final String password = Constant.POSTGRES_PASSWORD;
+	private Connection connection;
+	private ResultSet resultSet;
+
+	private PreparedStatement prepStmt_I; // INSERT用
+	private PreparedStatement prepStmt_U; // UPDATE用
+	private PreparedStatement prepStmt_D; // DELETE用
+	private PreparedStatement prepStmt_S; // SELECT用
+	private PreparedStatement prepStmt_S_id; // SELECT用(id)
+	private PreparedStatement prepStmt_S_name; // SELECT用(name)
+	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
+
+	private String strPrepSQL_I = "INSERT INTO tag VALUES(?, ?)";
+	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
+	private String strPrepSQL_D = "DELETE FROM tag WHERE id=?";
+	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
+	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
+	private String strPrepSQL_S_name = "SELECT COUNT(*) AS cnt FROM tag WHERE name=?";
+	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
+
+	protected TagDAO() {
+		try { // ドライバマネージャとコネクション
+			Class.forName(driverClassName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	protected void insert(String name) {
-		java.sql.Connection connection;
-		String sql0 = "COUNT(*) From tag";
-		String sql1 = "INSERT INTO tag VALUES(?,?)";
-
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql0);
-			String id = rs.toString();
-			int n = Integer.valueOf(id);
-			n++;
-			id = "tag" + Integer.toString(n);
+			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
+			prepStmt_I = connection.prepareStatement(strPrepSQL_I);
 
-			pstmt.setString(1, id);
-			pstmt.setString(2, name);
+			resultSet = prepStmt_S_count.executeQuery();
+			int count = 0;
+			while (resultSet.next()) {
+				count = resultSet.getInt("cnt");
+			}
+			String id = String.valueOf(count);
 
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_I.setString(1, id);
+			prepStmt_I.setString(2, name);
+			prepStmt_I.executeUpdate();
 
 			resultSet.close();
 			connection.close();
@@ -48,19 +66,14 @@ public class TagDAO {
 	}
 
 	protected void update(String id, String name) {
-
-		java.sql.Connection connection;
-		String sql1 = "UPDATE tag id = ?, name = ?";
-
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
+			prepStmt_U = connection.prepareStatement(strPrepSQL_U);
 
-			pstmt.setString(1, id);
-			pstmt.setString(2, name);
+			prepStmt_U.setString(2, id);
+			prepStmt_U.setString(1, name);
 
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_U.executeUpdate();
 
 			resultSet.close();
 			connection.close();
@@ -71,17 +84,13 @@ public class TagDAO {
 	}
 
 	protected void delete(String id) {
-		java.sql.Connection connection;
-		String sql1 = "DELETE FROM�@tag WHERE id = ?";
-
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
+			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
 
-			pstmt.setString(1, id);
+			prepStmt_D.setString(1, id);
 
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_D.executeUpdate();
 
 			resultSet.close();
 			connection.close();
@@ -92,52 +101,41 @@ public class TagDAO {
 	}
 
 	protected boolean findByName(String name) {
-		java.sql.Connection connection;
-		String sql1 = "SELECT id FROM�@tag WHERE name = ?";
-
+		int count = 0;
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
+			prepStmt_S_name = connection.prepareStatement(strPrepSQL_S_name);
 
-			pstmt.setString(1, name);
+			prepStmt_S_name.setString(1, name);
 
-			ResultSet resultSet = pstmt.executeQuery();
-
-			ArrayList<String> list = new ArrayList<String>();
+			resultSet = prepStmt_S_name.executeQuery();
 
 			while (resultSet.next()) {
 
-				list.add(resultSet.getString("name"));
+				count = resultSet.getInt("cnt");
 
 			}
 
 			resultSet.close();
 			connection.close();
-			if (list != null) {
-				return true;
-			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return false;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	protected Tag[] getAllTags(int firstIndex) {
-		java.sql.Connection connection;
-		String sql1 = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
-
 		ArrayList<Tag> list = new ArrayList<Tag>();
-
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
+			prepStmt_S = connection.prepareStatement(strPrepSQL_S);
 
-			pstmt.setInt(1, firstIndex);
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_S.setInt(1, firstIndex);
+			resultSet = prepStmt_S.executeQuery();
 
 			while (resultSet.next()) {
 				Tag tag = new Tag();
@@ -155,79 +153,43 @@ public class TagDAO {
 		return list.toArray(new Tag[list.size()]);
 	}
 
-	protected String[] getAllIds() {
-
-		java.sql.Connection connection;
-		String sql1 = "SELECT * FROM�@tag WHERE * ";
-
+	protected Tag getTag(String id) {
+		Tag tag = new Tag();
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
-
-			ResultSet resultSet = pstmt.executeQuery();
-
-			ArrayList<String> list = new ArrayList<String>();
+			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
+			prepStmt_S_id.setString(1, id);
 
 			while (resultSet.next()) {
-				list.add(resultSet.getString("id"));
+				tag.setId(resultSet.getString("id"));
+				tag.setName(resultSet.getString("name"));
 			}
-			int size = list.size();
-			String[] allId = new String[size];
-			int i = 0;
-			for (String idInList : list) {
-				allId[i] = idInList;
-				i++;
-			}
-
 			resultSet.close();
 			connection.close();
-			return allId;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return tag;
 
 	}
 
-	protected Tag getTag(String id) {
-
-		java.sql.Connection connection;
-		String sql1 = "SELECT * FROM�@tag WHERE id = ? ";
-
+	protected int getNumOfTags() {
+		int count = 0;
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			pstmt.setString(1, id);
-
-			ResultSet resultSet = pstmt.executeQuery();
-
-			ArrayList<Tag> list = new ArrayList<Tag>();
-
+			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
+			
+			resultSet = prepStmt_S_count.executeQuery();
 			while (resultSet.next()) {
-				Tag tag0 = new Tag();
-				tag0.setId(resultSet.getString("id"));
-				tag0.setId(resultSet.getString("name"));
-				list.add(tag0);
-			}
-			int size = list.size();
-			Tag[] tags = new Tag[size];
-			int i = 0;
-			for (Tag tagInList : list) {
-				tags[i] = tagInList;
-				i++;
+				count = resultSet.getInt("cnt");
 			}
 			resultSet.close();
 			connection.close();
-			return tags[0];
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return null;
-
+		return count;
 	}
 
 }

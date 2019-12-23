@@ -1,5 +1,8 @@
 package tool;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -51,7 +54,7 @@ public class PageDataManager {
 			allClubInfo[i][Constant.DISPLAY_ICON] = clubInfo[Constant.ICON];
 		}
 		int numOfPages = clubManager.getNumOfPages(); // ページ数
-		if (firstIndex < (numOfPages-1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("clubs", allClubInfo);
@@ -426,27 +429,50 @@ public class PageDataManager {
 
 	// タグ一覧表示画面へのデータ
 	public void toTagDisplay(HttpServletRequest request) {
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) {
-			firstIndex = "0";
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
 		}
-		String[][] allTags = tagManager.getAllTags(Integer.parseInt(firstIndex)); // タグ情報をfirstIndexから10件取得
-		if (allTags.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+		String[][] allTags = tagManager.getAllTags(firstIndex); // タグ情報をfirstIndexから10件取得
+		int numOfPages = tagManager.getNumOfPages(); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("allTags", allTags);
 		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// タグ編集画面へのデータ
 	public void toTagEdit(HttpServletRequest request) {
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) {
-			firstIndex = "0";
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
 		}
-		String[][] allTags = tagManager.getAllTags(Integer.parseInt(firstIndex)); // タグ情報をfirstIndexから10件取得
+		String[][] allTags = tagManager.getAllTags(firstIndex); // タグ情報をfirstIndexから10件取得
+		int numOfPages = tagManager.getNumOfPages(); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+			request.setAttribute("next", true);
+		}
 		request.setAttribute("allTags", allTags);
 		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
+
+		// 削除リストに入れる
+		String[] tagIds = request.getParameterValues("deleteTagIds");
+		String tagId = request.getParameter("deleteId");
+		if (tagId != null) { // 削除したいタグIDが送られてきてたら
+			ArrayList<String> tagIdsList = null;
+			if (tagIds == null) { // 削除リストがなければ
+				tagIdsList = new ArrayList<String>();
+			} else {
+				tagIdsList = new ArrayList<String>(Arrays.asList(tagIds));
+			}
+			tagIdsList.add(tagId);
+			request.setAttribute("deleteTagIds", tagIdsList.toArray(new String[tagIdsList.size()]));
+		}
 	}
 
 	// 一般ユーザ一覧表示画面へのデータ
