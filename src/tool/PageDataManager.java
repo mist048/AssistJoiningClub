@@ -341,7 +341,7 @@ public class PageDataManager {
 	}
 
 	// サークル情報更新処理
-	public boolean clubInfoUpdate(HttpServletRequest request, String clubId) {
+	public boolean clubInfoUpdate(HttpServletRequest request, String clubId, String icon, String home) {
 		String[] tagNames = request.getParameterValues("addTagNames");
 		if (tagNames != null) { // 追加リストがあれば
 			tagManager.register(tagNames);
@@ -354,8 +354,6 @@ public class PageDataManager {
 		String link = request.getParameter("link");
 		String intro = request.getParameter("intro");
 		String member = request.getParameter("member");
-		String icon = request.getParameter("icon");
-		String home = request.getParameter("home");
 		boolean result = clubInfoManager.update(clubId, link, intro, member, icon, home); // 更新処理
 		return result;
 	}
