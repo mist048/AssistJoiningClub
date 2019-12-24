@@ -45,10 +45,10 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
+					<div class="center-align">
+					<h6>お気に入りリスト</h6>
+					</div>
 
-					<h6>
-						お気に入りリスト<br/>
-					</h6>
 					<p>
 						<br/>
 					</p>
@@ -56,7 +56,7 @@
 					<ul class="collection">
 
 						<%
-							String[][] clubs = (String[][]) request.getAttribute("clubs");
+							String[][] clubs = (String[][]) request.getAttribute("favoriteClubs");
 							for (int i = 0; i < clubs.length; i++) {
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {

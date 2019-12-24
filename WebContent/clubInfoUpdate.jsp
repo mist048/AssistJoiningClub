@@ -79,19 +79,20 @@
 					</p>
 
 					<div class="center-align">
-
-						<input type="hidden" name="option" value="delete">
-						<a class="waves-effect waves-teal btn-flat" href = "FromClubInfoUpdate"> <span
-							class="red-text">アカウントを削除</span></a><br/>
+						<form action="FromClubInfoUpdate" method="get" name ="formDelete">
+						<p>
+							<input type="hidden" name="option" value="delete">
+							<a class="waves-effect waves-teal btn-flat" href = "javascript:formDelete.submit()"> <span
+								class="red-text">アカウントを削除</span></a>
+						</p>
+						</form>
 						<br/>
 
 
 						<form action="FromClubInfoUpdate" method="get" name ="formConfirm">
 						<p>
-
 							<input type="hidden" name="option" value="confirm">
 							<a class="waves-effect waves-light btn" href= "javascript:formConfirm.submit()">確定</a>
-
 						</p>
 						</form>
 					</div>

@@ -35,6 +35,14 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
+
+					<%
+						String id = (String) request.getAttribute("id");
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String password = (String) request.getAttribute("password");
+					%>
+
 					<div class="center-align">
 						<h6>
 							アカウント情報<br/>
@@ -44,15 +52,15 @@
 						<table>
 							<tr>
 								<td>ID</td>
-								<td><%= request.getAttribute("id")%></td>
+								<td><%=id%></td>
 							</tr>
 							<tr>
 								<td>ユーザ</td>
-								<td><%= request.getAttribute("name")%></td>
+								<td><%=name%></td>
 							</tr>
 							<tr>
 								<td>メールアドレス</td>
-								<td><%= request.getAttribute("mail")%></td>
+								<td><%=mail%></td>
 							</tr>
 						</table>
 
@@ -63,6 +71,9 @@
 						<div class="center-align">
 
 							<form action="FromUserMyPage" method="post" name ="formSetting" style="display: inline">
+								<input type="hidden" name="name" value=<%=name%>>
+								<input type="hidden" name="mail" value=<%=mail%>>
+								<input type="hidden" name="password" value=<%=password%>>
 								<input type="hidden" name="option" value="setting">
 								<a class="waves-effect waves-light btn"
 									href="javascript:formSetting.submit()">設定</a>

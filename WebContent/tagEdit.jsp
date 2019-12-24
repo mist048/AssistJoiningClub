@@ -45,7 +45,7 @@
 						%>
 						<li class="collection-item avatar">
 							<form action="FromTagEdit" method="post" name="form<%=i%>">
-							<span class="title"><%=tags[i][Constant.DISPLAY_NAME]%></span>
+							<span class="title"><%=tags[i][Constant.NAME]%></span>
 							<input type="hidden" name="option" value="delete"><a
 								href="javascript:form<%=i%>.submit()" class="secondary-content">
 								<i class="waves-effect waves-teal btn-flat">削除</i>

@@ -44,6 +44,8 @@
 								</p>
 							</form>
 
+							<br />
+
 							<form action="FromAdminTop" method="post" name="formClub">
 								<p>
 									<input type="hidden" name="option" value="clubDisplay">
@@ -51,6 +53,8 @@
 										href="javascript:formClub.submit()">サークルアカウント一覧</a>
 								</p>
 							</form>
+
+							<br />
 
 							<form action="FromAdminTop" method="post" name="formUser">
 								<p>
@@ -60,6 +64,8 @@
 								</p>
 							</form>
 
+							<br />
+
 							<form action="FromAdminTop" method="post" name="">
 								<p>
 									<input type="hidden" name="option" value=""> <a
@@ -67,6 +73,9 @@
 										href="javascript:form.submit()">公式サークルアカウント作成</a>
 								</p>
 							</form>
+
+							<br />
+
 						</div>
 
 					</div>
