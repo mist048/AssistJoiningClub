@@ -130,11 +130,11 @@ public class ClubManager {
 	}
 
 	public String[][] searchByKeyword(String keyword) {
-		return new String[][] { { "id1", "name1" }, { "id2", "name2" } };
+		return new String[][] { { "id1", "name1", null, null }, { "id2", "name2", null, null } };
 	}
 
 	public String[][] searchByTag(String tag) {
-		return new String[][] { { "id1", "name1" }, { "id2", "name2" } };
+		return new String[][] { { "id1", "name1", null, null }, { "id2", "name2", null, null } };
 	}
 
 	public String[][] getAllClubs(int firstIndex) {

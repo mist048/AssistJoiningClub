@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import tool.PageDataManager;
 
@@ -40,9 +39,10 @@ public class FromTop extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String hashId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
+		
+		String keyword = request.getParameter("keyword");
+		System.out.print(keyword);
 
 		switch (option) {
 		case "searchResultDisplay": // 検索結果表示画面へ

@@ -453,11 +453,11 @@ public class PageDataManager {
 		String[][] result;
 		if (type.equals("keyword")) { // キーワード検索
 			String keyword = request.getParameter("keyword");
-			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名を取得
+			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、アイコンを取得
 
 		} else { // タグ検索
-			String tag = request.getParameter("tag");
-			result = clubManager.searchByTag(tag); // 検索されたサークルID、サークル名を取得
+			String tag = request.getParameter("keyword");
+			result = clubManager.searchByTag(tag); // 検索されたサークルID、サークル名、アイコンを取得
 
 		}
 		request.setAttribute("result", result);
@@ -521,16 +521,19 @@ public class PageDataManager {
 
 	// 一般ユーザ一覧表示画面へのデータ
 	public void toUserDisplay(HttpServletRequest request) {
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) { // 最初のアクセスなら
-			firstIndex = "0";
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
 		}
-		String[][] allUserInfo = userManager.getAllUsers(Integer.parseInt(firstIndex)); // 一般ユーザ情報をfirstIndexから10件取得
-		if (allUserInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+		String[][] allUserInfo = userManager.getAllUsers(firstIndex); // 一般ユーザ情報をfirstIndexから10件取得
+		int numOfPages = userManager.getNumOfPages(); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("users", allUserInfo);
 		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// 一般ユーザ管理者閲覧用画面へのデータ
@@ -544,23 +547,27 @@ public class PageDataManager {
 
 	// サークルアカウント一覧表示画面へのデータ
 	public void toClubDisplay(HttpServletRequest request) {
-		String firstIndex = request.getParameter("firstIndex");
-		if (firstIndex == null) { // 最初のアクセスなら
-			firstIndex = "0";
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
 		}
-		String[][] allClubs = clubManager.getAllClubs(Integer.parseInt(firstIndex)); // サークルアカウント情報をfirstIndexから10件取得
-		String[][] allClubInfo = new String[allClubs.length][3]; // 閲覧用サークル情報
+		String[][] allClubs = clubManager.getAllClubs(firstIndex); // サークルアカウント情報をfirstIndexから10件取得
+		String[][] allClubInfo = new String[allClubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO]; // 閲覧用サークル情報
 		for (int i = 0; i < allClubs.length; i++) {
-			allClubInfo[i][Constant.ID] = allClubs[i][Constant.ID];
-			allClubInfo[i][Constant.NAME] = allClubs[i][Constant.NAME];
+			allClubInfo[i][Constant.DISPLAY_ID] = allClubs[i][Constant.ID];
+			allClubInfo[i][Constant.DISPLAY_NAME] = allClubs[i][Constant.NAME];
 			String[] clubInfo = clubInfoManager.getClubInfo(allClubs[i][Constant.CLUB_INFO_ID]);
-			allClubInfo[i][2] = clubInfo[Constant.INTRO];
+			allClubInfo[i][Constant.DISPLAY_INTRO] = clubInfo[Constant.INTRO];
+			allClubInfo[i][Constant.DISPLAY_ICON] = clubInfo[Constant.ICON];
 		}
-		if (allClubInfo.length > Constant.MAX_OF_DISPLAYS) { // 表示数より多ければ次のページがあることを返す
+		int numOfPages = clubManager.getNumOfPages(); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
 			request.setAttribute("next", true);
 		}
 		request.setAttribute("clubs", allClubInfo);
 		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// サークルアカウント管理者閲覧用画面へのデータ
@@ -582,13 +589,13 @@ public class PageDataManager {
 		int error = -1;
 		if (errorCheck.blankCheck(subject) || errorCheck.blankCheck(subject)) {
 			error = Constant.CONTAINS_BLANK;
-		}
-		if (errorCheck.exCharCheck(subject) || errorCheck.exCharCheck(info)) {
+		} else if (errorCheck.exCharCheck(subject) || errorCheck.exCharCheck(info)) {
 			error = Constant.CONTAINS_EX_CHAR;
+		} else {
+			error = Constant.SUCCESS;
 		}
 		request.setAttribute("subject", subject);
 		request.setAttribute("info", info);
-		error = Constant.SUCCESS;
 		request.setAttribute("error", error);
 		return Constant.SUCCESS;
 	}

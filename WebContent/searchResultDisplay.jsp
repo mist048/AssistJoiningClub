@@ -10,6 +10,10 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	
+	<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <!-- materialize CDN -->
 
 </head>
@@ -50,16 +54,20 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("result");
 							for (int i = 0; i < clubs.length; i++) {
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
+								}
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromSearchResultDisplay" method="post" name="form<%=i%>">
+							<form action="FromTop" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
-								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
+								<p><%=intro%></p>
 								<input type="hidden" name="option" value="clubInfoDisplay">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a

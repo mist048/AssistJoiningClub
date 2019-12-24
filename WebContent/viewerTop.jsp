@@ -168,32 +168,34 @@
 					<div class="card-content">
 						<h6 class="teal-text">検索</h6>
 						<hr class="teal">
-						<div class="input-field col s12">
-							<i class="material-icons prefix">search</i> <input type="text"
-								id="autocomplete-input" class="autocomplete">
+						<form action="FromTop" method="post" name="formSearch">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">search</i> <input type="text"
+									name="keyword" id="autocomplete-input" class="autocomplete">
 
-						</div>
+							</div>
 
-						<p>
-							<label> <input name="submit" type="radio" /> <span>フリーワード</span>
-							</label>
-						</p>
-						<p>
-							<label> <input name="submit" type="radio" /> <span>タグ</span>
-							</label>
-						</p>
+							<p>
+								<label> <input type="radio" name="type" value="keyword" />
+									<span>フリーワード</span>
+								</label>
+							</p>
+							<p>
+								<label> <input type="radio" name="type" value="tag" />
+									<span>タグ</span>
+								</label>
+							</p>
 
-						<p>
-							<br />
-						</p>
+							<p>
+								<br />
+							</p>
 
-						<div class="center-align">
-							<form action="FromTop" method="post" name="formSerch">
+							<div class="center-align">
 								<input type="hidden" name="option" value="searchResultDisplay">
 								<a class="waves-effect waves-light btn"
-									href="javascript:formSerch.submit()">検索</a>
-							</form>
-						</div>
+									href="javascript:formSearch.submit()">検索</a>
+							</div>
+						</form>
 					</div>
 				</div>
 
