@@ -15,7 +15,7 @@ import tool.PageDataManager;
 @WebServlet("/FromTagDisplay")
 public class FromTagDisplay extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	PageDataManager pageDataManager;
+	private PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

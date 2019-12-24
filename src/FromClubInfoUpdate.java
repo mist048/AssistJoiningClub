@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+import tool.FileHandle;
 import tool.PageDataManager;
 
 /**
@@ -16,7 +18,8 @@ import tool.PageDataManager;
 @WebServlet("/FromClubInfoUpdate")
 public class FromClubInfoUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	PageDataManager pageDataManager;
+	private PageDataManager pageDataManager;
+	private FileHandle fileHandle;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -24,6 +27,7 @@ public class FromClubInfoUpdate extends HttpServlet {
 	public FromClubInfoUpdate() {
 		super();
 		pageDataManager = PageDataManager.getInstance();
+		fileHandle = FileHandle.getInstance();
 	}
 
 	/**
@@ -51,7 +55,16 @@ public class FromClubInfoUpdate extends HttpServlet {
 			break;
 
 		case "confirm": // サークル情報更新処理
-			boolean result = pageDataManager.clubInfoUpdate(request, hashId);
+			// 画像アップロード処理
+			Part part;
+			part = request.getPart("icon");
+			String icon = fileHandle.getFileName(part);
+			part.write(getServletContext().getRealPath("./images") + "/" + icon);
+			part = request.getPart("home");
+			String home = fileHandle.getFileName(part);
+			part.write(getServletContext().getRealPath("./images") + "/" + home);
+
+			boolean result = pageDataManager.clubInfoUpdate(request, hashId, icon, home);
 			if (result) { // 更新できる
 				pageDataManager.toClubMyPage(request, hashId);
 				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
