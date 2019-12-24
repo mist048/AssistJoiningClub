@@ -41,10 +41,10 @@ public class TagManager {
 		return false;
 	}
 
-	public void delete(String[] id) {
-		for (String n : id) {
-			tagDAO.delete(n);
-			holdTagDAO.deleteByTagId(n);
+	public void delete(String[] ids) {
+		for (String id : ids) {
+			tagDAO.delete(id);
+			holdTagDAO.deleteByTagId(id);
 		}
 
 	}

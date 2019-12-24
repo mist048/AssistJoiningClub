@@ -325,15 +325,16 @@ public class PageDataManager {
 		String[] tagNames = request.getParameterValues("addTagNames");
 		String tagName = request.getParameter("addTagName");
 		if (tagName != null) { // 追加したいタグ名が送られてきてたら
-			if (!errorCheck.blankCheck(tagName) && !errorCheck.exCharCheck(tagName)
-					&& tagNames.length < Constant.MAX_OF_HOLD_TAG) { // 空欄か特殊文字が含まれていない、かつ最大保有タグ数を超えていない場合
+			if (!errorCheck.blankCheck(tagName) && !errorCheck.exCharCheck(tagName)) { // 空欄か特殊文字が含まれていなければ
 				ArrayList<String> tagNamesList = null;
-				if (tagNames == null) { // 追加リストがない場合
+				if (tagNames == null) { // 追加リストがなければ
 					tagNamesList = new ArrayList<String>();
 				} else {
 					tagNamesList = new ArrayList<String>(Arrays.asList(tagNames));
 				}
-				tagNamesList.add(tagName);
+				if (tagNamesList.size() < Constant.MAX_OF_HOLD_TAG) { // 最大保有タグ数を超えていなければ
+					tagNamesList.add(tagName);
+				}
 				request.setAttribute("addTagNames", tagNamesList.toArray(new String[tagNamesList.size()]));
 			}
 		}
@@ -507,6 +508,14 @@ public class PageDataManager {
 			}
 			tagIdsList.add(tagId);
 			request.setAttribute("deleteTagIds", tagIdsList.toArray(new String[tagIdsList.size()]));
+		}
+	}
+
+	// タグ削除処理
+	public void tagsDelete(HttpServletRequest request) {
+		String[] tagIds = request.getParameterValues("deleteTagIds");
+		if (tagIds != null) {
+			tagManager.delete(tagIds);
 		}
 	}
 

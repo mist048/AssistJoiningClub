@@ -43,13 +43,12 @@ public class FromTagEdit extends HttpServlet {
 
 		switch (option) {
 		case "delete": // 削除処理
-			// これから作成
 			pageDataManager.toTagEdit(request);
 			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);
 			break;
 
 		case "save": // タグ一覧表示画面へ
-			// これから作成
+			pageDataManager.tagsDelete(request);
 			pageDataManager.toTagDisplay(request);
 			getServletContext().getRequestDispatcher("/tagDisplay.jsp").forward(request, response);
 			break;

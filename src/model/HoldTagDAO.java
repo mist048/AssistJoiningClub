@@ -18,6 +18,7 @@ public class HoldTagDAO {
 	private PreparedStatement prepStmt_I; // INSERT用
 	private PreparedStatement prepStmt_U; // UPDATE用
 	private PreparedStatement prepStmt_D; // DELETE用
+	private PreparedStatement prepStmt_D_tagid; // DELETE用(tagid)
 	private PreparedStatement prepStmt_S; // SELECT用
 	private PreparedStatement prepStmt_S_id; // SELECT用(id)
 	private PreparedStatement prepStmt_S_name; // SELECT用(name)
@@ -26,6 +27,7 @@ public class HoldTagDAO {
 	private String strPrepSQL_I = "INSERT INTO holdtag VALUES(?, ?)";
 	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM holdtag WHERE clubid=?";
+	private String strPrepSQL_D_tagid = "DELETE FROM holdtag WHERE tagid=?";
 	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
 	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
@@ -81,8 +83,20 @@ public class HoldTagDAO {
 		return null;
 	}
 
-	protected void deleteByTagId(String id) {
+	protected void deleteByTagId(String tagId) {
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt_D_tagid = connection.prepareStatement(strPrepSQL_D_tagid);
 
+			prepStmt_D_tagid.setString(1, tagId);
+
+			prepStmt_D_tagid.executeUpdate();
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

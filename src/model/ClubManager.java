@@ -6,10 +6,14 @@ import tool.SHA256;
 
 public class ClubManager {
 	private ClubDAO clubDAO;
+	//private FavoriteDAO favoriteDAO;
+	private HoldTagDAO holdTagDAO;
 	private ErrorCheck errorCheck;
 
 	public ClubManager() {
 		clubDAO = new ClubDAO();
+		//favoriteDAO = new FavoriteDAO();
+		holdTagDAO = new HoldTagDAO();
 		errorCheck = ErrorCheck.getInstance();
 	}
 
@@ -118,6 +122,8 @@ public class ClubManager {
 		Club club = clubDAO.getClub(id);
 		if (clubDAO.find(id, password)) {
 			clubDAO.delete(id, club.getClubInfoId());
+			//favoriteDAO.deleteByUserId(id);
+			holdTagDAO.delete(id);
 			return true;
 		}
 		return false;
@@ -149,7 +155,7 @@ public class ClubManager {
 		Club club = clubDAO.getClub(id);
 		return club.getPassword();
 	}
-	
+
 	public int getNumOfPages() {
 		int count = 0;
 		count = clubDAO.getNumOfClubs();

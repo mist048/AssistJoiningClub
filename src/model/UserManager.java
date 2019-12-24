@@ -5,10 +5,12 @@ import tool.ErrorCheck;
 
 public class UserManager {
 	private UserDAO userDAO;
+	//private FavoriteDAO favoriteDAO;
 	private ErrorCheck errorCheck;
 
 	public UserManager() {
 		userDAO = new UserDAO();
+		//favoriteDAO = new FavoriteDAO();
 		errorCheck = ErrorCheck.getInstance();
 	}
 
@@ -87,6 +89,7 @@ public class UserManager {
 	public boolean delete(String id, String password) {
 		if (userDAO.find(id, password)) { // ユーザ情報があれば削除する
 			userDAO.delete(id, password);
+			//favoriteDAO.deleteByUserId(id);
 			return true;
 		} else {
 			return false;
