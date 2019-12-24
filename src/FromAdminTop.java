@@ -15,7 +15,7 @@ import tool.PageDataManager;
 @WebServlet("/FromAdminTop")
 public class FromAdminTop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	PageDataManager pageDataManager;
+	private PageDataManager pageDataManager;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,7 +46,7 @@ public class FromAdminTop extends HttpServlet {
 			pageDataManager.toTagDisplay(request);
 			getServletContext().getRequestDispatcher("/tagDisplay.jsp").forward(request, response);
 			break;
-			
+
 		case "userDisplay": // 一般ユーザ一覧画面
 			pageDataManager.toUserDisplay(request);
 			getServletContext().getRequestDispatcher("/userDisplay.jsp").forward(request, response);
