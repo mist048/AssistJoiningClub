@@ -58,8 +58,9 @@ public class UserDAO {
 			prepStmt_S_id_pass.setString(1, id);
 			prepStmt_S_id_pass.setString(2, password);
 			resultSet = prepStmt_S_id_pass.executeQuery();
-			resultSet.next();
-			count = resultSet.getInt("cnt");
+			while (resultSet.next()) {
+				count = resultSet.getInt("cnt");
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,11 +148,12 @@ public class UserDAO {
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			resultSet.next();
-			user.setId(resultSet.getString("id"));
-			user.setName(resultSet.getString("name"));
-			user.setPassword(resultSet.getString("password"));
-			user.setMail(resultSet.getString("mail"));
+			while (resultSet.next()) {
+				user.setId(resultSet.getString("id"));
+				user.setName(resultSet.getString("name"));
+				user.setPassword(resultSet.getString("password"));
+				user.setMail(resultSet.getString("mail"));
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,8 +201,9 @@ public class UserDAO {
 		try {
 			prepStmt_S_id.setString(1, id);
 			resultSet = prepStmt_S_id.executeQuery();
-			resultSet.next();
-			mail = resultSet.getString("mail");
+			while (resultSet.next()) {
+				mail = resultSet.getString("mail");
+			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
