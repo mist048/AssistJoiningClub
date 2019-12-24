@@ -35,10 +35,16 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
+
+					<%
+						String id = (String) request.getAttribute("id");
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String password = (String) request.getAttribute("password");
+					%>
+
 						<div class="center-align">
-							<h6>
-								ユーザ情報<br/>
-							</h6>
+							<h6>ユーザ情報</h6>
 						</div>
 
 						<p>
@@ -46,24 +52,38 @@
 						</p>
 
 						<table>
-						<tr><td>ユーザ名</td><td><%= request.getAttribute("name")%></td></tr>
-						<tr><td>メールアドレス</td><td><%= request.getAttribute("mail")%></td></tr>
-						<tr><td>ID</td><td><%= request.getAttribute("id")%></td></tr>
+							<tr>
+								<td>ID</td>
+								<td><%=id%></td>
+							</tr>
+							<tr>
+								<td>メール</td>
+								<td><%=name%></td>
+							</tr>
+							<tr>
+								<td>メールアドレス</td>
+								<td><%=mail%></td>
+							</tr>
+							<tr>
+								<td>パスワード</td>
+								<td><%=password%></td>
+							</tr>
 						</table>
+
 					</div>
 
 					<br/>
 
 					<div class="center-align">
-					<form action="FromUserInfoDisplayForAdmin" method="post" name ="formSetting">
-						<p>
-							<input type="hidden" name="generalId" value="">
-							<input type="hidden" name="option" value="setting">
-							<a class="waves-effect waves-light btn" href = "javascript:formSetting.submit()">設定</a>
-						</p>
-					</form>
+						<form action="FromUserInfoDisplayForAdmin" method="post" name ="formSetting">
+							<p>
+								<input type="hidden" name="generalId" value=<%=id%>>
+								<input type="hidden" name="option" value="setting">
+								<a class="waves-effect waves-light btn"
+									href = "javascript:formSetting.submit()">設定</a>
+							</p>
+						</form>
 					</div>
-
 				</div>
 			</div>
 		</div>
