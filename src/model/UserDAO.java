@@ -30,7 +30,7 @@ public class UserDAO {
 	private String strPrepSQL_D = "DELETE FROM general WHERE id=?";
 	private String strPrepSQL_S_id = "SELECT * FROM general WHERE id=?";
 	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) AS cnt FROM general WHERE id=? AND password=?";
-	private String strPrepSQL_S_all = "SELECT * FROM general LIMIT ? OFFSET ?";
+	private String strPrepSQL_S_all = "SELECT * FROM general LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM general";
 	private String strPrepSQL_S_mail = "SELECT * FROM general WHERE mail=?";
 
@@ -165,8 +165,7 @@ public class UserDAO {
 		ArrayList<User> users = new ArrayList<User>();
 		try {
 			prepStmt_S_all.setInt(1, firstIndex);
-			prepStmt_S_all.setInt(2, Constant.MAX_OF_DISPLAYS + 1);
-			resultSet = prepStmt_S_id.executeQuery();
+			resultSet = prepStmt_S_all.executeQuery();
 			while (resultSet.next()) { // 次の行があれば
 				User user = new User();
 				user.setId(resultSet.getString("id"));
