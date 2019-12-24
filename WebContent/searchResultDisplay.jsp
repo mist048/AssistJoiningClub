@@ -10,7 +10,7 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	
+
 	<!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -64,7 +64,7 @@
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromTop" method="post" name="form<%=i%>">
+							<form action="FromSearchResultDisplay" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=intro%></p>
