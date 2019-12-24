@@ -10,6 +10,7 @@ import model.AdminManager;
 import model.ClubInfoManager;
 import model.ClubManager;
 import model.FavoriteManager;
+import model.HoldTagManager;
 import model.TagManager;
 import model.UserManager;
 
@@ -21,7 +22,8 @@ public class PageDataManager {
 	private FavoriteManager favoriteManager;
 	private AdminManager adminManager;
 	private TagManager tagManager;
-	ErrorCheck errorCheck;
+	private HoldTagManager holdTagManager;
+	private ErrorCheck errorCheck;
 
 	private PageDataManager() {
 		userManager = new UserManager();
@@ -30,6 +32,7 @@ public class PageDataManager {
 		favoriteManager = new FavoriteManager();
 		adminManager = new AdminManager();
 		tagManager = new TagManager();
+		holdTagManager = new HoldTagManager();
 		errorCheck = ErrorCheck.getInstance();
 	}
 
@@ -184,8 +187,8 @@ public class PageDataManager {
 
 	// お気に入り登録・削除処理
 	public void favorite(HttpServletRequest request, String generalId) {
-		String clubId=request.getParameter("clubId");
-		favoriteManager.update(generalId,clubId);
+		String clubId = request.getParameter("clubId");
+		favoriteManager.update(generalId, clubId);
 	}
 
 	// お気に入りサークル一覧表示画面へのデータ
@@ -317,10 +320,36 @@ public class PageDataManager {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
+
+		// 追加リストに入れる
+		String[] tagNames = request.getParameterValues("addTagNames");
+		String tagName = request.getParameter("addTagName");
+		if (tagName != null) { // 追加したいタグ名が送られてきてたら
+			if (!errorCheck.blankCheck(tagName) && !errorCheck.exCharCheck(tagName)
+					&& tagNames.length < Constant.MAX_OF_HOLD_TAG) { // 空欄か特殊文字が含まれていない、かつ最大保有タグ数を超えていない場合
+				ArrayList<String> tagNamesList = null;
+				if (tagNames == null) { // 追加リストがない場合
+					tagNamesList = new ArrayList<String>();
+				} else {
+					tagNamesList = new ArrayList<String>(Arrays.asList(tagNames));
+				}
+				tagNamesList.add(tagName);
+				request.setAttribute("addTagNames", tagNamesList.toArray(new String[tagNamesList.size()]));
+			}
+		}
 	}
 
 	// サークル情報更新処理
 	public boolean clubInfoUpdate(HttpServletRequest request, String clubId) {
+		String[] tagNames = request.getParameterValues("addTagNames");
+		if (tagNames != null) { // 追加リストがあれば
+			tagManager.register(tagNames);
+			String[] tagIds = tagManager.getByNames(tagNames);
+			for (String tagId : tagIds) {
+				holdTagManager.update(clubId, tagId);
+			}
+		}
+
 		String link = request.getParameter("link");
 		String intro = request.getParameter("intro");
 		String member = request.getParameter("member");
@@ -468,7 +497,7 @@ public class PageDataManager {
 
 		// 削除リストに入れる
 		String[] tagIds = request.getParameterValues("deleteTagIds");
-		String tagId = request.getParameter("deleteId");
+		String tagId = request.getParameter("deleteTagId");
 		if (tagId != null) { // 削除したいタグIDが送られてきてたら
 			ArrayList<String> tagIdsList = null;
 			if (tagIds == null) { // 削除リストがなければ

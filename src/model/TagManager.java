@@ -1,24 +1,34 @@
 package model;
 
+import java.util.ArrayList;
+
 import tool.Constant;
+import tool.SHA256;
 
 public class TagManager {
 	private TagDAO tagDAO;
 	private HoldTagDAO holdTagDAO;
 
 	public TagManager() {
-		tagDAO=new TagDAO();
-		holdTagDAO=new HoldTagDAO();
+		tagDAO = new TagDAO();
+		holdTagDAO = new HoldTagDAO();
 	}
 
-	public boolean register(String[] name) {
-		for (String str : name) {
-			if (tagDAO.findByName(str)) {
-				return false;
+	public void register(String[] names) {
+		for (String name : names) {
+			if (!tagDAO.findByName(name)) {
+				int number = 0;
+				String id = null;
+				while (true) {
+					id = SHA256.hash(String.valueOf(number));
+					if (!tagDAO.findById(id)) { // タグIDが重複していなければ
+						break;
+					}
+					number++;
+				}
+				tagDAO.insert(id, name);
 			}
-			tagDAO.insert(str);
 		}
-		return true;
 	}
 
 	public boolean update(String[] id, String[] name) {
@@ -49,6 +59,15 @@ public class TagManager {
 		return tagsArray;
 	}
 
+	public String[] getByNames(String[] tagNames) {
+		ArrayList<String> tagIds = new ArrayList<String>();
+		for (String tagName : tagNames) {
+			Tag tag = (tagDAO.getByName(tagName));
+			tagIds.add(tag.getId());
+		}
+		return tagIds.toArray(new String[tagIds.size()]);
+	}
+
 	public int getNumOfPages() {
 		int count = 0;
 		count = tagDAO.getNumOfTags();
@@ -58,4 +77,5 @@ public class TagManager {
 		}
 		return numOfPages;
 	}
+
 }

@@ -29,7 +29,7 @@ public class TagDAO {
 	private String strPrepSQL_D = "DELETE FROM tag WHERE id=?";
 	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
-	private String strPrepSQL_S_name = "SELECT COUNT(*) AS cnt FROM tag WHERE name=?";
+	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
 
 	protected TagDAO() {
@@ -40,18 +40,10 @@ public class TagDAO {
 		}
 	}
 
-	protected void insert(String name) {
+	protected void insert(String id,String name) {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
-			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
 			prepStmt_I = connection.prepareStatement(strPrepSQL_I);
-
-			resultSet = prepStmt_S_count.executeQuery();
-			int count = 0;
-			while (resultSet.next()) {
-				count = resultSet.getInt("cnt");
-			}
-			String id = String.valueOf(count);
 
 			prepStmt_I.setString(1, id);
 			prepStmt_I.setString(2, name);
@@ -100,6 +92,31 @@ public class TagDAO {
 
 	}
 
+	protected boolean findById(String id) {
+		int count = 0;
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
+
+			prepStmt_S_id.setString(1, id);
+
+			resultSet = prepStmt_S_id.executeQuery();
+			while (resultSet.next()) {
+				count++;
+			}
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	protected boolean findByName(String name) {
 		int count = 0;
 		try {
@@ -109,11 +126,8 @@ public class TagDAO {
 			prepStmt_S_name.setString(1, name);
 
 			resultSet = prepStmt_S_name.executeQuery();
-
 			while (resultSet.next()) {
-
-				count = resultSet.getInt("cnt");
-
+				count++;
 			}
 
 			resultSet.close();
@@ -135,8 +149,8 @@ public class TagDAO {
 			prepStmt_S = connection.prepareStatement(strPrepSQL_S);
 
 			prepStmt_S.setInt(1, firstIndex);
-			resultSet = prepStmt_S.executeQuery();
 
+			resultSet = prepStmt_S.executeQuery();
 			while (resultSet.next()) {
 				Tag tag = new Tag();
 				tag.setId(resultSet.getString("id"));
@@ -160,6 +174,7 @@ public class TagDAO {
 			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
 			prepStmt_S_id.setString(1, id);
 
+			resultSet = prepStmt_S_id.executeQuery();
 			while (resultSet.next()) {
 				tag.setId(resultSet.getString("id"));
 				tag.setName(resultSet.getString("name"));
@@ -174,12 +189,34 @@ public class TagDAO {
 
 	}
 
+	protected Tag getByName(String name) {
+		Tag tag=new Tag();
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt_S_name = connection.prepareStatement(strPrepSQL_S_name);
+
+			prepStmt_S_name.setString(1, name);
+
+			resultSet = prepStmt_S_name.executeQuery();
+			while (resultSet.next()) {
+				tag.setId(resultSet.getString("id"));
+				tag.setName(resultSet.getString("name"));
+			}
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tag;
+	}
+
 	protected int getNumOfTags() {
 		int count = 0;
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
-			
+
 			resultSet = prepStmt_S_count.executeQuery();
 			while (resultSet.next()) {
 				count = resultSet.getInt("cnt");

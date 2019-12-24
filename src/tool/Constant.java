@@ -40,6 +40,7 @@ public class Constant {
 	public static final int MAX_OF_DISPLAYS = 10; // 最大一覧表示数
 	public static final int NUM_OF_DISPLAY_CLUB_INFO = 4; // 表示サークル情報数
 	public static final int NUM_OF_DISPLAY_FAVORITE_INFO = 2; // 表示お気に入りサークル情報数
+	public static final int MAX_OF_HOLD_TAG = 10; // 最大保有タグ数
 
 	// 表示サークル情報
 	public static final int DISPLAY_ID = 0; // ID
@@ -47,7 +48,8 @@ public class Constant {
 	public static final int DISPLAY_INTRO = 2; // 紹介文
 	public static final int DISPLAY_ICON = 3; // アイコン
 
-	public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
+	//public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
+	public static final String POSTGRES_PASSWORD = "dRagoon8!"; // postgresのパスワード
 
 	private Constant() {
 	}

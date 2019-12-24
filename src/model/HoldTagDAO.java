@@ -1,35 +1,52 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import tool.Constant;
+
 public class HoldTagDAO {
-	//�q���̕ӂ͘b�������ŕύX����K�v����
-	final private static String dbname = "holdtag";   // Postgre SQL DB name
-	final private static String user = "postgres";     // Postgre SQL user name
-	final private static String password = "password"; // Postgre SQL password
-	final private static String sqlHostname = "pgs_7087";
-//	final private static String sqlHostname = "localhost";
-	final private static String url = "jdbc:postgresql://" + sqlHostname + "/" + dbname;
-	final private static String driverClassName = "org.postgresql.Driver";
-	
-	HoldTagDAO(){
-		
+	private final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
+	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
+	private final String user = "postgres";
+	private final String password = Constant.POSTGRES_PASSWORD;
+	private Connection connection;
+	private ResultSet resultSet;
+
+	private PreparedStatement prepStmt_I; // INSERT用
+	private PreparedStatement prepStmt_U; // UPDATE用
+	private PreparedStatement prepStmt_D; // DELETE用
+	private PreparedStatement prepStmt_S; // SELECT用
+	private PreparedStatement prepStmt_S_id; // SELECT用(id)
+	private PreparedStatement prepStmt_S_name; // SELECT用(name)
+	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
+
+	private String strPrepSQL_I = "INSERT INTO holdtag VALUES(?, ?)";
+	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
+	private String strPrepSQL_D = "DELETE FROM holdtag WHERE clubid=?";
+	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
+	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
+	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
+	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
+
+	protected HoldTagDAO() {
+		try { // ドライバマネージャとコネクション
+			Class.forName(driverClassName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	protected void delete(String clubId) {
-		java.sql.Connection connection;
-		String sql1 = "DELETE FROM�@tag WHERE id = ?";
-
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			
-			pstmt.setString(1, clubId);
+			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
 
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_D.setString(1, clubId);
+
+			prepStmt_D.executeUpdate();
 
 			resultSet.close();
 			connection.close();
@@ -37,37 +54,35 @@ public class HoldTagDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	protected void insert(String clubId,String tagId) {
-		java.sql.Connection connection;
-		String sql1 = "INSERT INTO tag VALUES(?,?)";
 
+	protected void insert(String clubId, String tagId) {
 		try {
-			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = connection.prepareStatement(sql1);
-			pstmt.setString(1, clubId);
-			pstmt.setString(2, tagId);
+			prepStmt_I = connection.prepareStatement(strPrepSQL_I);
 
-			ResultSet resultSet = pstmt.executeQuery();
+			prepStmt_I.setString(1, clubId);
+			prepStmt_I.setString(2, tagId);
+
+			prepStmt_I.executeUpdate();
 
 			resultSet.close();
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	protected HoldTag[] getByClubID(String clubId) {
 		return null;
 	}
-	
+
 	protected HoldTag[] getByTagId(String tagId) {
 		return null;
 	}
+
 	protected void deleteByTagId(String id) {
-		
+
 	}
 
 }
