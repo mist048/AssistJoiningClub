@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -40,16 +40,29 @@
 					<ul class="collection">
 
 						<%
+							String[] deleteTagIds = (String[]) request.getAttribute("deleteTagIds");
 							String[][] tags = (String[][]) request.getAttribute("allTags");
 							for (int i = 0; i < tags.length; i++) {
 						%>
 						<li class="collection-item avatar">
 							<form action="FromTagEdit" method="post" name="form<%=i%>">
-							<span class="title"><%=tags[i][Constant.NAME]%></span>
-							<input type="hidden" name="option" value="delete"><a
-								href="javascript:form<%=i%>.submit()" class="secondary-content">
-								<i class="waves-effect waves-teal btn-flat">削除</i>
-							</a>
+								<span class="title"><%=tags[i][Constant.NAME]%></span> <input
+									type="hidden" name="option" value="delete"> <input
+									type="hidden" name="deleteTagId"
+									value=<%=tags[i][Constant.ID]%>>
+								<%
+									if (deleteTagIds != null) {
+											for (String tagId : deleteTagIds) {
+								%>
+								<input type="hidden" name="deleteTagIds[]" value=<%=tagId%>>
+								<%
+									}
+										}
+								%>
+								<a href="javascript:form<%=i%>.submit()"
+									class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">削除</i>
+								</a>
 							</form>
 						</li>
 						<%
@@ -74,10 +87,19 @@
 
 					<div class="center-align">
 
-						<form action="FromClubMyPage" method="post" name="formSave"
+						<form action="FromTagEdit" method="post" name="formSave"
 							style="display: inline">
-							<input type="hidden" name="option" value="save"> <a
-								class="waves-effect waves-light btn"
+							<input type="hidden" name="option" value="save">
+							<%
+								if (deleteTagIds != null) {
+									for (String tagId : deleteTagIds) {
+							%>
+							<input type="hidden" name="deleteTagIds[]" value=<%=tagId%>>
+							<%
+								}
+								}
+							%>
+							<a class="waves-effect waves-light btn"
 								href="javascript:formSave.submit()">保存</a>
 						</form>
 

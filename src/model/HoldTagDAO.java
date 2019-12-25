@@ -91,8 +91,6 @@ public class HoldTagDAO {
 			prepStmt_D_tagid.setString(1, tagId);
 
 			prepStmt_D_tagid.executeUpdate();
-
-			resultSet.close();
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();

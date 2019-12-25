@@ -495,7 +495,7 @@ public class PageDataManager {
 		request.setAttribute("numOfPages", numOfPages);
 
 		// 削除リストに入れる
-		String[] tagIds = request.getParameterValues("deleteTagIds");
+		String[] tagIds = request.getParameterValues("deleteTagIds[]");
 		String tagId = request.getParameter("deleteTagId");
 		if (tagId != null) { // 削除したいタグIDが送られてきてたら
 			ArrayList<String> tagIdsList = null;
@@ -504,14 +504,18 @@ public class PageDataManager {
 			} else {
 				tagIdsList = new ArrayList<String>(Arrays.asList(tagIds));
 			}
-			tagIdsList.add(tagId);
+			if (tagIdsList.contains(tagId)) { // タグIDが重複していれば
+				tagIdsList.remove(tagId);
+			} else {
+				tagIdsList.add(tagId);
+			}
 			request.setAttribute("deleteTagIds", tagIdsList.toArray(new String[tagIdsList.size()]));
 		}
 	}
 
 	// タグ削除処理
 	public void tagsDelete(HttpServletRequest request) {
-		String[] tagIds = request.getParameterValues("deleteTagIds");
+		String[] tagIds = request.getParameterValues("deleteTagIds[]");
 		if (tagIds != null) {
 			tagManager.delete(tagIds);
 		}
