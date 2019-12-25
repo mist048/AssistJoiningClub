@@ -322,7 +322,7 @@ public class PageDataManager {
 		request.setAttribute("home", clubInfo[Constant.HOME]);
 
 		// 追加リストに入れる
-		String[] tagNames = request.getParameterValues("addTagNames");
+		String[] tagNames = request.getParameterValues("addTagNames[]");
 		String tagName = request.getParameter("addTagName");
 		if (tagName != null) { // 追加したいタグ名が送られてきてたら
 			if (!errorCheck.blankCheck(tagName) && !errorCheck.exCharCheck(tagName)) { // 空欄か特殊文字が含まれていなければ
@@ -342,7 +342,7 @@ public class PageDataManager {
 
 	// サークル情報更新処理
 	public boolean clubInfoUpdate(HttpServletRequest request, String clubId, String icon, String home) {
-		String[] tagNames = request.getParameterValues("addTagNames");
+		String[] tagNames = request.getParameterValues("addTagNames[]");
 		if (tagNames != null) { // 追加リストがあれば
 			tagManager.register(tagNames);
 			String[] tagIds = tagManager.getByNames(tagNames);
