@@ -116,6 +116,16 @@
 							</tr>
 						</table>
 
+						<div class="center-align">
+							<form action="FromClubInfoDisplay" method="get" name ="formFavorite">
+								<p>
+									<input type="hidden" name="option" value="favorite"> <a
+										class="waves-effect waves-light btn"
+										href="javascript:formFavorite.submit()">お気に入り</a>
+								</p>
+							</form>
+						</div>
+
 					</div>
 				</div>
 			</div>
