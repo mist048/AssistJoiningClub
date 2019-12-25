@@ -39,4 +39,12 @@ public class ErrorCheck {
 		}
 		return false;
 	}
+
+	// httpから始まるかどうかをチェックする
+	public boolean notStartHTTPCheck(String str) {
+		if (!str.startsWith("http")) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -55,17 +55,19 @@ public class FromClubInfoUpdate extends HttpServlet {
 			break;
 
 		case "confirm": // サークル情報更新処理
-			// 画像アップロード処理
-			Part part;
-			part = request.getPart("icon");
-			String icon = fileHandle.getFileName(part);
-			part.write(getServletContext().getRealPath("./images") + "/" + icon);
-			part = request.getPart("home");
-			String home = fileHandle.getFileName(part);
-			part.write(getServletContext().getRealPath("./images") + "/" + home);
+			// 画像ファイル名取得処理
+			Part iconPart;
+			iconPart = request.getPart("icon");
+			String icon = fileHandle.getFileName(iconPart);
+			Part homePart = request.getPart("home");
+			String home = fileHandle.getFileName(homePart);
 
 			boolean result = pageDataManager.clubInfoUpdate(request, hashId, icon, home);
 			if (result) { // 更新できる
+				// 画像保存処理
+				iconPart.write(getServletContext().getRealPath("./images") + "/" + icon);
+				homePart.write(getServletContext().getRealPath("./images") + "/" + home);
+
 				pageDataManager.toClubMyPage(request, hashId);
 				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			} else { // エラーがある

@@ -1,12 +1,20 @@
 package model;
 
 import tool.Constant;
+import tool.ErrorCheck;
+import tool.FileHandle;
 
 public class ClubInfoManager {
+	private ClubDAO clubDAO;
 	private ClubInfoDAO clubInfoDAO;
+	private ErrorCheck errorCheck;
+	private FileHandle fileHandle;
 
 	public ClubInfoManager() {
+		clubDAO = new ClubDAO();
 		clubInfoDAO = new ClubInfoDAO();
+		errorCheck = ErrorCheck.getInstance();
+		fileHandle = FileHandle.getInstance();
 	}
 
 	public String[] getClubInfo(String id) {
@@ -25,6 +33,35 @@ public class ClubInfoManager {
 	}
 
 	public boolean update(String clubId, String link, String intro, String member, String icon, String home) {
+		// メンバーが整数かチェック
+		int memberInt = 0;
+		try {
+			memberInt = Integer.parseInt(member);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		if (memberInt < 0) {
+			return false;
+		}
+
+		// 特殊な文字が含まれているかチェック
+		if (errorCheck.exCharCheck(intro)) {
+			return false;
+		}
+
+		// URLかどうかチェック
+		if (errorCheck.notAsciiCheck(link) || errorCheck.notStartHTTPCheck(link)) {
+			return false;
+		}
+
+		Club club = clubDAO.getClub(clubId);
+		String id = club.getClubInfoId();
+		ClubInfo clubInfo = clubInfoDAO.getClubInfo(id);
+		// 前の画像削除処理
+		fileHandle.deleteFile(clubInfo.getIcon());
+		fileHandle.deleteFile(clubInfo.getHome());
+
+		clubInfoDAO.update(id, link, intro, memberInt, icon, home);
 		return true;
 	}
 

@@ -1,5 +1,7 @@
 package tool;
 
+import java.io.File;
+
 import javax.servlet.http.Part;
 
 public class FileHandle {
@@ -22,5 +24,12 @@ public class FileHandle {
 			}
 		}
 		return name;
+	}
+
+	public void deleteFile(String filename) {
+		File file = new File("./images/" + filename);
+		if (file.exists()) { // ファイルがあれば
+			file.delete();
+		}
 	}
 }
