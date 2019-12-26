@@ -35,23 +35,29 @@ public class ClubInfoManager {
 	public boolean update(String clubId, String link, String intro, String member, String icon, String home) {
 		// メンバーが整数かチェック
 		int memberInt = 0;
-		try {
-			memberInt = Integer.parseInt(member);
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		if (memberInt < 0) {
-			return false;
-		}
-
-		// 特殊な文字が含まれているかチェック
-		if (errorCheck.exCharCheck(intro)) {
-			return false;
+		if (!member.equals("")) { // 空欄じゃなければ
+			try {
+				memberInt = Integer.parseInt(member);
+			} catch (NumberFormatException e) {
+				return false;
+			}
+			if (memberInt < 0) {
+				return false;
+			}
 		}
 
-		// URLかどうかチェック
-		if (errorCheck.notAsciiCheck(link) || errorCheck.notStartHTTPCheck(link)) {
-			return false;
+		if (!intro.equals("")) { // 空欄じゃなければ
+			// 特殊な文字が含まれているかチェック
+			if (errorCheck.exCharCheck(intro)) {
+				return false;
+			}
+		}
+
+		if (!link.equals("")) { // 空欄じゃなければ
+			// URLかどうかチェック
+			if (errorCheck.notAsciiCheck(link) || errorCheck.notStartHTTPCheck(link)) {
+				return false;
+			}
 		}
 
 		Club club = clubDAO.getClub(clubId);

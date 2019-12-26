@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,8 +30,7 @@
 		</div>
 	</nav>
 
-	<p>
-	</p>
+	<p></p>
 
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
@@ -39,16 +38,16 @@
 				<div class="card-content">
 
 					<h6>
-						サークル情報編集<br/>
+						サークル情報編集<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
 
 					<%
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
-						String recgon = (String) request.getAttribute("recgon");
+						String recogn = (String) request.getAttribute("recogn");
 						String link = "";
 						if (request.getAttribute("link") != null) {
 							link = (String) request.getAttribute("link");
@@ -63,31 +62,32 @@
 						}
 					%>
 
-					<form action="FromClubUpdate" method="post" name=formConfirm
+					<form action="FromClubInfoUpdate" method="post" name=formConfirm
 						enctype="multipart/form-data">
 						<p>
-							<label>サークル名<input type="text" name="name" value = "<%=name%>"
-							size="20" maxlength="50"></label>
+							<label>サークル名<input type="text" name="name"
+								value="<%=name%>" size="20" maxlength="50"></label>
 						</p>
 						<p>
-							<label>メールアドレス<input type="email" name="mail" value = "<%=mail%>"
-							size="50" maxlength="256"></label>
+							<label>メールアドレス<input type="email" name="mail"
+								value="<%=mail%>" size="50" maxlength="256"></label>
 						</p>
 						<p>
-							<label>公認<input type="text" name="recgon" value = "<%=recgon%>"
-							size="20" maxlength="50"></label>
+							<label>公認<input type="text" name="recgon"
+								value="<%=recogn%>" size="20" maxlength="50"></label>
 						</p>
 						<p>
-							<label>リンク<input type="text" name="link" value = "<%=link%>"
-							size="20" maxlength="256"></label>
+							<label>リンク<input type="text" name="link"
+								value="<%=link%>" size="20" maxlength="256"></label>
 						</p>
 						<p>
-							<label>紹介文<textarea name="intro" maxlength="2000" cols="100" rows="20">
+							<label>紹介文<textarea name="intro" maxlength="2000"
+									cols="100" rows="20">
 							<%=intro%></textarea></label>
 						</p>
 						<p>
-							<label>メンバー<input type="text" name="member" value = "<%=member%>"
-							size="20" maxlength="16"></label>
+							<label>メンバー<input type="text" name="member"
+								value="<%=member%>" size="20" maxlength="16"></label>
 						</p>
 						<p>
 							<label>アイコン<input type="file" name="icon"></label>
@@ -130,26 +130,42 @@
 				<div class="card-content">
 
 					<h6>
-						タグ編集<br/>
+						タグ編集<br />
 					</h6>
 					<p>
-						<br/>
+						<br />
 					</p>
 
-					<p>
-						<label>タグ名<input type="text" name="name" size="20" maxlength="50"></label>
-					</p>
+					<%
+						String[] addTagNames = (String[]) request.getAttribute("addTagNames");
+					%>
 
-					<br/>
-
-					<div class="center-align">
-						<form action="FromClubInfoUpdate" method="get" name ="formAdd">
-						<p>
+					<form action="FromClubInfoUpdateToAddTag" method="post"
+						name="formAdd">
 						<input type="hidden" name="option" value="add">
-						<a class="waves-effect waves-light btn" href= "javascript:formAdd.submit()">追加</a>
+						<p>
+							<label>タグ名<input type="text" name="addTagName" size="20"
+								maxlength="50"></label>
 						</p>
-						</form>
-					</div>
+
+						<br />
+
+						<div class="center-align">
+							<p>
+								<%
+									if (addTagNames != null) {
+										for (String tagName : addTagNames) {
+								%>
+								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
+								<%
+									}
+									}
+								%>
+								<a class="waves-effect waves-light btn"
+									href="javascript:formAdd.submit()">追加</a>
+							</p>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -162,8 +178,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

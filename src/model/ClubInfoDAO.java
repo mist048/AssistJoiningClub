@@ -20,7 +20,7 @@ public class ClubInfoDAO {
 	private PreparedStatement prepStmt_S_id; // SELECT用
 
 	final String db_name = "clubinfo";
-	private String strPrepSQL_U = "UPDATE clubinfo SET link=?, intro=?, member=?, icon=? home=? WHERE id=?";
+	private String strPrepSQL_U = "UPDATE clubinfo SET link=?, intro=?, member=?, icon=?,  home=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM clubinfo WHERE id=?";
 	private String strPrepSQL_S_id = "SELECT * FROM clubinfo WHERE id=?";
 

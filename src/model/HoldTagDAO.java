@@ -49,8 +49,6 @@ public class HoldTagDAO {
 			prepStmt_D.setString(1, clubId);
 
 			prepStmt_D.executeUpdate();
-
-			resultSet.close();
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,8 +64,6 @@ public class HoldTagDAO {
 			prepStmt_I.setString(2, tagId);
 
 			prepStmt_I.executeUpdate();
-
-			resultSet.close();
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();

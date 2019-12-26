@@ -1,10 +1,13 @@
 package tool;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import model.AdminManager;
 import model.ClubInfoManager;
@@ -24,6 +27,7 @@ public class PageDataManager {
 	private TagManager tagManager;
 	private HoldTagManager holdTagManager;
 	private ErrorCheck errorCheck;
+	private FileHandle fileHandle;
 
 	private PageDataManager() {
 		userManager = new UserManager();
@@ -34,6 +38,7 @@ public class PageDataManager {
 		tagManager = new TagManager();
 		holdTagManager = new HoldTagManager();
 		errorCheck = ErrorCheck.getInstance();
+		fileHandle = FileHandle.getInstance();
 	}
 
 	public static PageDataManager getInstance() {
@@ -320,7 +325,10 @@ public class PageDataManager {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
+	}
 
+	// タグリスト追加処理
+	public void addTagNamesList(HttpServletRequest request) {
 		// 追加リストに入れる
 		String[] tagNames = request.getParameterValues("addTagNames[]");
 		String tagName = request.getParameter("addTagName");
@@ -340,8 +348,8 @@ public class PageDataManager {
 		}
 	}
 
-	// サークル情報更新処理
-	public boolean clubInfoUpdate(HttpServletRequest request, String clubId, String icon, String home) {
+	// 保有タグ情報更新処理
+	public void holdTagUpdate(HttpServletRequest request, String clubId) {
 		String[] tagNames = request.getParameterValues("addTagNames[]");
 		if (tagNames != null) { // 追加リストがあれば
 			tagManager.register(tagNames);
@@ -350,10 +358,20 @@ public class PageDataManager {
 				holdTagManager.update(clubId, tagId);
 			}
 		}
+	}
 
-		String link = request.getParameter("link");
-		String intro = request.getParameter("intro");
-		String member = request.getParameter("member");
+	// サークル情報更新処理
+	public boolean clubInfoUpdate(HttpServletRequest request, String clubId, String icon, String home)
+			throws ServletException, IOException {
+		Part linkPart = request.getPart("link");
+		String link = fileHandle.getParameter(linkPart);
+
+		Part introPart = request.getPart("intro");
+		String intro = fileHandle.getParameter(introPart);
+
+		Part memberPart = request.getPart("member");
+		String member = fileHandle.getParameter(memberPart);
+
 		boolean result = clubInfoManager.update(clubId, link, intro, member, icon, home); // 更新処理
 		return result;
 	}
