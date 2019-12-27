@@ -57,15 +57,52 @@
 
 
 						<ul class="pagination">
-							<li class="disabled"><a href="#!"><i
-									class="material-icons">chevron_left</i></a></li>
-							<li class="active teal"><a href="#!">1</a></li>
-							<li class="waves-effect"><a href="#!">2</a></li>
-							<li class="waves-effect"><a href="#!">3</a></li>
-							<li class="waves-effect"><a href="#!">4</a></li>
-							<li class="waves-effect"><a href="#!">5</a></li>
-							<li class="waves-effect"><a href="#!"><i
-									class="material-icons">chevron_right</i></a></li>
+							<%
+								int firstIndex = (int) request.getAttribute("firstIndex");
+								if (firstIndex > 0) {
+							%>
+							<li class="disabled"><form action="FromAdminTop" method="post"
+									name="formBefore">
+									<input type="hidden" name="firstIndex"
+										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
+										href="javascript:formBefore.submit()"> <i
+										class="material-icons">chevron_left</i></a>
+								</form></li>
+							<%
+								}
+							%>
+							<%
+								int numOfPages = (int) request.getAttribute("numOfPages");
+								for (int i = 0; i < numOfPages; i++) {
+									String state = "waves-effect";
+									if (i * Constant.MAX_OF_DISPLAYS == firstIndex) {
+										state = "active teal";
+									}
+							%>
+							<li class="<%=state%>">
+								<form action="FromAdminTop" method="post" name="formTo<%=i%>">
+									<input type="hidden" name="firstIndex"
+										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
+										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
+								</form>
+							</li>
+							<%
+								}
+							%>
+							<%
+								Boolean next = (Boolean) request.getAttribute("next");
+								if (next != null && next == true) {
+							%>
+							<li class="waves-effect"><form action="FromAdminTop" method="post"
+									name="formNext">
+									<input type="hidden" name="firstIndex"
+										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
+										href="javascript:formNext.submit()"><i
+										class="material-icons">chevron_right</i></a>
+								</form></li>
+							<%
+								}
+							%>
 						</ul>
 					</div>
 
