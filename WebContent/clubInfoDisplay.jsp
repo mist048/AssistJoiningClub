@@ -27,9 +27,7 @@
 <!-- materialize CDN -->
 </head>
 <body>
-
-	<form action="FromClubInfoDisplay" method="get">
-		<nav class="teal">
+	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
@@ -42,95 +40,100 @@
 		</div>
 	</nav>
 
-		<p>
-			<br />
-		</p>
+	<p>
+		<br />
+	</p>
 
-		<div class="row">
-			<div class="col s12 m8 l6 offset-m2 offset-l3">
-				<div class="card">
-					<div class="card-content">
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
 
-						<%
-							String name = (String) request.getAttribute("name");
-							String mail = (String) request.getAttribute("mail");
-							String recogn = (String) request.getAttribute("recogn");
-							String link = "";
-							if (request.getAttribute("link") != null) {
-								link = (String) request.getAttribute("link");
-							}
-							String intro = "";
-							if (request.getAttribute("intro") != null) {
-								intro = (String) request.getAttribute("intro");
-							}
-							String member = "";
-							if (request.getAttribute("member") != null) {
-								member = (String) request.getAttribute("member");
-							}
-							String icon = "";
-							if (request.getAttribute("icon") != null) {
-								icon = (String) request.getAttribute("icon");
-							}
-							String home = "";
-							if (request.getAttribute("home") != null) {
-								home = (String) request.getAttribute("home");
-							}
-						%>
+					<%
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String recogn = (String) request.getAttribute("recogn");
+						String link = "";
+						if (request.getAttribute("link") != null) {
+							link = (String) request.getAttribute("link");
+						}
+						String intro = "";
+						if (request.getAttribute("intro") != null) {
+							intro = (String) request.getAttribute("intro");
+						}
+						String member = "";
+						if (request.getAttribute("member") != null) {
+							member = (String) request.getAttribute("member");
+						}
+						String icon = "";
+						if (request.getAttribute("icon") != null) {
+							icon = (String) request.getAttribute("icon");
+						}
+						String home = "";
+						if (request.getAttribute("home") != null) {
+							home = (String) request.getAttribute("home");
+						}
+					%>
 
-						<h6>
-							<%=name%><br />
-						</h6>
-						<p>
-							<br />
-						</p>
+					<h6>
+						<%=name%><br />
+					</h6>
+					<p>
+						<br />
+					</p>
 
 
-						<table>
-							<tr>
-								<td>メールアドレス</td>
-								<td><%=mail%></td>
-							</tr>
-							<tr>
-								<td>公認</td>
-								<td><%=recogn%></td>
-							</tr>
-							<tr>
-								<td>リンク</td>
-								<td><%=link%></td>
-							</tr>
-							<tr>
-								<td>サークル説明文</td>
-								<td><%=intro%></td>
-							</tr>
-							<tr>
-								<td>メンバー</td>
-								<td><%=member%></td>
-							</tr>
-							<tr>
-								<td>アイコン</td>
-								<td><%=icon%></td>
-							</tr>
-							<tr>
-								<td>ホーム画像</td>
-								<td><%=home%></td>
-							</tr>
-						</table>
+					<table>
+						<tr>
+							<td>メールアドレス</td>
+							<td><%=mail%></td>
+						</tr>
+						<tr>
+							<td>公認</td>
+							<td><%=recogn%></td>
+						</tr>
+						<tr>
+							<td>リンク</td>
+							<td><%=link%></td>
+						</tr>
+						<tr>
+							<td>サークル説明文</td>
+							<td><%=intro%></td>
+						</tr>
+						<tr>
+							<td>メンバー</td>
+							<td><%=member%></td>
+						</tr>
+						<tr>
+							<td>アイコン</td>
+							<td><%=icon%></td>
+						</tr>
+						<tr>
+							<td>ホーム画像</td>
+							<td><%=home%></td>
+						</tr>
+					</table>
 
-						<div class="center-align">
-							<form action="FromClubInfoDisplay" method="get" name ="formFavorite">
-								<p>
-									<input type="hidden" name="option" value="favorite"> <a
-										class="waves-effect waves-light btn"
-										href="javascript:formFavorite.submit()">お気に入り</a>
-								</p>
-							</form>
-						</div>
+					<%
+						String clubId = (String) request.getAttribute("clubId");
+					%>
 
+					<div class="center-align">
+						<form action="FromClubInfoDisplay" method="post"
+							name="formFavorite">
+							<p>
+								<input type="hidden" name="option" value="favorite"> <input
+									type="hidden" name="clubId" value=<%=clubId%>> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formFavorite.submit()">お気に入り</a>
+							</p>
+						</form>
 					</div>
+
 				</div>
 			</div>
 		</div>
-	</form>
+	</div>
 
 	<footer class="page-footer teal">
 		<div class="container">
@@ -139,8 +142,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

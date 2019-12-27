@@ -40,7 +40,6 @@ public class Constant {
 
 	public static final int MAX_OF_DISPLAYS = 10; // 最大一覧表示数
 	public static final int NUM_OF_DISPLAY_CLUB_INFO = 4; // 表示サークル情報数
-	public static final int NUM_OF_DISPLAY_FAVORITE_INFO = 2; // 表示お気に入りサークル情報数
 	public static final int MAX_OF_HOLD_TAG = 10; // 最大保有タグ数
 
 	// 表示サークル情報

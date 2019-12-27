@@ -42,7 +42,6 @@ public class FromTop extends HttpServlet {
 		String option = request.getParameter("option");
 
 		String keyword = request.getParameter("keyword");
-		System.out.print(keyword);
 
 		switch (option) {
 		case "searchResultDisplay": // 検索結果表示画面へ

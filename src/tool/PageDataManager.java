@@ -448,6 +448,7 @@ public class PageDataManager {
 		String clubId = request.getParameter("clubId");
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
+		request.setAttribute("clubId", club[Constant.ID]);
 		request.setAttribute("name", club[Constant.NAME]);
 		request.setAttribute("mail", club[Constant.MAIL]);
 		request.setAttribute("recogn", club[Constant.RECOGN]);

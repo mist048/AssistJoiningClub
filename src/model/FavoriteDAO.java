@@ -18,17 +18,17 @@ public class FavoriteDAO {
 
 	private PreparedStatement prepStmt_I; // INSERT用
 	private PreparedStatement prepStmt_D; // DELETE用
-	private PreparedStatement prepStmt_D_userid; // DELETE用
+	private PreparedStatement prepStmt_D_generalid; // DELETE用
 	private PreparedStatement prepStmt_D_clubid; // DELETE用
-	private PreparedStatement prepStmt_S_userid_clubid; // SELECT用(userid,clubid)
-	private PreparedStatement prepStmt_S_userid; // SELECT用
+	private PreparedStatement prepStmt_S_generalid_clubid; // SELECT用(userid,clubid)
+	private PreparedStatement prepStmt_S_generalid; // SELECT用
 
-	private String strPrepSQL_I = "INSERT INTO club VALUES(?, ?)";
-	private String strPrepSQL_D = "DELETE FROM favorite WHERE userid=? AND clubid=?";
-	private String strPrepSQL_D_userid = "DELETE FROM favorite WHERE userid=?";
+	private String strPrepSQL_I = "INSERT INTO favorite VALUES(?, ?)";
+	private String strPrepSQL_D = "DELETE FROM favorite WHERE generalid=? AND clubid=?";
+	private String strPrepSQL_D_generalid = "DELETE FROM favorite WHERE generalid=?";
 	private String strPrepSQL_D_clubid = "DELETE FROM favorite WHERE clubid=?";
-	private String strPrepSQL_S_userid_clubid = "SELECT COUNT(*) FROM favorite WHERE userid=? AND clubid=?";
-	private String strPrepSQL_S_userid = "SELECT clubid FROM favorite WHERE userid=?";
+	private String strPrepSQL_S_generalid_clubid = "SELECT COUNT(*) FROM favorite WHERE generalid=? AND clubid=?";
+	private String strPrepSQL_S_generalid = "SELECT clubid FROM favorite WHERE generalid=?";
 
 	protected FavoriteDAO() {
 		try { // ドライバマネージャとコネクション
@@ -36,33 +36,36 @@ public class FavoriteDAO {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_I = connection.prepareStatement(strPrepSQL_I);
 			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
-			prepStmt_D_userid = connection.prepareStatement(strPrepSQL_D_userid);
+			prepStmt_D_generalid = connection.prepareStatement(strPrepSQL_D_generalid);
 			prepStmt_D_clubid = connection.prepareStatement(strPrepSQL_D_clubid);
-			prepStmt_S_userid_clubid = connection.prepareStatement(strPrepSQL_S_userid_clubid);
-			prepStmt_S_userid = connection.prepareStatement(strPrepSQL_S_userid);
+			prepStmt_S_generalid_clubid = connection.prepareStatement(strPrepSQL_S_generalid_clubid);
+			prepStmt_S_generalid = connection.prepareStatement(strPrepSQL_S_generalid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected boolean find(String userId,String clubId) {
+	protected boolean find(String userId, String clubId) {
+		int count = 0;
 		try {
-			prepStmt_S_userid_clubid.setString(1, userId);
-			prepStmt_S_userid_clubid.setString(2, clubId);
-			resultSet = prepStmt_S_userid_clubid.executeQuery();
-			resultSet.next();
-			if (resultSet.getInt("count") == 0) {
-				resultSet.close();
-				return false;
+			prepStmt_S_generalid_clubid.setString(1, userId);
+			prepStmt_S_generalid_clubid.setString(2, clubId);
+			resultSet = prepStmt_S_generalid_clubid.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt("count");
 			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	protected void delete(String userId,String clubId) {
+	protected void delete(String userId, String clubId) {
 		try {
 			prepStmt_D.setString(1, userId);
 			prepStmt_D.setString(2, clubId);
@@ -72,7 +75,7 @@ public class FavoriteDAO {
 		}
 	}
 
-	protected void insert(String userId,String clubId) {
+	protected void insert(String userId, String clubId) {
 		try {
 			prepStmt_I.setString(1, userId);
 			prepStmt_I.setString(2, clubId);
@@ -85,8 +88,8 @@ public class FavoriteDAO {
 	protected Favorite[] getByUserId(String userId) {
 		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
 		try {
-			prepStmt_S_userid.setString(1, userId);
-			resultSet = prepStmt_S_userid.executeQuery();
+			prepStmt_S_generalid.setString(1, userId);
+			resultSet = prepStmt_S_generalid.executeQuery();
 			while (resultSet.next()) {
 				Favorite favorite = new Favorite();
 				favorite.setUserId(userId);
@@ -102,8 +105,8 @@ public class FavoriteDAO {
 
 	protected void deleteByUserId(String userId) {
 		try {
-			prepStmt_D_userid.setString(1, userId);
-			prepStmt_D_userid.executeUpdate();
+			prepStmt_D_generalid.setString(1, userId);
+			prepStmt_D_generalid.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
