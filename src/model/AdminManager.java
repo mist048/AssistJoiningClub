@@ -11,8 +11,11 @@ public class AdminManager {
 		adminDAO = new AdminDAO();
 	}
 
-	public boolean login(String hashId, String hashPassword) {
-		return true;
+	public boolean login(String id, String password) {
+		if (adminDAO.find(id, password)) {
+			return true;
+		}
+		return false;
 	}
 
 	public void mailToAdmin(String user, String userId, String subject, String info) {

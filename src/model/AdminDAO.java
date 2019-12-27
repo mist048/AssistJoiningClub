@@ -32,20 +32,24 @@ public class AdminDAO {
 		}
 	}
 
-	protected boolean find(String id,String password) {
+	protected boolean find(String id, String password) {
+		int count = 0;
 		try {
 			prepStmt_S_id_pass.setString(1, id);
 			prepStmt_S_id_pass.setString(2, password);
 			resultSet = prepStmt_S_id_pass.executeQuery();
-			if (resultSet.getInt("count") == 0) {
-				resultSet.close();
-				return false;
+			if (resultSet.next()) {
+				count = resultSet.getInt("count");
 			}
 			resultSet.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	protected String getMail() {
