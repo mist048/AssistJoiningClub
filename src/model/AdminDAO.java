@@ -8,16 +8,18 @@ import java.sql.ResultSet;
 import tool.Constant;
 
 public class AdminDAO {
-	String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	String user = "postgres";
-	String password = Constant.POSTGRES_PASSWORD;
-	Connection connection;
-	ResultSet resultSet;
+	private final String driverClassName = "org.postgresql.Driver";
+	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
+	private final String user = "postgres";
+	private final String password = Constant.POSTGRES_PASSWORD;
+	private Connection connection;
+	private ResultSet resultSet;
 
-	PreparedStatement prepStmt_S;
+	private PreparedStatement prepStmt_S;
+	private PreparedStatement prepStmt_S_id_pass;
 
-	String strPrepSQL_S = "SELECT * FROM admin";
+	private String strPrepSQL_S = "SELECT * FROM admin";
+	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM admin WHERE id=? AND password=?";
 
 	protected AdminDAO() {
 		try { // ドライバマネージャとコネクション
@@ -30,7 +32,23 @@ public class AdminDAO {
 		}
 	}
 
-	public String getMail() {
+	protected boolean find(String id,String password) {
+		try {
+			prepStmt_S_id_pass.setString(1, id);
+			prepStmt_S_id_pass.setString(2, password);
+			resultSet = prepStmt_S_id_pass.executeQuery();
+			if (resultSet.getInt("count") == 0) {
+				resultSet.close();
+				return false;
+			}
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	protected String getMail() {
 		String mail = null;
 		try {
 			resultSet = prepStmt_S.executeQuery();
