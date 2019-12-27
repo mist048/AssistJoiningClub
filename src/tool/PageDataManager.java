@@ -1,13 +1,10 @@
 package tool;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import model.AdminManager;
 import model.ClubInfoManager;
@@ -27,7 +24,6 @@ public class PageDataManager {
 	private TagManager tagManager;
 	private HoldTagManager holdTagManager;
 	private ErrorCheck errorCheck;
-	private FileHandle fileHandle;
 
 	private PageDataManager() {
 		userManager = new UserManager();
@@ -38,7 +34,6 @@ public class PageDataManager {
 		tagManager = new TagManager();
 		holdTagManager = new HoldTagManager();
 		errorCheck = ErrorCheck.getInstance();
-		fileHandle = FileHandle.getInstance();
 	}
 
 	public static PageDataManager getInstance() {
@@ -325,10 +320,16 @@ public class PageDataManager {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
+
+		String[] tagIds = holdTagManager.getHoldTag(clubId);
+		String[][] tags = tagManager.getTags(tagIds);
+		request.setAttribute("tags", tags);
 	}
 
 	// タグリスト追加処理
-	public void addTagNamesList(HttpServletRequest request) {
+	public void addTagNamesList(HttpServletRequest request, String clubId) {
+		String[] tagIds = holdTagManager.getHoldTag(clubId);
+
 		// 追加リストに入れる
 		String[] tagNames = request.getParameterValues("addTagNames[]");
 		String tagName = request.getParameter("addTagName");
@@ -340,7 +341,7 @@ public class PageDataManager {
 				} else {
 					tagNamesList = new ArrayList<String>(Arrays.asList(tagNames));
 				}
-				if (tagNamesList.size() < Constant.MAX_OF_HOLD_TAG) { // 最大保有タグ数を超えていなければ
+				if (tagIds.length + tagNamesList.size() < Constant.MAX_OF_HOLD_TAG) { // 最大保有タグ数を超えていなければ
 					tagNamesList.add(tagName);
 				}
 				request.setAttribute("addTagNames", tagNamesList.toArray(new String[tagNamesList.size()]));
@@ -348,32 +349,26 @@ public class PageDataManager {
 		}
 	}
 
-	// 保有タグ情報更新処理
-	public void holdTagUpdate(HttpServletRequest request, String clubId) {
+	// サークル情報更新処理
+	public boolean clubInfoUpdate(HttpServletRequest request, String clubId) {
 		String[] tagNames = request.getParameterValues("addTagNames[]");
 		if (tagNames != null) { // 追加リストがあれば
 			tagManager.register(tagNames);
-			String[] tagIds = tagManager.getByNames(tagNames);
-			for (String tagId : tagIds) {
-				holdTagManager.update(clubId, tagId);
-			}
+			String[] preTagIds = holdTagManager.getHoldTag(clubId);
+			String[] addTagIds = tagManager.getByNames(tagNames);
+			holdTagManager.update(clubId, preTagIds, addTagIds);
 		}
+
+		String link = request.getParameter("link");
+		String intro = request.getParameter("intro");
+		String member = request.getParameter("member");
+		boolean result = clubInfoManager.update(clubId, link, intro, member); // 更新処理
+		return result;
 	}
 
-	// サークル情報更新処理
-	public boolean clubInfoUpdate(HttpServletRequest request, String clubId, String icon, String home)
-			throws ServletException, IOException {
-		Part linkPart = request.getPart("link");
-		String link = fileHandle.getParameter(linkPart);
-
-		Part introPart = request.getPart("intro");
-		String intro = fileHandle.getParameter(introPart);
-
-		Part memberPart = request.getPart("member");
-		String member = fileHandle.getParameter(memberPart);
-
-		boolean result = clubInfoManager.update(clubId, link, intro, member, icon, home); // 更新処理
-		return result;
+	// サークル情報の画像更新処理
+	public void clubInfoImagesUpdate(String clubId, String icon, String home) {
+		clubInfoManager.updateImages(clubId, icon, home); // 更新処理
 	}
 
 	// サークルアカウントマイページ画面へのデータ

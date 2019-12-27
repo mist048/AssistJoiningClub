@@ -32,7 +32,7 @@ public class ClubInfoManager {
 		return clubInfoArray;
 	}
 
-	public boolean update(String clubId, String link, String intro, String member, String icon, String home) {
+	public boolean update(String clubId, String link, String intro, String member) {
 		// メンバーが整数かチェック
 		int memberInt = 0;
 		if (!member.equals("")) { // 空欄じゃなければ
@@ -62,13 +62,20 @@ public class ClubInfoManager {
 
 		Club club = clubDAO.getClub(clubId);
 		String id = club.getClubInfoId();
+
+		clubInfoDAO.update(id, link, intro, memberInt);
+		return true;
+	}
+
+	public void updateImages(String clubId, String icon, String home) {
+		Club club = clubDAO.getClub(clubId);
+		String id = club.getClubInfoId();
 		ClubInfo clubInfo = clubInfoDAO.getClubInfo(id);
 		// 前の画像削除処理
 		fileHandle.deleteFile(clubInfo.getIcon());
 		fileHandle.deleteFile(clubInfo.getHome());
 
-		clubInfoDAO.update(id, link, intro, memberInt, icon, home);
-		return true;
+		clubInfoDAO.updateImages(id, icon, home);
 	}
 
 }

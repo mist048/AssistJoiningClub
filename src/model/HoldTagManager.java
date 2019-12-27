@@ -3,42 +3,45 @@ package model;
 import java.util.ArrayList;
 
 public class HoldTagManager {
-	HoldTagDAO holdDAO = new HoldTagDAO();
-	TagDAO dao = new TagDAO();
-	
-	public void update(String clubId , String tagId) {
-		holdDAO.delete(clubId);
-		holdDAO.insert(clubId,tagId);
+	HoldTagDAO holdTagDAO;
+	TagDAO tagDAO;
+
+	public HoldTagManager() {
+		holdTagDAO = new HoldTagDAO();
+		tagDAO = new TagDAO();
 	}
-	
-	public String[] getHoldTagId(String tagId){
-		ArrayList<String> idList = new ArrayList<String>();
-		String[] result ;
-		HoldTag[] holdTags = holdDAO.getByTagId(tagId);
-		for(HoldTag hTag:holdTags) {
-			idList.add(dao.getTag(hTag.getTagId()).getId());
+
+	public void update(String clubId, String[] preTagIds, String[] addTagIds) {
+		holdTagDAO.delete(clubId);
+		for (String tagId : preTagIds) {
+			holdTagDAO.insert(clubId, tagId);
 		}
-		int size = idList.size();
-		result = new String[size];
-		int i=0;
-		for(String addId:idList) {
-			result[i]=addId;
-			i++;
+		for (String tagId : addTagIds) {
+			holdTagDAO.insert(clubId, tagId);
 		}
-		return result;
 	}
-	public String[] getHoldTagName(String tagId){
+
+	public String[] getHoldTag(String clubId) {
+		HoldTag[] holdTags = holdTagDAO.getByClubID(clubId);
+		String[] tagIds = new String[holdTags.length];
+		for (int i = 0; i < holdTags.length; i++) {
+			tagIds[i] = holdTags[i].getTagId();
+		}
+		return tagIds;
+	}
+
+	public String[] getHoldTagName(String tagId) {
 		ArrayList<String> nameList = new ArrayList<String>();
-		String[] result ;
-		HoldTag[] holdTags = holdDAO.getByTagId(tagId);
-		for(HoldTag hTag:holdTags) {
-			nameList.add(dao.getTag(hTag.getTagId()).getName());
+		String[] result;
+		HoldTag[] holdTags = holdTagDAO.getByTagId(tagId);
+		for (HoldTag hTag : holdTags) {
+			nameList.add(tagDAO.getTag(hTag.getTagId()).getName());
 		}
 		int size = nameList.size();
 		result = new String[size];
-		int i=0;
-		for(String addName:nameList) {
-			result[i]=addName;
+		int i = 0;
+		for (String addName : nameList) {
+			result[i] = addName;
 			i++;
 		}
 		return result;

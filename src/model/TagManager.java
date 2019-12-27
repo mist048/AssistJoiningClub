@@ -49,6 +49,16 @@ public class TagManager {
 
 	}
 
+	public String[][] getTags(String[] ids) {
+		String[][] tags = new String[ids.length][Constant.NUM_OF_TAG_FIELD];
+		for (int i = 0; i < ids.length; i++) {
+			Tag tag = tagDAO.getTag(ids[i]);
+			tags[i][Constant.ID] = tag.getId();
+			tags[i][Constant.NAME] = tag.getName();
+		}
+		return tags;
+	}
+
 	public String[][] getAllTags(int firstIndex) {
 		Tag[] tags = tagDAO.getAllTags(firstIndex);
 		String[][] tagsArray = new String[tags.length][Constant.NUM_OF_TAG_FIELD];

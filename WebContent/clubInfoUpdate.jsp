@@ -60,10 +60,11 @@
 						if (request.getAttribute("member") != null) {
 							member = (String) request.getAttribute("member");
 						}
+
+						String[] addTagNames = (String[]) request.getAttribute("addTagNames");
 					%>
 
-					<form action="FromClubInfoUpdate" method="post" name=formConfirm
-						enctype="multipart/form-data">
+					<form action="FromClubInfoUpdate" method="post" name=formConfirm>
 						<p>
 							<label>サークル名<input type="text" name="name"
 								value="<%=name%>" size="20" maxlength="50"></label>
@@ -89,6 +90,27 @@
 							<label>メンバー<input type="text" name="member"
 								value="<%=member%>" size="20" maxlength="16"></label>
 						</p>
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="confirm">
+								<%
+									if (addTagNames != null) {
+										for (String tagName : addTagNames) {
+								%>
+								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
+								<%
+									}
+									}
+								%>
+								<a class="waves-effect waves-light btn"
+									href="javascript:formConfirm.submit()">確定</a>
+							</p>
+						</div>
+					</form>
+
+					<form action="FileHandleServlet" method="post"
+						name=formImageConfirm enctype="multipart/form-data">
 						<p>
 							<label>アイコン<input type="file" name="icon"></label>
 						</p>
@@ -102,8 +124,7 @@
 							<p>
 								<input type="hidden" name="option" value="confirm"> <a
 									class="waves-effect waves-light btn"
-									href="javascript:formConfirm.submit()">確定</a>
-
+									href="javascript:formImageConfirm.submit()">確定</a>
 							</p>
 						</div>
 					</form>
@@ -137,11 +158,16 @@
 					</p>
 
 					<%
-						String[] addTagNames = (String[]) request.getAttribute("addTagNames");
+						String[][] tags = (String[][]) request.getAttribute("tags");
+						if (tags != null) {
+							// 表示
+						}
+						if (addTagNames != null) {
+							// 表示
+						}
 					%>
 
-					<form action="FromClubInfoUpdateToAddTag" method="post"
-						name="formAdd">
+					<form action="FromClubInfoUpdate" method="post" name="formAdd">
 						<input type="hidden" name="option" value="add">
 						<p>
 							<label>タグ名<input type="text" name="addTagName" size="20"

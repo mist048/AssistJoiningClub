@@ -16,11 +16,13 @@ public class ClubInfoDAO {
 	private ResultSet resultSet;
 
 	private PreparedStatement prepStmt_U; // UPDATE用
+	private PreparedStatement prepStmt_U_images; // UPDATE用(画像)
 	private PreparedStatement prepStmt_D; // DELETE用
 	private PreparedStatement prepStmt_S_id; // SELECT用
 
 	final String db_name = "clubinfo";
-	private String strPrepSQL_U = "UPDATE clubinfo SET link=?, intro=?, member=?, icon=?,  home=? WHERE id=?";
+	private String strPrepSQL_U = "UPDATE clubinfo SET link=?, intro=?, member=? WHERE id=?";
+	private String strPrepSQL_U_images = "UPDATE clubinfo SET icon=?, home=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM clubinfo WHERE id=?";
 	private String strPrepSQL_S_id = "SELECT * FROM clubinfo WHERE id=?";
 
@@ -30,6 +32,7 @@ public class ClubInfoDAO {
 			connection = DriverManager.getConnection(url, user, password);
 
 			prepStmt_U = connection.prepareStatement(strPrepSQL_U);
+			prepStmt_U_images = connection.prepareStatement(strPrepSQL_U_images);
 			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
 			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
 		} catch (Exception e) {
@@ -37,15 +40,24 @@ public class ClubInfoDAO {
 		}
 	}
 
-	protected void update(String id, String link, String intro, int member, String icon, String home) { //	更新
+	protected void update(String id, String link, String intro, int member) { //	更新
 		try {
-			prepStmt_U.setString(6, id);
+			prepStmt_U.setString(4, id);
 			prepStmt_U.setString(1, link);
 			prepStmt_U.setString(2, intro);
 			prepStmt_U.setInt(3, member);
-			prepStmt_U.setString(4, icon);
-			prepStmt_U.setString(5, home);
 			prepStmt_U.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void updateImages(String id, String icon, String home) { //	画像更新
+		try {
+			prepStmt_U_images.setString(3, id);
+			prepStmt_U_images.setString(1, icon);
+			prepStmt_U_images.setString(2, home);
+			prepStmt_U_images.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

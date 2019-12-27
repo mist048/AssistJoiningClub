@@ -2,13 +2,11 @@
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import tool.FileHandle;
 import tool.PageDataManager;
@@ -17,7 +15,6 @@ import tool.PageDataManager;
  * Servlet implementation class FromClubMypage
  */
 @WebServlet("/FromClubInfoUpdate")
-@MultipartConfig(maxFileSize = 1048576) // 最大1M
 public class FromClubInfoUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PageDataManager pageDataManager;
@@ -48,28 +45,18 @@ public class FromClubInfoUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		Part optionPart = request.getPart("option");
-		String option = fileHandle.getParameter(optionPart);
+		String option = request.getParameter("option");
 
 		switch (option) {
+		case "add": // タグ追加処理
+			pageDataManager.addTagNamesList(request, hashId);
+			pageDataManager.toClubInfoUpdate(request, hashId);
+			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
+			break;
+
 		case "confirm": // サークル情報更新処理
-			// 画像ファイル名取得処理
-			Part iconPart;
-			iconPart = request.getPart("icon");
-			String icon = fileHandle.getFileName(iconPart);
-			Part homePart = request.getPart("home");
-			String home = fileHandle.getFileName(homePart);
-
-			boolean result = pageDataManager.clubInfoUpdate(request, hashId, icon, home);
+			boolean result = pageDataManager.clubInfoUpdate(request, hashId);
 			if (result) { // 更新できる
-				// 画像保存処理
-				if (!icon.equals("")) {
-					iconPart.write(getServletContext().getRealPath("/images") + "/" + icon);
-				}
-				if (!home.equals("")) {
-					homePart.write(getServletContext().getRealPath("/images") + "/" + home);
-				}
-
 				pageDataManager.toClubMyPage(request, hashId);
 				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			} else { // エラーがある

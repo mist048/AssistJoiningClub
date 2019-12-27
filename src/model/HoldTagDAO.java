@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import tool.Constant;
 
@@ -19,8 +20,7 @@ public class HoldTagDAO {
 	private PreparedStatement prepStmt_U; // UPDATE用
 	private PreparedStatement prepStmt_D; // DELETE用
 	private PreparedStatement prepStmt_D_tagid; // DELETE用(tagid)
-	private PreparedStatement prepStmt_S; // SELECT用
-	private PreparedStatement prepStmt_S_id; // SELECT用(id)
+	private PreparedStatement prepStmt_S_clubid; // SELECT用(clubid)
 	private PreparedStatement prepStmt_S_name; // SELECT用(name)
 	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
 
@@ -28,8 +28,7 @@ public class HoldTagDAO {
 	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM holdtag WHERE clubid=?";
 	private String strPrepSQL_D_tagid = "DELETE FROM holdtag WHERE tagid=?";
-	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
-	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
+	private String strPrepSQL_S_clubid = "SELECT * FROM holdtag WHERE clubid=?";
 	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
 
@@ -72,7 +71,27 @@ public class HoldTagDAO {
 	}
 
 	protected HoldTag[] getByClubID(String clubId) {
-		return null;
+		ArrayList<HoldTag> holdTags = new ArrayList<HoldTag>();
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt_S_clubid = connection.prepareStatement(strPrepSQL_S_clubid);
+
+			prepStmt_S_clubid.setString(1, clubId);
+
+			resultSet = prepStmt_S_clubid.executeQuery();
+			while (resultSet.next()) {
+				HoldTag holdTag = new HoldTag();
+				holdTag.setClubId(resultSet.getString("clubid"));
+				holdTag.setTagId(resultSet.getString("tagid"));
+				holdTags.add(holdTag);
+			}
+
+			resultSet.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return holdTags.toArray(new HoldTag[holdTags.size()]);
 	}
 
 	protected HoldTag[] getByTagId(String tagId) {

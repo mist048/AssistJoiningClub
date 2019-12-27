@@ -2,28 +2,34 @@
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
+import tool.FileHandle;
 import tool.PageDataManager;
 
 /**
- * Servlet implementation class FromClubInfoUpdateToAddTag
+ * Servlet implementation class FileHandleServlet
  */
-@WebServlet("/FromClubInfoUpdateToAddTag")
-public class FromClubInfoUpdateToAddTag extends HttpServlet {
+@WebServlet("/FileHandleServlet")
+@MultipartConfig(maxFileSize = 1048576) // 最大1M
+public class FileHandleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PageDataManager pageDataManager;
+	private FileHandle fileHandle;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FromClubInfoUpdateToAddTag() {
+	public FileHandleServlet() {
 		super();
 		pageDataManager = PageDataManager.getInstance();
+		fileHandle = FileHandle.getInstance();
 	}
 
 	/**
@@ -42,18 +48,28 @@ public class FromClubInfoUpdateToAddTag extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		String option = request.getParameter("option");
+		Part optionPart = request.getPart("option");
+		String option = fileHandle.getParameter(optionPart);
 
 		switch (option) {
-		case "add": // タグ追加処理
-			pageDataManager.addTagNamesList(request);
+		case "confirm": // サークル情報の画像更新処理
+			// 画像ファイル名取得処理
+			Part iconPart;
+			iconPart = request.getPart("icon");
+			String icon = fileHandle.getFileName(iconPart);
+			Part homePart = request.getPart("home");
+			String home = fileHandle.getFileName(homePart);
+
+			pageDataManager.clubInfoImagesUpdate(hashId, icon, home);
+			// 画像保存処理
+			if (!icon.equals("")) {
+				iconPart.write(getServletContext().getRealPath("/images") + "/" + icon);
+			}
+			if (!home.equals("")) {
+				homePart.write(getServletContext().getRealPath("/images") + "/" + home);
+			}
 			pageDataManager.toClubInfoUpdate(request, hashId);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
-			break;
-
-		case "confirm": // タグ追加確定処理
-			pageDataManager.holdTagUpdate(request, hashId);
-			pageDataManager.toClubInfoUpdate(request, hashId);
 			break;
 		}
 	}
