@@ -18,7 +18,7 @@ public class AdminDAO {
 	private PreparedStatement prepStmt_S;
 	private PreparedStatement prepStmt_S_id_pass;
 
-	private String strPrepSQL_S = "SELECT * FROM admin";
+	private String strPrepSQL_S = "SELECT mail FROM admin";
 	private String strPrepSQL_S_id_pass = "SELECT COUNT(*) FROM admin WHERE id=? AND password=?";
 
 	protected AdminDAO() {
