@@ -25,8 +25,8 @@ public class AdminDAO {
 		try { // ドライバマネージャとコネクション
 			Class.forName(driverClassName);
 			connection = DriverManager.getConnection(url, user, password);
-
 			prepStmt_S = connection.prepareStatement(strPrepSQL_S);
+			prepStmt_S_id_pass = connection.prepareStatement(strPrepSQL_S_id_pass);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
