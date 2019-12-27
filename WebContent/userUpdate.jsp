@@ -50,7 +50,7 @@
 						String password = (String) request.getAttribute("password");
 					%>
 
-					<form action="FromClubUpdate" method="get" name = formConfirm>
+					<form action="FromUserUpdate" method="get" name = formConfirm>
 						<p>
 							<label>ユーザ名<input type="text" name="name" value = "<%=name%>"
 							size="20" maxlength="50"></label>
@@ -60,7 +60,7 @@
 							size="50" maxlength="256"></label>
 						</p>
 						<p>
-							<label>パスワード<input type="password" name="pass" value = "<%=password%>"
+							<label>パスワード<input type="password" name="pass" value = ""
 							size="20" maxlength="16"></label>
 						</p>
 
@@ -75,7 +75,7 @@
 					</form>
 
 					<div class="center-align">
-						<form action="FromClubUpdate" method="post" name=formDelete>
+						<form action="FromUserUpdate" method="post" name=formDelete>
 							<input type="hidden" name="option" value="delete"> <a
 								class="waves-effect waves-teal btn-flat"
 								href="javascript:formDelete.submit()"> <span
