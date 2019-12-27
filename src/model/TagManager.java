@@ -43,8 +43,8 @@ public class TagManager {
 
 	public void delete(String[] ids) {
 		for (String id : ids) {
-			tagDAO.delete(id);
 			holdTagDAO.deleteByTagId(id);
+			tagDAO.delete(id);
 		}
 
 	}
