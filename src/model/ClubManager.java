@@ -1,18 +1,24 @@
 package model;
 
+import java.util.ArrayList;
+
 import tool.Constant;
 import tool.ErrorCheck;
 import tool.SHA256;
 
 public class ClubManager {
 	private ClubDAO clubDAO;
-	//private FavoriteDAO favoriteDAO;
+	private ClubInfoDAO clubInfoDAO;
+	private FavoriteDAO favoriteDAO;
+	private TagDAO tagDAO;
 	private HoldTagDAO holdTagDAO;
 	private ErrorCheck errorCheck;
 
 	public ClubManager() {
 		clubDAO = new ClubDAO();
-		//favoriteDAO = new FavoriteDAO();
+		clubInfoDAO = new ClubInfoDAO();
+		favoriteDAO = new FavoriteDAO();
+		tagDAO = new TagDAO();
 		holdTagDAO = new HoldTagDAO();
 		errorCheck = ErrorCheck.getInstance();
 	}
@@ -130,11 +136,47 @@ public class ClubManager {
 	}
 
 	public String[][] searchByKeyword(String keyword) {
-		return new String[][] { { "id1", "name1", null, null }, { "id2", "name2", null, null } };
+		String[] keywords = keyword.split(" ");
+		Club[] clubs = clubDAO.findByKeyword(keywords);
+		String[][] hitedClubs = new String[clubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO];
+		for (int i = 0; i < clubs.length; i++) {
+			hitedClubs[i][Constant.DISPLAY_ID] = clubs[i].getId();
+			hitedClubs[i][Constant.DISPLAY_NAME] = clubs[i].getName();
+			ClubInfo clubInfo = clubInfoDAO.getClubInfo(clubs[i].getClubInfoId());
+			hitedClubs[i][Constant.DISPLAY_INTRO] = clubInfo.getIntro();
+			hitedClubs[i][Constant.DISPLAY_ICON] = clubInfo.getIcon();
+		}
+		return hitedClubs;
 	}
 
-	public String[][] searchByTag(String tag) {
-		return new String[][] { { "id1", "name1", null, null }, { "id2", "name2", null, null } };
+	public String[][] searchByTag(String keyword) {
+		String[] keywords = keyword.split(" ");
+		Tag[] tagNames = tagDAO.findByKeyword(keywords);
+		ArrayList<Club> clubs = new ArrayList<Club>();
+		for (Tag tag : tagNames) {
+			HoldTag[] holdTags = holdTagDAO.getByTagId(tag.getId());
+			for (HoldTag holdTag : holdTags) {
+				Club club = clubDAO.getClub(holdTag.getClubId());
+				boolean isDuplicate = false; // 重複フラグ
+				for (Club hitedClub : clubs) {
+					if (hitedClub.getId().equals(club.getId())) {
+						isDuplicate = true;
+					}
+				}
+				if (!isDuplicate) {
+					clubs.add(club);
+				}
+			}
+		}
+		String[][] hitedClubs = new String[clubs.size()][Constant.NUM_OF_DISPLAY_CLUB_INFO];
+		for (int i = 0; i < clubs.size(); i++) {
+			hitedClubs[i][Constant.DISPLAY_ID] = clubs.get(i).getId();
+			hitedClubs[i][Constant.DISPLAY_NAME] = clubs.get(i).getName();
+			ClubInfo clubInfo = clubInfoDAO.getClubInfo(clubs.get(i).getClubInfoId());
+			hitedClubs[i][Constant.DISPLAY_INTRO] = clubInfo.getIntro();
+			hitedClubs[i][Constant.DISPLAY_ICON] = clubInfo.getIcon();
+		}
+		return hitedClubs;
 	}
 
 	public String[][] getAllClubs(int firstIndex) {

@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 
 import tool.Constant;
 
@@ -39,7 +37,7 @@ public class ClubDAO {
 	private String strPrepSQL_S_id = "SELECT * FROM club WHERE id=?";
 	private String strPrepSQL_S_mail = "SELECT * FROM club WHERE mail=?";
 	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
-	private String strPrepSQL_S_keyword = "SELECT id FROM club WHERE name LIKE ?";
+	private String strPrepSQL_S_keyword = "SELECT * FROM club WHERE name LIKE ?";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM club";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
 	private String strPrepSQL_D_info = "DELETE FROM clubinfo WHERE id=?";
@@ -179,26 +177,36 @@ public class ClubDAO {
 		}
 	}
 
-	protected Club[] findByKeyword(String keyword[]) { //	検索
-		HashSet<String> hited = new HashSet<String>();
+	protected Club[] findByKeyword(String keywords[]) { //	検索
+		ArrayList<Club> hited = new ArrayList<Club>();
 		try {
-			for (int i = 0; i < keyword.length; i++) {
-				prepStmt_S_keyword.setString(1, keyword[i]);
+			for (int i = 0; i < keywords.length; i++) {
+				prepStmt_S_keyword.setString(1, "%" + keywords[i] + "%");
 				resultSet = prepStmt_S_keyword.executeQuery();
 				while (resultSet.next()) {
-					hited.add(resultSet.getString(Constant.ID));
+					Club club = new Club();
+					club.setId(resultSet.getString("id"));
+					club.setName(resultSet.getString("name"));
+					club.setPassword(resultSet.getString("password"));
+					club.setMail(resultSet.getString("mail"));
+					club.setRecogn(resultSet.getString("recogn"));
+					club.setClubInfoId(resultSet.getString("clubinfoid"));
+					boolean isDuplicate = false; // 重複フラグ
+					for (Club hitedClub : hited) {
+						if (hitedClub.getId().equals(club.getId())) {
+							isDuplicate = true;
+						}
+					}
+					if (!isDuplicate) {
+						hited.add(club);
+					}
 				}
 				resultSet.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Club[] clubs = new Club[hited.size()];
-		Iterator<String> iterator = hited.iterator();
-		for (int i = 0; i < clubs.length; i++) {
-			clubs[i] = getClub(iterator.next());
-		}
-		return clubs;
+		return hited.toArray(new Club[hited.size()]);
 	}
 
 	protected Club getClub(String id) { //	Clubクラスの作成

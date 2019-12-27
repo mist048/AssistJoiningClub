@@ -462,14 +462,13 @@ public class PageDataManager {
 	// 検索結果表示画面へのデータ
 	public void toSearchResultDisplay(HttpServletRequest request) {
 		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
 		String[][] result;
 		if (type.equals("keyword")) { // キーワード検索
-			String keyword = request.getParameter("keyword");
-			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、アイコンを取得
+			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
 
 		} else { // タグ検索
-			String tag = request.getParameter("keyword");
-			result = clubManager.searchByTag(tag); // 検索されたサークルID、サークル名、アイコンを取得
+			result = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
 
 		}
 		request.setAttribute("result", result);

@@ -22,6 +22,7 @@ public class TagDAO {
 	private PreparedStatement prepStmt_S; // SELECT用
 	private PreparedStatement prepStmt_S_id; // SELECT用(id)
 	private PreparedStatement prepStmt_S_name; // SELECT用(name)
+	private PreparedStatement prepStmt_S_keyword; // SELECT用(keyword)
 	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
 
 	private String strPrepSQL_I = "INSERT INTO tag VALUES(?, ?)";
@@ -30,6 +31,7 @@ public class TagDAO {
 	private String strPrepSQL_S = "SELECT * FROM tag LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
 	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
+	private String strPrepSQL_S_keyword = "SELECT * FROM tag WHERE name LIKE ?";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
 
 	protected TagDAO() {
@@ -40,7 +42,7 @@ public class TagDAO {
 		}
 	}
 
-	protected void insert(String id,String name) {
+	protected void insert(String id, String name) {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_I = connection.prepareStatement(strPrepSQL_I);
@@ -190,7 +192,7 @@ public class TagDAO {
 	}
 
 	protected Tag getByName(String name) {
-		Tag tag=new Tag();
+		Tag tag = new Tag();
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 			prepStmt_S_name = connection.prepareStatement(strPrepSQL_S_name);
@@ -227,6 +229,39 @@ public class TagDAO {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	public Tag[] findByKeyword(String[] keywords) {
+		ArrayList<Tag> hited = new ArrayList<Tag>();
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			prepStmt_S_keyword = connection.prepareStatement(strPrepSQL_S_keyword);
+
+			for (int i = 0; i < keywords.length; i++) {
+				prepStmt_S_keyword.setString(1, "%" + keywords[i] + "%");
+				resultSet = prepStmt_S_keyword.executeQuery();
+				while (resultSet.next()) {
+					Tag tag = new Tag();
+					tag.setId(resultSet.getString("id"));
+					tag.setName(resultSet.getString("name"));
+					boolean isDuplicate = false; // 重複フラグ
+					for (Tag hitedTag : hited) {
+						if (hitedTag.getId().equals(tag.getId())) {
+							isDuplicate = true;
+						}
+					}
+					if (!isDuplicate) {
+						hited.add(tag);
+					}
+				}
+				resultSet.close();
+			}
+
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hited.toArray(new Tag[hited.size()]);
 	}
 
 }
