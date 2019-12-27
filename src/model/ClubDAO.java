@@ -11,7 +11,7 @@ import java.util.Iterator;
 import tool.Constant;
 
 public class ClubDAO {
-	private final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
+	private final String driverClassName = "org.postgresql.Driver";
 	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
 	private final String user = "postgres";
 	private final String password = Constant.POSTGRES_PASSWORD;
@@ -256,7 +256,7 @@ public class ClubDAO {
 		}
 		return mail;
 	}
-	
+
 	protected int getNumOfClubs() {
 		int count = 0;
 		try {
