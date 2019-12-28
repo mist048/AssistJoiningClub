@@ -136,7 +136,7 @@ public class ClubManager {
 	}
 
 	public String[][] searchByKeyword(String keyword) {
-		String[] keywords = keyword.split(" ");
+		String[] keywords = keyword.split("[ 　]", 0);
 		Club[] clubs = clubDAO.findByKeyword(keywords);
 		String[][] hitedClubs = new String[clubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO];
 		for (int i = 0; i < clubs.length; i++) {
@@ -150,7 +150,7 @@ public class ClubManager {
 	}
 
 	public String[][] searchByTag(String keyword) {
-		String[] keywords = keyword.split(" ");
+		String[] keywords = keyword.split("[ 　]", 0);
 		Tag[] tagNames = tagDAO.findByKeyword(keywords);
 		ArrayList<Club> clubs = new ArrayList<Club>();
 		for (Tag tag : tagNames) {

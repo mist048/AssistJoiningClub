@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,125 +46,26 @@
 					</p>
 
 					<%
-						String name = (String) request.getAttribute("name");
-						String mail = (String) request.getAttribute("mail");
-						String recogn = (String) request.getAttribute("recogn");
-						String link = "";
-						if (request.getAttribute("link") != null) {
-							link = (String) request.getAttribute("link");
+						String[][] tags = (String[][]) request.getAttribute("tags");
+						if (tags != null) {
+							for (int i = 0; i < tags.length; i++) {
+					%>
+					<div class="chip">
+						<%=tags[i][Constant.NAME]%>
+					</div>
+					<%
 						}
-						String intro = "";
-						if (request.getAttribute("intro") != null) {
-							intro = (String) request.getAttribute("intro");
-						}
-						String member = "";
-						if (request.getAttribute("member") != null) {
-							member = (String) request.getAttribute("member");
 						}
 
 						String[] addTagNames = (String[]) request.getAttribute("addTagNames");
-					%>
-
-					<form action="FromClubInfoUpdate" method="post" name=formConfirm>
-						<p>
-							<label>サークル名<input type="text" name="name"
-								value="<%=name%>" size="20" maxlength="50"></label>
-						</p>
-						<p>
-							<label>メールアドレス<input type="email" name="mail"
-								value="<%=mail%>" size="50" maxlength="256"></label>
-						</p>
-						<p>
-							<label>公認<input type="text" name="recgon"
-								value="<%=recogn%>" size="20" maxlength="50"></label>
-						</p>
-						<p>
-							<label>リンク<input type="text" name="link"
-								value="<%=link%>" size="20" maxlength="256"></label>
-						</p>
-						<p>
-							<label>紹介文<textarea name="intro" maxlength="2000"
-									cols="100" rows="20">
-							<%=intro%></textarea></label>
-						</p>
-						<p>
-							<label>メンバー<input type="text" name="member"
-								value="<%=member%>" size="20" maxlength="16"></label>
-						</p>
-
-						<div class="center-align">
-							<p>
-								<input type="hidden" name="option" value="confirm">
-								<%
-									if (addTagNames != null) {
-										for (String tagName : addTagNames) {
-								%>
-								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
-								<%
-									}
-									}
-								%>
-								<a class="waves-effect waves-light btn"
-									href="javascript:formConfirm.submit()">確定</a>
-							</p>
-						</div>
-					</form>
-
-					<form action="FileHandleServlet" method="post"
-						name=formImageConfirm enctype="multipart/form-data">
-						<p>
-							<label>アイコン<input type="file" name="icon"></label>
-						</p>
-						<br />
-						<p>
-							<label>ホーム画像<input type="file" name="home"></label>
-						</p>
-						<br />
-
-						<div class="center-align">
-							<p>
-								<input type="hidden" name="option" value="confirm"> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formImageConfirm.submit()">確定</a>
-							</p>
-						</div>
-					</form>
-
-					<br />
-
-					<div class="center-align">
-						<form action="FromClubUpdate" method="post" name=formDelete>
-							<input type="hidden" name="option" value="delete"> <a
-								class="waves-effect waves-teal btn-flat"
-								href="javascript:formDelete.submit()"> <span
-								class="red-text">アカウントを削除</span></a><br /> <br />
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col s12 m8 l6 offset-m2 offset-l3">
-			<div class="card">
-				<div class="card-content">
-
-					<h6>
-						タグ編集<br />
-					</h6>
-					<p>
-						<br />
-					</p>
-
-					<%
-						String[][] tags = (String[][]) request.getAttribute("tags");
-						if (tags != null) {
-							// 表示
-						}
 						if (addTagNames != null) {
-							// 表示
+							for (int i = 0; i < addTagNames.length; i++) {
+					%>
+					<div class="chip">
+						<%=addTagNames[i]%>
+					</div>
+					<%
+						}
 						}
 					%>
 
@@ -189,6 +91,107 @@
 								%>
 								<a class="waves-effect waves-light btn"
 									href="javascript:formAdd.submit()">追加</a>
+							</p>
+						</div>
+					</form>
+
+					<%
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String recogn = (String) request.getAttribute("recogn");
+						String link = "";
+						if (request.getAttribute("link") != null) {
+							link = (String) request.getAttribute("link");
+						}
+						String intro = "";
+						if (request.getAttribute("intro") != null) {
+							intro = (String) request.getAttribute("intro");
+						}
+						String member = "";
+						if (request.getAttribute("member") != null) {
+							member = (String) request.getAttribute("member");
+						}
+					%>
+
+					<form action="FromClubInfoUpdate" method="post" name=formConfirm>
+						<p>
+							<label>サークル名<input type="text" name="name"
+								value="<%=name%>" size="20" maxlength="50"></label>
+						</p>
+						<p>
+							<label>メールアドレス<input type="email" name="mail"
+								value="<%=mail%>" size="50" maxlength="256"></label>
+						</p>
+						<p>
+							<label>公認<input type="text" name="recgon"
+								value="<%=recogn%>" size="20" maxlength="50"></label>
+						</p>
+						<p>
+							<label>リンク<input type="text" name="link"
+								value="<%=link%>" size="20" maxlength="256"></label>
+						</p>
+						<p>
+							<label>紹介文<textarea name="intro" maxlength="2000"
+									cols="100" rows="20"><%=intro%></textarea></label>
+						</p>
+						<p>
+							<label>メンバー<input type="text" name="member"
+								value="<%=member%>" size="20" maxlength="16"></label>
+						</p>
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="confirm">
+								<%
+									if (addTagNames != null) {
+										for (String tagName : addTagNames) {
+								%>
+								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
+								<%
+									}
+									}
+								%>
+								<a class="waves-effect waves-light btn"
+									href="javascript:formConfirm.submit()">確定</a>
+							</p>
+						</div>
+					</form>
+
+					<br />
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
+
+					<h6>
+						画像編集<br />
+					</h6>
+					<p>
+						<br />
+					</p>
+
+					<form action="FileHandleServlet" method="post"
+						name=formImageConfirm enctype="multipart/form-data">
+						<p>
+							<label>アイコン<input type="file" name="icon"></label>
+						</p>
+						<br />
+						<p>
+							<label>ホーム画像<input type="file" name="home"></label>
+						</p>
+						<br />
+
+						<div class="center-align">
+							<p>
+								<input type="hidden" name="option" value="confirm"> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formImageConfirm.submit()">確定</a>
 							</p>
 						</div>
 					</form>
