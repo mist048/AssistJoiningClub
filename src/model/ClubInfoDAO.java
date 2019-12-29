@@ -16,13 +16,15 @@ public class ClubInfoDAO {
 	private ResultSet resultSet;
 
 	private PreparedStatement prepStmt_U; // UPDATE用
-	private PreparedStatement prepStmt_U_images; // UPDATE用(画像)
+	private PreparedStatement prepStmt_U_icon; // UPDATE用(アイコン画像)
+	private PreparedStatement prepStmt_U_home; // UPDATE用(ホーム画像)
 	private PreparedStatement prepStmt_D; // DELETE用
 	private PreparedStatement prepStmt_S_id; // SELECT用
 
 	final String db_name = "clubinfo";
 	private String strPrepSQL_U = "UPDATE clubinfo SET link=?, intro=?, member=? WHERE id=?";
-	private String strPrepSQL_U_images = "UPDATE clubinfo SET icon=?, home=? WHERE id=?";
+	private String strPrepSQL_U_icon = "UPDATE clubinfo SET icon=? WHERE id=?";
+	private String strPrepSQL_U_home = "UPDATE clubinfo SET home=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM clubinfo WHERE id=?";
 	private String strPrepSQL_S_id = "SELECT * FROM clubinfo WHERE id=?";
 
@@ -32,7 +34,8 @@ public class ClubInfoDAO {
 			connection = DriverManager.getConnection(url, user, password);
 
 			prepStmt_U = connection.prepareStatement(strPrepSQL_U);
-			prepStmt_U_images = connection.prepareStatement(strPrepSQL_U_images);
+			prepStmt_U_icon = connection.prepareStatement(strPrepSQL_U_icon);
+			prepStmt_U_home = connection.prepareStatement(strPrepSQL_U_home);
 			prepStmt_D = connection.prepareStatement(strPrepSQL_D);
 			prepStmt_S_id = connection.prepareStatement(strPrepSQL_S_id);
 		} catch (Exception e) {
@@ -52,12 +55,21 @@ public class ClubInfoDAO {
 		}
 	}
 
-	protected void updateImages(String id, String icon, String home) { //	画像更新
+	protected void updateIcon(String id, String icon) { //	アイコン画像更新
 		try {
-			prepStmt_U_images.setString(3, id);
-			prepStmt_U_images.setString(1, icon);
-			prepStmt_U_images.setString(2, home);
-			prepStmt_U_images.executeUpdate();
+			prepStmt_U_icon.setString(2, id);
+			prepStmt_U_icon.setString(1, icon);
+			prepStmt_U_icon.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void updateHome(String id, String home) { //	ホーム画像更新
+		try {
+			prepStmt_U_home.setString(2, id);
+			prepStmt_U_home.setString(1, home);
+			prepStmt_U_home.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

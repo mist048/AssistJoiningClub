@@ -47,6 +47,7 @@ public class FromClubInfoDisplay extends HttpServlet {
 		switch (option) {
 		case "favorite": // お気に入り登録・削除処理
 			pageDataManager.favorite(request, hashId);
+			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
 		}

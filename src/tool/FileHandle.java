@@ -28,34 +28,34 @@ public class FileHandle {
 			if (dispotion.trim().startsWith("filename")) {
 				name = dispotion.substring(dispotion.indexOf("=") + 1).replace("\"", "").trim();
 				name = name.substring(name.lastIndexOf("\\") + 1);
+				if (!name.endsWith("jpg") && !name.endsWith("png") && !name.endsWith("gif") && !name.endsWith("bmp")) {
+					name = "";
+				}
 				break;
 			}
 		}
 		return name;
 	}
-	
-	public void save(Part in, File out) throws IOException {
-	    BufferedInputStream br
-	      = new BufferedInputStream(in.getInputStream());
-	    try (BufferedOutputStream bw =
-	      new BufferedOutputStream(new FileOutputStream(out))
-	    ) {
-	      int len = 0;
-	      byte[] buff = new byte[1024];
-	      while ((len = br.read(buff)) != -1) {
-	        bw.write(buff, 0, len);
-	      }
-	    }
-	  }
 
-	public void deleteFile(String filename) {
-		File file = new File("./images/" + filename);
+	public void save(Part in, File out) throws IOException {
+		BufferedInputStream br = new BufferedInputStream(in.getInputStream());
+		try (BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(out))) {
+			int len = 0;
+			byte[] buff = new byte[1024];
+			while ((len = br.read(buff)) != -1) {
+				bw.write(buff, 0, len);
+			}
+		}
+	}
+
+	public void deleteFile(String fileDir, String filename) {
+		File file = new File(fileDir, filename);
 		if (file.exists()) { // ファイルがあれば
 			file.delete();
 		}
 	}
 
-	public String getParameter(Part part) throws IOException{
+	public String getParameter(Part part) throws IOException {
 		InputStream inputStream = part.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		return reader.lines().collect(Collectors.joining());

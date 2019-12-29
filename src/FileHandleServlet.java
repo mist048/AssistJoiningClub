@@ -48,29 +48,37 @@ public class FileHandleServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String hashId = (String) session.getAttribute("userId");
-		Part optionPart = request.getPart("option");
-		String option = fileHandle.getParameter(optionPart);
+		try {
+			Part optionPart = request.getPart("option");
+			String option = fileHandle.getParameter(optionPart);
 
-		switch (option) {
-		case "confirm": // サークル情報の画像更新処理
-			// 画像ファイル名取得処理
-			Part iconPart;
-			iconPart = request.getPart("icon");
-			String icon = fileHandle.getFileName(iconPart);
-			Part homePart = request.getPart("home");
-			String home = fileHandle.getFileName(homePart);
+			switch (option) {
+			case "confirm": // サークル情報の画像更新処理
+				// 画像ファイル名取得処理
+				Part iconPart;
+				iconPart = request.getPart("icon");
+				String icon = fileHandle.getFileName(iconPart);
+				Part homePart = request.getPart("home");
+				String home = fileHandle.getFileName(homePart);
 
-			pageDataManager.clubInfoImagesUpdate(hashId, icon, home);
-			// 画像保存処理
-			if (!icon.equals("")) {
-				iconPart.write(getServletContext().getRealPath("/images") + "/" + icon);
+				// 画像保存処理
+				String fileDir = getServletContext().getRealPath("/images");
+				if (!icon.equals("")) {
+					pageDataManager.clubInfoImageUpdate(hashId, "icon", icon);
+					iconPart.write(fileDir + "/" + icon);
+				}
+				if (!home.equals("")) {
+					pageDataManager.clubInfoImageUpdate(hashId, "home", home);
+					homePart.write(fileDir + "/" + home);
+				}
+				pageDataManager.toClubInfoUpdate(request, hashId);
+				getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
+				break;
 			}
-			if (!home.equals("")) {
-				homePart.write(getServletContext().getRealPath("/images") + "/" + home);
-			}
+		} catch (IllegalStateException e) { // ファイルのサイズが1Mを超える場合
+			request.setAttribute("error", "exceedMaxFileSize");
 			pageDataManager.toClubInfoUpdate(request, hashId);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
-			break;
 		}
 	}
 

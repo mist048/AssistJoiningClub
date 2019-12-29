@@ -343,8 +343,12 @@ public class PageDataManager {
 	}
 
 	// サークル情報の画像更新処理
-	public void clubInfoImagesUpdate(String clubId, String icon, String home) {
-		clubInfoManager.updateImages(clubId, icon, home); // 更新処理
+	public void clubInfoImageUpdate(String clubId, String type, String image) {
+		if (type.equals("icon")) {
+			clubInfoManager.updateImage(clubId, "icon", image); // 更新処理
+		} else if (type.equals("home")) {
+			clubInfoManager.updateImage(clubId, "home", image); // 更新処理
+		}
 	}
 
 	// サークルアカウントマイページ画面へのデータ
@@ -433,7 +437,7 @@ public class PageDataManager {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
-		
+
 		String[] tagIds = holdTagManager.getHoldTag(clubId);
 		String[][] tags = tagManager.getTags(tagIds);
 		request.setAttribute("tags", tags);

@@ -67,15 +67,15 @@ public class ClubInfoManager {
 		return true;
 	}
 
-	public void updateImages(String clubId, String icon, String home) {
+	public void updateImage(String clubId, String type, String image) {
 		Club club = clubDAO.getClub(clubId);
 		String id = club.getClubInfoId();
-		ClubInfo clubInfo = clubInfoDAO.getClubInfo(id);
-		// 前の画像削除処理
-		fileHandle.deleteFile(clubInfo.getIcon());
-		fileHandle.deleteFile(clubInfo.getHome());
-
-		clubInfoDAO.updateImages(id, icon, home);
+		// 画像登録処理
+		if (type.equals("icon")) {
+			clubInfoDAO.updateIcon(id, image);
+		} else if (type.equals("home")) {
+			clubInfoDAO.updateHome(id, image);
+		}
 	}
 
 }
