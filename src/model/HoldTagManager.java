@@ -11,11 +11,8 @@ public class HoldTagManager {
 		tagDAO = new TagDAO();
 	}
 
-	public void update(String clubId, String[] preTagIds, String[] addTagIds) {
+	public void update(String clubId, String[] addTagIds) {
 		holdTagDAO.delete(clubId);
-		for (String tagId : preTagIds) {
-			holdTagDAO.insert(clubId, tagId);
-		}
 		for (String tagId : addTagIds) {
 			holdTagDAO.insert(clubId, tagId);
 		}

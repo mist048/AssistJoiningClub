@@ -326,37 +326,13 @@ public class PageDataManager {
 		request.setAttribute("tags", tags);
 	}
 
-	// タグリスト追加処理
-	public void addTagNamesList(HttpServletRequest request, String clubId) {
-		String[] tagIds = holdTagManager.getHoldTag(clubId);
-
-		// 追加リストに入れる
-		String[] tagNames = request.getParameterValues("addTagNames[]");
-		String tagName = request.getParameter("addTagName");
-		if (tagName != null) { // 追加したいタグ名が送られてきてたら
-			if (!errorCheck.blankCheck(tagName) && !errorCheck.exCharCheck(tagName)) { // 空欄か特殊文字が含まれていなければ
-				ArrayList<String> tagNamesList = null;
-				if (tagNames == null) { // 追加リストがなければ
-					tagNamesList = new ArrayList<String>();
-				} else {
-					tagNamesList = new ArrayList<String>(Arrays.asList(tagNames));
-				}
-				if (tagIds.length + tagNamesList.size() < Constant.MAX_OF_HOLD_TAG) { // 最大保有タグ数を超えていなければ
-					tagNamesList.add(tagName);
-				}
-				request.setAttribute("addTagNames", tagNamesList.toArray(new String[tagNamesList.size()]));
-			}
-		}
-	}
-
 	// サークル情報更新処理
 	public boolean clubInfoUpdate(HttpServletRequest request, String clubId) {
 		String[] tagNames = request.getParameterValues("addTagNames[]");
 		if (tagNames != null) { // 追加リストがあれば
 			tagManager.register(tagNames);
-			String[] preTagIds = holdTagManager.getHoldTag(clubId);
 			String[] addTagIds = tagManager.getByNames(tagNames);
-			holdTagManager.update(clubId, preTagIds, addTagIds);
+			holdTagManager.update(clubId, addTagIds);
 		}
 
 		String link = request.getParameter("link");
@@ -457,6 +433,10 @@ public class PageDataManager {
 		request.setAttribute("member", clubInfo[Constant.MEMBER]);
 		request.setAttribute("icon", clubInfo[Constant.ICON]);
 		request.setAttribute("home", clubInfo[Constant.HOME]);
+		
+		String[] tagIds = holdTagManager.getHoldTag(clubId);
+		String[][] tags = tagManager.getTags(tagIds);
+		request.setAttribute("tags", tags);
 	}
 
 	// 検索結果表示画面へのデータ

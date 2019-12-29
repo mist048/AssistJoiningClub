@@ -48,12 +48,6 @@ public class FromClubInfoUpdate extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
-		case "add": // タグ追加処理
-			pageDataManager.addTagNamesList(request, hashId);
-			pageDataManager.toClubInfoUpdate(request, hashId);
-			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
-			break;
-
 		case "confirm": // サークル情報更新処理
 			boolean result = pageDataManager.clubInfoUpdate(request, hashId);
 			if (result) { // 更新できる

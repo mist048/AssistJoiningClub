@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,6 +83,7 @@
 						<br />
 					</p>
 
+					<div id='tags'></div>
 
 					<table>
 						<tr>
@@ -154,5 +156,29 @@
 			</div>
 		</div>
 	</footer>
+
+	<script>
+		
+	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
+		var tagNames = [
+	<%for (int i = 0; i < tags.length; i++) {
+				if (i != 0) {
+					out.print(",");
+				}
+				out.print("\"" + tags[i][Constant.NAME] + "\"");
+			}%>
+		];
+		init();
+
+		function init() {
+			var tagList = []; //ここが配列になる
+			for (var i = 0; i < tagNames.length; i++) {
+				tagList.push('<div class="chip">' + tagNames[i] + '</div>'); //ここにpush()がくる
+			}
+
+			document.getElementById('tags').innerHTML = tagList.join(''); //innerHTMLへ入れる時にjoin()で文字列にする
+
+		}
+	</script>
 </body>
 </html>

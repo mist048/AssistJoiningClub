@@ -10,6 +10,9 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 
 <!-- materialize CDN -->
 
@@ -46,56 +49,6 @@
 					</p>
 
 					<%
-						String[][] tags = (String[][]) request.getAttribute("tags");
-						if (tags != null) {
-							for (int i = 0; i < tags.length; i++) {
-					%>
-					<div class="chip">
-						<%=tags[i][Constant.NAME]%>
-					</div>
-					<%
-						}
-						}
-
-						String[] addTagNames = (String[]) request.getAttribute("addTagNames");
-						if (addTagNames != null) {
-							for (int i = 0; i < addTagNames.length; i++) {
-					%>
-					<div class="chip">
-						<%=addTagNames[i]%>
-					</div>
-					<%
-						}
-						}
-					%>
-
-					<form action="FromClubInfoUpdate" method="post" name="formAdd">
-						<input type="hidden" name="option" value="add">
-						<p>
-							<label>タグ名<input type="text" name="addTagName" size="20"
-								maxlength="50"></label>
-						</p>
-
-						<br />
-
-						<div class="center-align">
-							<p>
-								<%
-									if (addTagNames != null) {
-										for (String tagName : addTagNames) {
-								%>
-								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
-								<%
-									}
-									}
-								%>
-								<a class="waves-effect waves-light btn"
-									href="javascript:formAdd.submit()">追加</a>
-							</p>
-						</div>
-					</form>
-
-					<%
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
 						String recogn = (String) request.getAttribute("recogn");
@@ -114,6 +67,13 @@
 					%>
 
 					<form action="FromClubInfoUpdate" method="post" name=formConfirm>
+
+						<div id='tags'></div>
+						<div class="input-field col s12">
+							<input type="text" id="addTagName"><a
+								class="waves-effect waves-light btn" onclick="addChip()">追加</a>
+						</div>
+
 						<p>
 							<label>サークル名<input type="text" name="name"
 								value="<%=name%>" size="20" maxlength="50"></label>
@@ -131,8 +91,7 @@
 								value="<%=link%>" size="20" maxlength="256"></label>
 						</p>
 						<p>
-							<label>紹介文<textarea name="intro" maxlength="2000"
-									cols="100" rows="20"><%=intro%></textarea></label>
+							<label>紹介文<textarea name="intro" maxlength="2000" cols="100" rows="20"><%=intro%></textarea></label>
 						</p>
 						<p>
 							<label>メンバー<input type="text" name="member"
@@ -141,17 +100,8 @@
 
 						<div class="center-align">
 							<p>
-								<input type="hidden" name="option" value="confirm">
-								<%
-									if (addTagNames != null) {
-										for (String tagName : addTagNames) {
-								%>
-								<input type="hidden" name="addTagNames[]" value=<%=tagName%>>
-								<%
-									}
-									}
-								%>
-								<a class="waves-effect waves-light btn"
+								<input type="hidden" name="option" value="confirm"> <a
+									class="waves-effect waves-light btn"
 									href="javascript:formConfirm.submit()">確定</a>
 							</p>
 						</div>
@@ -219,5 +169,61 @@
 			</div>
 		</div>
 	</footer>
+
+	<script>
+		
+	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
+		var tagNames = [
+	<%for (int i = 0; i < tags.length; i++) {
+				if (i != 0) {
+					out.print(",");
+				}
+				out.print("\"" + tags[i][Constant.NAME] + "\"");
+			}%>
+		];
+		init();
+
+		function init() {
+			var tagList = []; //ここが配列になる
+			for (var i = 0; i < tagNames.length; i++) {
+				tagList
+						.push('<div class="chip">'
+								+ tagNames[i]
+								+ '<i class="close material-icons" onclick="handleClick()" id="chip">close</i></div>'
+								+ '<input type="hidden" name="addTagNames[]" value="'+tagNames[i]+'">'); //ここにpush()がくる
+			}
+
+			document.getElementById('tags').innerHTML = tagList.join(''); //innerHTMLへ入れる時にjoin()で文字列にする
+
+			(function() {
+				i
+				function handleClick(event) {
+					tagNames.splice(this.x, 1);
+					init();
+				}
+
+				var closeIcons = document
+						.getElementsByClassName('close material-icons');
+
+				for (var i = 0, l = closeIcons.length; i < l; ++i) {
+					closeIcons[i].addEventListener('click', {
+						x : i,
+						handleEvent : handleClick
+					}, false);
+				}
+			}());
+		}
+
+		function addChip() {
+			var addTagName = document.getElementById('addTagName').value;
+			if (addTagName != "" && tagNames.indexOf(addTagName) == -1
+					&& tagNames.length <
+	<%=Constant.MAX_OF_HOLD_TAG%>
+		) {
+				tagNames.push(addTagName);
+				init();
+			}
+		}
+	</script>
 </body>
 </html>
