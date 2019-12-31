@@ -16,7 +16,17 @@
 </head>
 <body bgcolor=#f9f9f9>
 
-	<nav class="teal"></nav>
+	<nav class="teal">
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo center"></a>
+				<ul class="left hide-on-med-and-down">
+					<li><a href="">ユーザ</a></li>
+				</ul>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="ToTop">トップ</a></li>
+				</ul>
+			</div>
+		</nav>
 	<p>
 		<br/>
 	</p>
@@ -26,9 +36,9 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-						<h6>
-							アカウントを登録しました。<br/>
-						</h6>
+						<h6>アカウントを登録しました。</h6>
+
+						<p class="blue-grey-text">ホームへ移動します。</p>
 					</div>
 
 					<p>
@@ -51,7 +61,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
