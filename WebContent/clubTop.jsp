@@ -38,13 +38,6 @@
 				<li><a
 					href="logout.jsp">ログアウト</a></li>
 			</ul>
-
-			<ul class="left hide-on-med-and-down">
-
-				<li><a class="waves-effect waves-teal btn-flat"> <span
-						class="white-text">＜サークル名＞</span>
-				</a></li>
-			</ul>
 		</div>
 
 	</nav>

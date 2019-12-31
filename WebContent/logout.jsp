@@ -20,7 +20,7 @@
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="left hide-on-med-and-down">
-				<li><a href="Totop">戻る</a></li>
+				<li><a href="ToTop">戻る</a></li>
 			</ul>
 		</div>
 
