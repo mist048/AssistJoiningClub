@@ -29,7 +29,7 @@
 
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 
@@ -53,28 +53,29 @@
 			<div class="card">
 				<div class="card-content">
 
-					<h6>
+					<h5>
 						パスワードを確認<br />
-					</h6>
-					<p>
-						<br />
-					</p>
+					</h5>
+					<hr>
 
-
-					<p>パスワードを確認 アカウント削除リクエストを完了するために登録されているパスワードを入力してください.</p>
+					<p class="blue-grey-text">パスワードを確認
+						アカウント削除リクエストを完了するために登録されているパスワードを入力してください。</p>
 
 					<form action="FromAccountDeleteConfirm" method="post"
 						name="formDelete">
 						<p>
-							<label>パスワード<input type="password" name="password" size="20"
-								maxlength="16"></label>
+							<label>パスワード<input type="password" name="password"
+								size="20" maxlength="16"></label>
+						</p>
+						<p>
+							<br />
 						</p>
 
 						<div class="center-align">
 							<p>
 								<input type="hidden" name="option" value="delete"> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formDelete.submit()">削除</a>
+									class="waves-effect red btn"
+									href="javascript:formDelete.submit()">アカウント削除</a>
 							</p>
 						</div>
 					</form>
@@ -83,7 +84,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">

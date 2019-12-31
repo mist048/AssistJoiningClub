@@ -29,7 +29,7 @@
 
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
 
 	<nav class="teal">
@@ -54,18 +54,41 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-					<div class="center-align">
-						<h6>アカウント削除</h6>
-					</div>
-
-					<p>
-						<br />
-					</p>
 
 					<%
 						String id = (String) request.getAttribute("id");
 						String name = (String) request.getAttribute("name");
 					%>
+
+					<h6>
+						<%=session.getAttribute("name")%><!-- name -->
+					</h6>
+					<h6 class="blue-grey-text">
+						<%=session.getAttribute("id")%><!-- ID -->
+					</h6>
+
+					<br />
+
+
+					<h5>
+						アカウントが削除されます<br />
+					</h5>
+
+					<hr>
+					<p class="blue-grey-text">
+						アカウントの削除プロセスを開始します。<br /> 本システムに登録された情報は全て削除されます。
+					</p>
+
+
+
+					<!--
+						<h6>アカウント削除</h6>
+
+					<p>
+						<br />
+					</p>
+
+
 
 					<table>
 						<tr>
@@ -76,11 +99,20 @@
 
 					<br />
 
+					-->
+
+
+					<p>
+						<br />
+					</p>
+
+
 					<div class="center-align">
 						<p>
-							<input type="hidden" name="id" value=<%=id%>>
-							<input type="hidden" name="name" value=<%=name%>>
-							<a class="waves-effect waves-light btn" href="accountDeleteConfirm.jsp">削除</a>
+							<input type="hidden" name="id" value=<%=id%>> <input
+								type="hidden" name="name" value=<%=name%>> <a
+								class="waves-effect waves-light btn"
+								href="accountDeleteConfirm.jsp">削除</a>
 						</p>
 					</div>
 
@@ -89,15 +121,15 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
