@@ -63,9 +63,11 @@
 					<h6>
 						<%=session.getAttribute("name")%><!-- name -->
 					</h6>
+					<!--
 					<h6 class="blue-grey-text">
-						<%=session.getAttribute("id")%><!-- ID -->
+						<%=session.getAttribute("id")%>
 					</h6>
+					-->
 
 					<br />
 
