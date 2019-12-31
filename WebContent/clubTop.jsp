@@ -38,6 +38,10 @@
 				<li><a
 					href="logout.jsp">ログアウト</a></li>
 			</ul>
+			<ul class="left hide-on-med-and-down">
+				<li><a
+					href="ToMyPage">マイページ</a></li>
+			</ul>
 		</div>
 
 	</nav>
