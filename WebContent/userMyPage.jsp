@@ -21,7 +21,7 @@
 		<form action="FromClubMyPage" method="post" name ="form0">
 			<a href="#" class="brand-logo center"></a>
 			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
+				<li><a href="ToTop">トップへ</a></li>
 			</ul>
 		</form>
 		</div>
@@ -37,7 +37,6 @@
 				<div class="card-content">
 
 					<%
-						String id = (String) request.getAttribute("id");
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
 						String password = (String) request.getAttribute("password");
@@ -50,10 +49,6 @@
 						<p>
 							<br/>
 						<table>
-							<tr>
-								<td>ID</td>
-								<td><%=id%></td>
-							</tr>
 							<tr>
 								<td>ユーザ</td>
 								<td><%=name%></td>
