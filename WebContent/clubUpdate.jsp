@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>clubUpdate</title>
+<script src="http://code.jquery.com/jquery.min.js"></script>
 
 <!-- materealize CDN -->
 <link rel="stylesheet"
@@ -67,12 +68,20 @@
 								value="" size="20" maxlength="16"></label>
 						</p>
 
+						<%
+							if (session.getAttribute("user").equals("admin")) { // 管理者のとき
+						%>
+						<!-- 公認・非公認のドロップダウンリスト -->
+						<%
+							}
+						%>
 
 						<div class="center-align">
 
 							<p>
 
-								<input type="hidden" name="option" value="confirm"> <a
+								<input type="hidden" name="option" value="confirm"> <input
+									type="hidden" name="id" value=<%=id%>> <a
 									class="waves-effect waves-light btn"
 									href="javascript:formConfirm.submit()">確定</a>
 
@@ -82,8 +91,8 @@
 
 					<div class="center-align">
 						<form action="FromClubUpdate" method="post" name=formDelete>
-							<input type="hidden" name="option" value="delete">
-							<input type="hidden" name="id" value=<%=id %>> <a
+							<input type="hidden" name="option" value="delete"> <input
+								type="hidden" name="id" value=<%=id%>> <a
 								class="waves-effect waves-teal btn-flat"
 								href="javascript:formDelete.submit()"> <span
 								class="red-text">アカウントを削除</span></a><br /> <br />
@@ -114,5 +123,6 @@
 			</div>
 		</div>
 	</footer>
+
 </body>
 </html>

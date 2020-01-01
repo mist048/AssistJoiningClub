@@ -62,8 +62,10 @@ public class FromAccountDeleteConfirm extends HttpServlet {
 				boolean result = pageDataManager.accountDelete(request, user, deletedId); // 削除処理
 				if (result) { // 削除成功
 					if (deletedUser.equals("general")) { // 一般ユーザが対象
+						pageDataManager.toUserDisplay(request);
 						getServletContext().getRequestDispatcher("/userDisplay.jsp").forward(request, response);
 					} else if (deletedUser.equals("club")) { // サークルアカウントが対象
+						pageDataManager.toClubDisplay(request);
 						getServletContext().getRequestDispatcher("/clubDisplay.jsp").forward(request, response);
 					}
 				} else { // 削除失敗

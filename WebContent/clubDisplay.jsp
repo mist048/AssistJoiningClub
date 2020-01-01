@@ -63,6 +63,10 @@
 						<%
 							String[][] clubs = (String[][]) request.getAttribute("clubs");
 							for (int i = 0; i < clubs.length; i++) {
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
+								}
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
@@ -72,13 +76,12 @@
 							<form action="FromClubDisplay" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
-								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
-								<input type="hidden" name="option"
-									value="clubInfoDisplayForAdmin"> <input type="hidden"
-									name="clubId" value=<%=clubs[i][Constant.DISPLAY_ID]%>>
-								<a href="javascript:form<%=i%>.submit()"
-									class="secondary-content"> <i
-									class="waves-effect waves-teal btn-flat">詳細</i>
+								<p><%=intro%></p>
+								<input type="hidden" name="option" value="clubInfoDisplayForAdmin">
+								<input type="hidden" name="id"
+									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
+									href="javascript:form<%=i%>.submit()" class="secondary-content">
+									<i class="waves-effect waves-teal btn-flat">詳細</i>
 								</a>
 							</form>
 						</li>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,19 +17,18 @@
 
 	<nav class="teal">
 		<div class="nav-wrapper">
-				<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="ToMyPage">マイページ</a></li>
-				</ul>
-				<ul class="right hide-on-med-and-down">
-					<li><a href="ToTop">トップ</a></li>
-				</ul>
+			<a href="#" class="brand-logo center"></a>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="ToMyPage">マイページ</a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
 		</div>
 	</nav>
 
 
-	<p>
-	</p>
+	<p></p>
 
 
 	<div class="row">
@@ -41,34 +40,36 @@
 					</div>
 
 					<p>
-						<br/>
+						<br />
 					</p>
 
 					<%
+						String id = (String) request.getAttribute("id");
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
-						String password = (String) request.getAttribute("password");
 					%>
 
-					<form action="FromUserUpdate" method="get" name = formConfirm>
+					<form action="FromUserUpdate" method="post" name=formConfirm>
 						<p>
-							<label>ユーザ名<input type="text" name="name" value = "<%=name%>"
-							size="20" maxlength="50"></label>
+							<label>ユーザ名<input type="text" name="name"
+								value="<%=name%>" size="20" maxlength="50"></label>
 						</p>
 						<p>
-							<label>メールアドレス<input type="email" name="mail" value = "<%=mail%>"
-							size="50" maxlength="256"></label>
+							<label>メールアドレス<input type="email" name="mail"
+								value="<%=mail%>" size="50" maxlength="256"></label>
 						</p>
 						<p>
-							<label>パスワード<input type="password" name="pass" value = ""
-							size="20" maxlength="16"></label>
+							<label>パスワード<input type="password" name="password"
+								value="" size="20" maxlength="16"></label>
 						</p>
 
 
 						<div class="center-align">
 							<p>
-								<input type="hidden" name="option" value="confirm">
-								<a class="waves-effect waves-light btn" href = "javascript:formConfirm.submit()">確定</a>
+								<input type="hidden" name="option" value="confirm"> <input
+									type="hidden" name="id" value=<%=id%>> <a
+									class="waves-effect waves-light btn"
+									href="javascript:formConfirm.submit()">確定</a>
 							</p>
 
 						</div>
@@ -76,7 +77,8 @@
 
 					<div class="center-align">
 						<form action="FromUserUpdate" method="post" name=formDelete>
-							<input type="hidden" name="option" value="delete"> <a
+							<input type="hidden" name="option" value="delete"> <input
+								type="hidden" name="id" value=<%=id%>><a
 								class="waves-effect waves-teal btn-flat"
 								href="javascript:formDelete.submit()"> <span
 								class="red-text">アカウントを削除</span></a><br /> <br />

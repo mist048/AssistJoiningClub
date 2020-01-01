@@ -59,6 +59,9 @@
 						String deletedUser = (String) request.getAttribute("deletedUser");
 						String id = (String) request.getAttribute("deletedId");
 						String name = (String) request.getAttribute("name");
+
+						request.setAttribute("deletedUser", deletedUser);
+						request.setAttribute("deletedId", id);
 					%>
 
 					<h6>
@@ -111,13 +114,15 @@
 
 
 					<div class="center-align">
-						<p>
-							<input type="hidden" name="deletedUser" <%=deletedUser%>>
-							<input type="hidden" name="deletedId" value=<%=id%>> <input
-								type="hidden" name="name" value=<%=name%>> <a
-								class="waves-effect waves-light btn"
-								href="accountDeleteConfirm.jsp">削除</a>
-						</p>
+						<form action="accountDeleteConfirm.jsp" method="post"
+							name="formDelete">
+							<input type="hidden" name="deletedUser" value=<%=deletedUser%>>
+							<input type="hidden" name="deletedId" value=<%=id%>>
+							<p>
+								<a class="waves-effect waves-light btn"
+									href="javascript:formDelete.submit()">削除</a>
+							</p>
+						</form>
 					</div>
 
 				</div>

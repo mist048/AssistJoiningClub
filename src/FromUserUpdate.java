@@ -51,7 +51,7 @@ public class FromUserUpdate extends HttpServlet {
 			if (user.equals("general")) { // 一般ユーザ
 				pageDataManager.toAccountDelete(request, user, null, hashId);
 			} else if (user.equals("admin")) { // 管理者
-				String generalId = request.getParameter("generalId"); // 削除されるID
+				String generalId = request.getParameter("id"); // 削除されるID
 				pageDataManager.toAccountDelete(request, user, "general", generalId);
 			}
 			getServletContext().getRequestDispatcher("/accountDelete.jsp").forward(request, response);
@@ -63,7 +63,7 @@ public class FromUserUpdate extends HttpServlet {
 			if (user.equals("general")) { // 一般ユーザ
 				code = pageDataManager.userUpdate(request, hashId);
 			} else if (user.equals("admin")) { // 管理者
-				String generalId = request.getParameter("generalId"); // 更新されるID
+				String generalId = request.getParameter("id"); // 更新されるID
 				code = pageDataManager.userUpdate(request, generalId);
 			}
 
@@ -73,7 +73,7 @@ public class FromUserUpdate extends HttpServlet {
 					pageDataManager.toUserMyPage(request, hashId);
 					getServletContext().getRequestDispatcher("/userMyPage.jsp").forward(request, response);
 				} else { // 管理者
-					String generalId = request.getParameter("generalId");
+					String generalId = request.getParameter("id");
 					pageDataManager.userUpdateConfirm(request, generalId); // 更新処理
 					pageDataManager.toUserInfoDisplayForAdmin(request);
 					getServletContext().getRequestDispatcher("/userInfoDisplayForAdmin.jsp").forward(request, response);
@@ -82,7 +82,7 @@ public class FromUserUpdate extends HttpServlet {
 				if (user.equals("general")) { // 一般ユーザ
 					pageDataManager.toUserUpdate(request, hashId, code);
 				} else if (user.equals("admin")) { // 管理者
-					String generalId = request.getParameter("generalId");
+					String generalId = request.getParameter("id");
 					pageDataManager.toUserUpdate(request, generalId, code);
 				}
 				getServletContext().getRequestDispatcher("/userUpdate.jsp").forward(request, response);

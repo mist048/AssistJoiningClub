@@ -120,7 +120,11 @@ public class PageDataManager {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
-		int code = userManager.register(id, name, password, mail); // 登録判定
+		// ID、パスワードをハッシュ値に変換する
+		String hashId = SHA256.hash(id);
+		String hashPassword = SHA256.hash(password);
+		int code = -1;
+		code = userManager.register(hashId, name, hashPassword, mail); // 登録判定
 		return code;
 	}
 
@@ -151,6 +155,7 @@ public class PageDataManager {
 	// 一般ユーザ更新画面へのデータ
 	public void toUserUpdate(HttpServletRequest request, String generalId, int error) {
 		String[] general = userManager.getUser(generalId);
+		request.setAttribute("id", general[Constant.ID]);
 		request.setAttribute("password", general[Constant.PASSWORD]);
 		request.setAttribute("name", general[Constant.NAME]);
 		request.setAttribute("mail", general[Constant.MAIL]);
@@ -379,8 +384,10 @@ public class PageDataManager {
 		case "admin": // 管理者
 			if (deletedUser.equals("general")) { // 一般ユーザが対象
 				userInfo = userManager.getUser(userId);
+				request.setAttribute("deletedUser", "general");
 			} else if (deletedUser.equals("club")) { // サークルアカウントが対象
 				userInfo = clubManager.getClub(userId);
+				request.setAttribute("deletedUser", "club");
 			}
 			request.setAttribute("deletedId", userInfo[Constant.ID]);
 			request.setAttribute("name", userInfo[Constant.NAME]);
@@ -414,9 +421,15 @@ public class PageDataManager {
 		case "admin": // 管理者
 			String deletedUser = request.getParameter("deletedUser"); // 削除される対象
 			if (deletedUser.equals("general")) { // 一般ユーザが対象
-				result = clubManager.delete(userId, hashPassword);
+				if (adminManager.confirmPassword(hashPassword)) {
+					String[] general = userManager.getUser(userId);
+					result = userManager.delete(userId, general[Constant.PASSWORD]);
+				}
 			} else if (deletedUser.equals("club")) { // サークルアカウントが対象
-				result = clubManager.delete(userId, hashPassword);
+				if (adminManager.confirmPassword(hashPassword)) {
+					String[] club = clubManager.getClub(userId);
+					result = clubManager.delete(userId, club[Constant.PASSWORD]);
+				}
 			}
 			break;
 		}
@@ -537,7 +550,7 @@ public class PageDataManager {
 
 	// 一般ユーザ管理者閲覧用画面へのデータ
 	public void toUserInfoDisplayForAdmin(HttpServletRequest request) {
-		String generalId = request.getParameter("generalId");
+		String generalId = request.getParameter("id");
 		String[] general = userManager.getUser(generalId);
 		request.setAttribute("id", general[Constant.ID]);
 		request.setAttribute("name", general[Constant.NAME]);
@@ -571,7 +584,7 @@ public class PageDataManager {
 
 	// サークルアカウント管理者閲覧用画面へのデータ
 	public void toClubInfoDisplayForAdmin(HttpServletRequest request) {
-		String clubId = request.getParameter("clubId");
+		String clubId = request.getParameter("id");
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
 		request.setAttribute("id", club[Constant.ID]);

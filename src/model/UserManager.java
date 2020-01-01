@@ -5,12 +5,12 @@ import tool.ErrorCheck;
 
 public class UserManager {
 	private UserDAO userDAO;
-	//private FavoriteDAO favoriteDAO;
+	private FavoriteDAO favoriteDAO;
 	private ErrorCheck errorCheck;
 
 	public UserManager() {
 		userDAO = new UserDAO();
-		//favoriteDAO = new FavoriteDAO();
+		favoriteDAO = new FavoriteDAO();
 		errorCheck = ErrorCheck.getInstance();
 	}
 
@@ -62,8 +62,12 @@ public class UserManager {
 	}
 
 	public int update(String id, String name, String password, String mail) {
-		String[] userInfo = new String[Constant.NUM_OF_USER_FIELD];
 		User user = userDAO.getUser(id);
+		String[] userInfo = new String[Constant.NUM_OF_USER_FIELD];
+		userInfo[Constant.ID] = id;
+		userInfo[Constant.NAME] = name;
+		userInfo[Constant.PASSWORD] = password;
+		userInfo[Constant.MAIL] = mail;
 		if (!user.getMail().equals(mail)) { // メールアドレスを変更していれば
 			if (userDAO.findByMail(mail)) { // メールアドレスが重複している
 				return Constant.DUPLICATE;
@@ -88,8 +92,8 @@ public class UserManager {
 
 	public boolean delete(String id, String password) {
 		if (userDAO.find(id, password)) { // ユーザ情報があれば削除する
+			favoriteDAO.deleteByUserId(id);
 			userDAO.delete(id, password);
-			//favoriteDAO.deleteByUserId(id);
 			return true;
 		} else {
 			return false;

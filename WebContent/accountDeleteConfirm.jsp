@@ -75,9 +75,9 @@
 							<p>
 								<input type="hidden" name="option" value="delete"> <input
 									type="hidden" name="deletedUser"
-									value=<%=request.getAttribute("deletedUser")%>> <input
+									value=<%=request.getParameter("deletedUser")%>> <input
 									type="hidden" name="deletedId"
-									value=<%=request.getAttribute("deletedId")%>> <a
+									value=<%=request.getParameter("deletedId")%>> <a
 									class="waves-effect red btn"
 									href="javascript:formDelete.submit()">アカウント削除</a>
 							</p>

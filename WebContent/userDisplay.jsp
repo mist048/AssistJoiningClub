@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
@@ -29,25 +29,25 @@
 
 		<div class="nav-wrapper">
 			<form action="ToTop" method="post">
-			<ul class="left hide-on-med-and-down">
-				<li><a href="ToTop">トップ</a></li>
-			</ul>
+				<ul class="left hide-on-med-and-down">
+					<li><a href="ToTop">トップ</a></li>
+				</ul>
 			</form>
 		</div>
 	</nav>
 
 
-<p>
-		<br/>
+	<p>
+		<br />
 	</p>
 
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-				<div class="center-align">
-					<h6>ユーザ一覧</h6>
-				</div>
+					<div class="center-align">
+						<h6>ユーザ一覧</h6>
+					</div>
 
 					<ul class="collection">
 
@@ -59,9 +59,9 @@
 						<li class="collection-item avatar"><i
 							class="material-icons circle">person</i>
 							<form action="FromUserDisplay" method="get" name="form<%=i%>">
-								<span class="title"><%=users[i][Constant.NAME]%></span>
-								<input type="hidden" name="option" value="userInfoDisplayForAdmin">
-								<input type="hidden" name="generalId"
+								<span class="title"><%=users[i][Constant.NAME]%></span> <input
+									type="hidden" name="option" value="userInfoDisplayForAdmin">
+								<input type="hidden" name="id"
 									value=<%=users[i][Constant.ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
 									<i class="waves-effect waves-teal btn-flat">詳細</i>
@@ -81,8 +81,9 @@
 								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
-							<li class="disabled"><form action="FromAdminTop" method="post"
-									name="formBefore">
+							<li class="disabled"><form action="FromUserDisplay"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="userDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
 										href="javascript:formBefore.submit()"> <i
@@ -100,7 +101,8 @@
 									}
 							%>
 							<li class="<%=state%>">
-								<form action="FromAdminTop" method="post" name="formTo<%=i%>">
+								<form action="FromUserDisplay" method="post" name="formTo<%=i%>">
+									<input type="hidden" name="option" value="userDisplay">
 									<input type="hidden" name="firstIndex"
 										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
 										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
@@ -113,8 +115,9 @@
 								Boolean next = (Boolean) request.getAttribute("next");
 								if (next != null && next == true) {
 							%>
-							<li class="waves-effect"><form action="FromAdminTop" method="post"
-									name="formNext">
+							<li class="waves-effect"><form action="FromUserDisplay"
+									method="post" name="formNext">
+									<input type="hidden" name="option" value="userDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
 										href="javascript:formNext.submit()"><i

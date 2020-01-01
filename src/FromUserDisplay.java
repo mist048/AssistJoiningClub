@@ -42,6 +42,11 @@ public class FromUserDisplay extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "userDisplay": // 一般ユーザ一覧画面へ
+			pageDataManager.toUserDisplay(request);
+			getServletContext().getRequestDispatcher("/userDisplay.jsp").forward(request, response);
+			break;
+			
 		case "userInfoDisplayForAdmin": // 一般ユーザ管理者閲覧用画面へ
 			pageDataManager.toUserInfoDisplayForAdmin(request);
 			getServletContext().getRequestDispatcher("/userInfoDisplayForAdmin.jsp").forward(request, response);

@@ -17,6 +17,13 @@ public class AdminManager {
 		}
 		return false;
 	}
+	
+	public boolean confirmPassword(String password) {
+		if(adminDAO.findByPassword(password)) {
+			return true;
+		}
+		return false;
+	}
 
 	public void mailToAdmin(String user, String userId, String subject, String info) {
 		String mail = null;
