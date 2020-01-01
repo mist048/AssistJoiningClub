@@ -61,7 +61,7 @@
 					%>
 
 					<h6>
-						<%=session.getAttribute("name")%><!-- name -->
+						<%=name%><!-- name -->
 					</h6>
 					<!--
 					<h6 class="blue-grey-text">

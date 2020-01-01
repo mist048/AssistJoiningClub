@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
@@ -10,6 +10,10 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <!-- materialize CDN -->
 
 </head>
@@ -27,7 +31,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -44,8 +48,7 @@
 							String[][] tags = (String[][]) request.getAttribute("allTags");
 							for (int i = 0; i < tags.length; i++) {
 						%>
-						<li class="collection-item avatar">
-							<span class="title"><%=tags[i][Constant.NAME]%></span>
+						<li class="collection-item avatar"><span class="title"><%=tags[i][Constant.NAME]%></span>
 						</li>
 						<%
 							}
@@ -61,8 +64,9 @@
 								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
-							<li class="disabled"><form action="FromAdminTop" method="post"
-									name="formBefore">
+							<li class="disabled"><form action="FromTagDisplay"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="tagDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
 										href="javascript:formBefore.submit()"> <i
@@ -80,7 +84,8 @@
 									}
 							%>
 							<li class="<%=state%>">
-								<form action="FromAdminTop" method="post" name="formTo<%=i%>">
+								<form action="FromTagDisplay" method="post" name="formTo<%=i%>">
+									<input type="hidden" name="option" value="tagDisplay">
 									<input type="hidden" name="firstIndex"
 										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
 										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
@@ -93,8 +98,9 @@
 								Boolean next = (Boolean) request.getAttribute("next");
 								if (next != null && next == true) {
 							%>
-							<li class="waves-effect"><form action="FromAdminTop" method="post"
-									name="formNext">
+							<li class="waves-effect"><form action="FromTagDisplay"
+									method="post" name="formNext">
+									<input type="hidden" name="option" value="tagDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
 										href="javascript:formNext.submit()"><i
@@ -108,14 +114,14 @@
 
 					<div class="center-align">
 
-							<form action="FromTagDisplay" method="post" name="formTagedit"
-								style="display: inline">
-								<input type="hidden" name="option" value="tagEdit"> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formTagedit.submit()">編集</a>
-							</form>
+						<form action="FromTagDisplay" method="post" name="formTagedit"
+							style="display: inline">
+							<input type="hidden" name="option" value="tagEdit"> <a
+								class="waves-effect waves-light btn"
+								href="javascript:formTagedit.submit()">編集</a>
+						</form>
 
-						</div>
+					</div>
 
 				</div>
 			</div>

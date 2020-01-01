@@ -47,7 +47,7 @@
 
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -69,15 +69,16 @@
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromTop" method="post" name="form<%=i%>">
+							<form action="FromClubDisplay" method="post" name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
-								<input type="hidden" name="option" value="clubInfoDisplay">
-								<input type="hidden" name="clubId"
-									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
-									href="javascript:form<%=i%>.submit()" class="secondary-content">
-									<i class="waves-effect waves-teal btn-flat">詳細</i>
+								<input type="hidden" name="option"
+									value="clubInfoDisplayForAdmin"> <input type="hidden"
+									name="clubId" value=<%=clubs[i][Constant.DISPLAY_ID]%>>
+								<a href="javascript:form<%=i%>.submit()"
+									class="secondary-content"> <i
+									class="waves-effect waves-teal btn-flat">詳細</i>
 								</a>
 							</form>
 						</li>
@@ -96,8 +97,9 @@
 								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
-							<li class="disabled"><form action="FromAdminTop" method="post"
-									name="formBefore">
+							<li class="disabled"><form action="FromClubDisplay"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="clubDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
 										href="javascript:formBefore.submit()"> <i
@@ -115,7 +117,8 @@
 									}
 							%>
 							<li class="<%=state%>">
-								<form action="FromAdminTop" method="post" name="formTo<%=i%>">
+								<form action="FromClubDisplay" method="post" name="formTo<%=i%>">
+									<input type="hidden" name="option" value="clubDisplay">
 									<input type="hidden" name="firstIndex"
 										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
 										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
@@ -128,8 +131,9 @@
 								Boolean next = (Boolean) request.getAttribute("next");
 								if (next != null && next == true) {
 							%>
-							<li class="waves-effect"><form action="FromAdminTop" method="post"
-									name="formNext">
+							<li class="waves-effect"><form action="FromClubDisplay"
+									method="post" name="formNext">
+									<input type="hidden" name="option" value="clubDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
 										href="javascript:formNext.submit()"><i

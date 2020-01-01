@@ -10,6 +10,10 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <!-- materialize CDN -->
 
 </head>
@@ -79,9 +83,10 @@
 								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
-							<li class="disabled"><form action="FromTagDisplay" method="post"
-									name="formBefore">
-									<input type="hidden" name="firstIndex"
+							<li class="disabled"><form action="FromTagEdit"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="tagEdit"> <input
+										type="hidden" name="firstIndex"
 										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
 										href="javascript:formBefore.submit()"> <i
 										class="material-icons">chevron_left</i></a>
@@ -98,8 +103,9 @@
 									}
 							%>
 							<li class="<%=state%>">
-								<form action="FromTagDisplay" method="post" name="formTo<%=i%>">
-									<input type="hidden" name="firstIndex"
+								<form action="FromTagEdit" method="post" name="formTo<%=i%>">
+									<input type="hidden" name="option" value="tagEdit"> <input
+										type="hidden" name="firstIndex"
 										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
 										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
 								</form>
@@ -111,9 +117,10 @@
 								Boolean next = (Boolean) request.getAttribute("next");
 								if (next != null && next == true) {
 							%>
-							<li class="waves-effect"><form action="FromTagDisplay" method="post"
-									name="formNext">
-									<input type="hidden" name="firstIndex"
+							<li class="waves-effect"><form action="FromTagEdit"
+									method="post" name="formNext">
+									<input type="hidden" name="option" value="tagEdit"> <input
+										type="hidden" name="firstIndex"
 										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
 										href="javascript:formNext.submit()"><i
 										class="material-icons">chevron_right</i></a>

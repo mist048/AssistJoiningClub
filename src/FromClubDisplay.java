@@ -42,7 +42,12 @@ public class FromClubDisplay extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
-		case "userInfoDisplayForAdmin": // サークルアカウント管理者閲覧用画面へ
+		case "clubDisplay": // サークル情報一覧画面へ
+			pageDataManager.toClubDisplay(request);
+			getServletContext().getRequestDispatcher("/clubDisplay.jsp").forward(request, response);
+			break;
+
+		case "clubInfoDisplayForAdmin": // サークルアカウント管理者閲覧用画面へ
 			pageDataManager.toClubInfoDisplayForAdmin(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplayForAdmin.jsp").forward(request, response);
 			break;

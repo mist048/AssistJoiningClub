@@ -42,6 +42,11 @@ public class FromTagEdit extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "tagEdit": // タグ編集画面へ
+			pageDataManager.toTagEdit(request);
+			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);
+			break;
+			
 		case "delete": // 削除処理
 			pageDataManager.toTagEdit(request);
 			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);

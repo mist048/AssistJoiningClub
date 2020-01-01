@@ -41,8 +41,6 @@ public class FromTop extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String option = request.getParameter("option");
 
-		String keyword = request.getParameter("keyword");
-
 		switch (option) {
 		case "searchResultDisplay": // 検索結果表示画面へ
 			pageDataManager.toSearchResultDisplay(request);

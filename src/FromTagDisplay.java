@@ -42,6 +42,11 @@ public class FromTagDisplay extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "tagDisplay": // タグ一覧表示画面へ
+			pageDataManager.toTagDisplay(request);
+			getServletContext().getRequestDispatcher("/tagDisplay.jsp").forward(request, response);
+			break;
+			
 		case "tagEdit": // タグ編集画面へ
 			pageDataManager.toTagEdit(request);
 			getServletContext().getRequestDispatcher("/tagEdit.jsp").forward(request, response);
