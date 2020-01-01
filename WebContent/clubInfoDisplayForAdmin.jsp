@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,7 @@
 </head>
 <body>
 
-<form action="FromClubInfoDisplayForAdmin" method="get">
-
-<nav class="teal">
+	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
@@ -26,76 +24,65 @@
 		</div>
 	</nav>
 
-<div class="row">
-			<div class="col s12 m8 l6 offset-m2 offset-l3">
-				<div class="card">
-					<div class="card-content">
+	<div class="row">
+		<div class="col s12 m8 l6 offset-m2 offset-l3">
+			<div class="card">
+				<div class="card-content">
 
-						<%
-							String id = (String) request.getAttribute("id");
-							String password = (String) request.getAttribute("password");
-							String name = (String) request.getAttribute("name");
-							String mail = (String) request.getAttribute("mail");
-							String recogn = (String) request.getAttribute("recogn");
-						%>
+					<%
+						String id = (String) request.getAttribute("id");
+						String password = (String) request.getAttribute("password");
+						String name = (String) request.getAttribute("name");
+						String mail = (String) request.getAttribute("mail");
+						String recogn = (String) request.getAttribute("recogn");
+					%>
 
-						<div class="center-align">
-							<h6><%=name%></h6>
-						</div>
+					<div class="center-align">
+						<h6><%=name%></h6>
+					</div>
 
-						<p>
-							<br />
-						</p>
-
-
-						<table>
-							<tr>
-								<td>サークルID</td>
-								<td><%=id%></td>
-							</tr>
-							<tr>
-								<td>パスワード</td>
-								<td><%=password%></td>
-							</tr>
-							<tr>
-								<td>サークル名</td>
-								<td><%=name%></td>
-							</tr>
-							<tr>
-								<td>メールアドレス</td>
-								<td><%=mail%></td>
-							</tr>
-							<tr>
-								<td>公認</td>
-								<td><%=recogn%></td>
-							</tr>
-						</table>
+					<p>
+						<br />
+					</p>
 
 
-						<br/>
+					<table>
+						<tr>
+							<td>サークル名</td>
+							<td><%=name%></td>
+						</tr>
+						<tr>
+							<td>メールアドレス</td>
+							<td><%=mail%></td>
+						</tr>
+						<tr>
+							<td>公認</td>
+							<td><%=recogn%></td>
+						</tr>
+					</table>
 
-						<div class="center-align">
 
-							<form action="FromClubInfoDisplayForAdmin" method="post" name ="formSetting">
-								<input type="hidden" name="clubId" value=<%=id%>>
-								<input type="hidden" name="password" value=<%=password%>>
-								<input type="hidden" name="name" value=<%=name%>>
-								<input type="hidden" name="mail" value=<%=mail%>>
-								<input type="hidden" name="recogn" value=<%=recogn%>>
-								<input type="hidden" name="option" value="setting">
-								<a class="waves-effect waves-light btn"
-									href="javascript:formSetting.submit()">設定</a>
-							</form>
+					<br />
 
-						</div>
+					<div class="center-align">
+
+						<form action="FromClubInfoDisplayForAdmin" method="post"
+							name="formSetting">
+							<input type="hidden" name="clubId" value=<%=id%>> <input
+								type="hidden" name="password" value=<%=password%>> <input
+								type="hidden" name="name" value=<%=name%>> <input
+								type="hidden" name="mail" value=<%=mail%>> <input
+								type="hidden" name="recogn" value=<%=recogn%>> <input
+								type="hidden" name="option" value="setting"> <a
+								class="waves-effect waves-light btn"
+								href="javascript:formSetting.submit()">設定</a>
+						</form>
+
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
-</form>
+	</div>
 
 </body>
 </html>

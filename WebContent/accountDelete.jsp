@@ -56,7 +56,8 @@
 				<div class="card-content">
 
 					<%
-						String id = (String) request.getAttribute("id");
+						String deletedUser = (String) request.getAttribute("deletedUser");
+						String id = (String) request.getAttribute("deletedId");
 						String name = (String) request.getAttribute("name");
 					%>
 
@@ -111,7 +112,8 @@
 
 					<div class="center-align">
 						<p>
-							<input type="hidden" name="id" value=<%=id%>> <input
+							<input type="hidden" name="deletedUser" <%=deletedUser%>>
+							<input type="hidden" name="deletedId" value=<%=id%>> <input
 								type="hidden" name="name" value=<%=name%>> <a
 								class="waves-effect waves-light btn"
 								href="accountDeleteConfirm.jsp">削除</a>

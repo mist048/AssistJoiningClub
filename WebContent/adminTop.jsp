@@ -66,16 +66,6 @@
 
 							<br />
 
-							<form action="FromAdminTop" method="post" name="">
-								<p>
-									<input type="hidden" name="option" value=""> <a
-										class="waves-effect waves-light btn"
-										href="javascript:form.submit()">公式サークルアカウント作成</a>
-								</p>
-							</form>
-
-							<br />
-
 						</div>
 
 					</div>

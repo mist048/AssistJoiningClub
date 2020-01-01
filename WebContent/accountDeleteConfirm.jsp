@@ -73,7 +73,11 @@
 
 						<div class="center-align">
 							<p>
-								<input type="hidden" name="option" value="delete"> <a
+								<input type="hidden" name="option" value="delete"> <input
+									type="hidden" name="deletedUser"
+									value=<%=request.getAttribute("deletedUser")%>> <input
+									type="hidden" name="deletedId"
+									value=<%=request.getAttribute("deletedId")%>> <a
 									class="waves-effect red btn"
 									href="javascript:formDelete.submit()">アカウント削除</a>
 							</p>
@@ -91,8 +95,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

@@ -49,6 +49,7 @@
 					</p>
 
 					<%
+						String id = (String) request.getAttribute("id");
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
 					%>
@@ -62,8 +63,8 @@
 								value="<%=mail%>" size="50" maxlength="256"></label>
 						</p>
 						<p>
-							<label>パスワード<input type="password" name="password" value=""
-								size="20" maxlength="16"></label>
+							<label>パスワード<input type="password" name="password"
+								value="" size="20" maxlength="16"></label>
 						</p>
 
 
@@ -81,7 +82,8 @@
 
 					<div class="center-align">
 						<form action="FromClubUpdate" method="post" name=formDelete>
-							<input type="hidden" name="option" value="delete"> <a
+							<input type="hidden" name="option" value="delete">
+							<input type="hidden" name="id" value=<%=id %>> <a
 								class="waves-effect waves-teal btn-flat"
 								href="javascript:formDelete.submit()"> <span
 								class="red-text">アカウントを削除</span></a><br /> <br />
@@ -100,8 +102,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
