@@ -176,7 +176,7 @@
 							</div>
 
 							<p>
-								<label> <input type="radio" name="type" value="keyword" />
+								<label> <input type="radio" name="type" value="keyword" checked="checked" />
 									<span>フリーワード</span>
 								</label>
 							</p>

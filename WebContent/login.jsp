@@ -47,7 +47,7 @@
 
 					<form action="FromLogin" method="post" name="formLogin">
 						<p>
-							<label> <input name="user" value="general" type="radio" />
+							<label> <input name="user" value="general" type="radio" checked="checked" />
 								<span>一般</span>
 							</label>
 						</p>
