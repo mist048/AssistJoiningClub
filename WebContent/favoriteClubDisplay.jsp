@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
@@ -38,19 +38,18 @@
 		</div>
 	</nav>
 
-	<p>
-	</p>
+	<p></p>
 
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-					<h6>お気に入りリスト</h6>
+						<h6>お気に入りリスト</h6>
 					</div>
 
 					<p>
-						<br/>
+						<br />
 					</p>
 
 					<ul class="collection">
@@ -64,7 +63,8 @@
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromFavoriteClubDisplay" method="post" name="form<%=i%>">
+							<form action="FromFavoriteClubDisplay" method="post"
+								name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
@@ -89,8 +89,9 @@
 								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
-							<li class="disabled"><form action="FromFavoriteClubDisplay" method="post"
-									name="formBefore">
+							<li class="disabled"><form action="FromFavoriteClubDisplay"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="favoriteClubDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
 										href="javascript:formBefore.submit()"> <i
@@ -108,7 +109,9 @@
 									}
 							%>
 							<li class="<%=state%>">
-								<form action="FromFavoriteClubDisplay" method="post" name="formTo<%=i%>">
+								<form action="FromFavoriteClubDisplay" method="post"
+									name="formTo<%=i%>">
+									<input type="hidden" name="option" value="favoriteClubDisplay">
 									<input type="hidden" name="firstIndex"
 										value="<%=i * Constant.MAX_OF_DISPLAYS%>"> <a
 										href="javascript:formTo<%=i%>.submit()"><%=i + 1%></a>
@@ -121,8 +124,9 @@
 								Boolean next = (Boolean) request.getAttribute("next");
 								if (next != null && next == true) {
 							%>
-							<li class="waves-effect"><form action="FromFavoriteClubDisplay" method="post"
-									name="formNext">
+							<li class="waves-effect"><form
+									action="FromFavoriteClubDisplay" method="post" name="formNext">
+									<input type="hidden" name="option" value="favoriteClubDisplay">
 									<input type="hidden" name="firstIndex"
 										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
 										href="javascript:formNext.submit()"><i
@@ -134,10 +138,11 @@
 						</ul>
 					</div>
 
-					<form action="FromFavoriteClubDisplay" method="get" name ="formEdit">
+					<form action="FromFavoriteClubDisplay" method="get" name="formEdit">
 						<p>
-							<input type="hidden" name="option" value="edit">
-							<a class="waves-effect waves-light btn" href= "javascript:formEdit.submit()">編集</a>
+							<input type="hidden" name="option" value="edit"> <a
+								class="waves-effect waves-light btn"
+								href="javascript:formEdit.submit()">編集</a>
 						</p>
 					</form>
 				</div>
@@ -152,8 +157,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>

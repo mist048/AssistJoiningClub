@@ -13,8 +13,8 @@ public class FavoriteManager {
 		clubInfoDAO = new ClubInfoDAO();
 	}
 
-	public String[][] getFavorite(String generalId) {
-		Favorite[] favorites = favoriteDAO.getByUserId(generalId);
+	public String[][] getFavorite(String generalId, int firstIndex) {
+		Favorite[] favorites = favoriteDAO.getByUserId(generalId, firstIndex);
 		String[][] favoriteClubInfo = new String[favorites.length][Constant.NUM_OF_DISPLAY_CLUB_INFO];
 		for (int i = 0; i < favorites.length; i++) {
 			Club club = clubDAO.getClub(favorites[i].getClubId());
@@ -37,6 +37,16 @@ public class FavoriteManager {
 		} else {
 			favoriteDAO.insert(generalId, clubId);
 		}
+	}
+
+	public int getNumOfPages(String generalId) {
+		int count = 0;
+		count = favoriteDAO.getNumOfFavorites(generalId);
+		int numOfPages = count / Constant.MAX_OF_DISPLAYS;
+		if (count % Constant.MAX_OF_DISPLAYS != 0) {
+			numOfPages += 1;
+		}
+		return numOfPages;
 	}
 
 }

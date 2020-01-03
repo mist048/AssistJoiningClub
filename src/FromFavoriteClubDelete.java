@@ -45,9 +45,15 @@ public class FromFavoriteClubDelete extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "favoriteClubDelete": // お気に入りサークル削除画面
+			pageDataManager.toFavoriteClubDelete(request, hashId);
+			getServletContext().getRequestDispatcher("/favoriteClubDelete.jsp").forward(request, response);
+			break;
+			
 		case "delete": // 削除処理
 			pageDataManager.favoriteClubDelete(request, hashId);
-			getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
+			pageDataManager.toFavoriteClubDelete(request, hashId);
+			getServletContext().getRequestDispatcher("/favoriteClubDelete.jsp").forward(request, response);
 			break;
 		}
 	}

@@ -45,6 +45,11 @@ public class FromFavoriteClubDisplay extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "favoriteClubDisplay": // お気に入りサークル一覧画面へ
+			pageDataManager.toFavoriteClubDisplay(request, hashId);
+			getServletContext().getRequestDispatcher("/favoriteClubDisplay.jsp").forward(request, response);
+			break;
+			
 		case "clubInfoDisplay": // サークル情報閲覧画面へ
 			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);

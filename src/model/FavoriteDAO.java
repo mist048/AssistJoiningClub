@@ -22,13 +22,15 @@ public class FavoriteDAO {
 	private PreparedStatement prepStmt_D_clubid; // DELETE用
 	private PreparedStatement prepStmt_S_generalid_clubid; // SELECT用(userid,clubid)
 	private PreparedStatement prepStmt_S_generalid; // SELECT用
+	private PreparedStatement prepStmt_S_count; // SELECT用(カウント)
 
 	private String strPrepSQL_I = "INSERT INTO favorite VALUES(?, ?)";
 	private String strPrepSQL_D = "DELETE FROM favorite WHERE generalid=? AND clubid=?";
 	private String strPrepSQL_D_generalid = "DELETE FROM favorite WHERE generalid=?";
 	private String strPrepSQL_D_clubid = "DELETE FROM favorite WHERE clubid=?";
 	private String strPrepSQL_S_generalid_clubid = "SELECT COUNT(*) FROM favorite WHERE generalid=? AND clubid=?";
-	private String strPrepSQL_S_generalid = "SELECT clubid FROM favorite WHERE generalid=?";
+	private String strPrepSQL_S_generalid = "SELECT clubid FROM favorite WHERE generalid=? LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
+	private String strPrepSQL_S_count = "SELECT COUNT(*) FROM favorite WHERE generalid=?";
 
 	protected FavoriteDAO() {
 		try { // ドライバマネージャとコネクション
@@ -40,6 +42,7 @@ public class FavoriteDAO {
 			prepStmt_D_clubid = connection.prepareStatement(strPrepSQL_D_clubid);
 			prepStmt_S_generalid_clubid = connection.prepareStatement(strPrepSQL_S_generalid_clubid);
 			prepStmt_S_generalid = connection.prepareStatement(strPrepSQL_S_generalid);
+			prepStmt_S_count = connection.prepareStatement(strPrepSQL_S_count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,10 +88,11 @@ public class FavoriteDAO {
 		}
 	}
 
-	protected Favorite[] getByUserId(String userId) {
+	protected Favorite[] getByUserId(String userId, int firstIndex) {
 		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
 		try {
 			prepStmt_S_generalid.setString(1, userId);
+			prepStmt_S_generalid.setInt(2, firstIndex);
 			resultSet = prepStmt_S_generalid.executeQuery();
 			while (resultSet.next()) {
 				Favorite favorite = new Favorite();
@@ -119,5 +123,21 @@ public class FavoriteDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected int getNumOfFavorites(String generalId) {
+		int count = 0;
+		try {
+			prepStmt_S_count.setString(1, generalId);
+			prepStmt_S_count.executeQuery();
+			resultSet = prepStmt_S_count.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt("count");
+			}
+			resultSet.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

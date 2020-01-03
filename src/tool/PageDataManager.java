@@ -198,14 +198,36 @@ public class PageDataManager {
 
 	// お気に入りサークル一覧表示画面へのデータ
 	public void toFavoriteClubDisplay(HttpServletRequest request, String generalId) {
-		String[][] favoriteClubs = favoriteManager.getFavorite(generalId);
-		request.setAttribute("favoriteClubs", favoriteClubs);
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
+		}
+		String[][] favorites = favoriteManager.getFavorite(generalId, firstIndex); // お気に入りサークルをfirstIndexから10件取得
+		int numOfPages = favoriteManager.getNumOfPages(generalId); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+			request.setAttribute("next", true);
+		}
+		request.setAttribute("favoriteClubs", favorites);
+		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// お気に入りサークル削除画面へのデータ
 	public void toFavoriteClubDelete(HttpServletRequest request, String generalId) {
-		String[][] favoriteClubs = favoriteManager.getFavorite(generalId);
-		request.setAttribute("favoriteClubs", favoriteClubs);
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
+		}
+		String[][] favorites = favoriteManager.getFavorite(generalId, firstIndex); // お気に入りサークルをfirstIndexから10件取得
+		int numOfPages = favoriteManager.getNumOfPages(generalId); // ページ数
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+			request.setAttribute("next", true);
+		}
+		request.setAttribute("favoriteClubs", favorites);
+		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// お気に入りサークル削除処理

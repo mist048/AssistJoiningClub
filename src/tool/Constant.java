@@ -48,7 +48,8 @@ public class Constant {
 	public static final int DISPLAY_INTRO = 2; // 紹介文
 	public static final int DISPLAY_ICON = 3; // アイコン
 
-	public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
+	//public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
+	public static final String POSTGRES_PASSWORD = "dRagoon8!"; // postgresのパスワード
 
 	private Constant() {
 	}
