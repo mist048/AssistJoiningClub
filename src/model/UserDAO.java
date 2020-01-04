@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import tool.Constant;
 
 public class UserDAO {
-	private String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	private String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	private String user = "postgres";
-	private String password = Constant.POSTGRES_PASSWORD;
+	private static final String url = "jdbc:postgresql://" + Constant.SQL_HOSTNAME + "/" + Constant.DBNAME;
+	private static final String driverClassName = "org.postgresql.Driver";
+	private final String user = Constant.POSTGRES_USER;
+	private final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
 

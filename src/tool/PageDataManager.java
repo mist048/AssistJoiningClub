@@ -76,7 +76,9 @@ public class PageDataManager {
 		switch (user) {
 		case "general": // 一般ユーザ
 			result = userManager.login(hashId, hashPassword); // ログイン処理
-			toUserMyPage(request, hashId);
+			if (result) { // ログイン成功
+				toUserMyPage(request, hashId);
+			}
 			break;
 
 		case "club": // サークルアカウント

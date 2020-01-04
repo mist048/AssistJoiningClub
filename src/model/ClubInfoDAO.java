@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import tool.Constant;
 
 public class ClubInfoDAO {
-	final String driverClassName = "org.postgresql.Driver"; // ここからいつもの
-	final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	final String user = "postgres";
-	final String password = Constant.POSTGRES_PASSWORD;
+	private static final String url = "jdbc:postgresql://" + Constant.SQL_HOSTNAME + "/" + Constant.DBNAME;
+	private static final String driverClassName = "org.postgresql.Driver";
+	private final String user = Constant.POSTGRES_USER;
+	private final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
 

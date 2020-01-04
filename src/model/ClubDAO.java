@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import tool.Constant;
 
 public class ClubDAO {
-	private final String driverClassName = "org.postgresql.Driver";
-	private final String url = "jdbc:postgresql://localhost/assistjoiningclub"; // local
-	private final String user = "postgres";
+	private static final String url = "jdbc:postgresql://" + Constant.SQL_HOSTNAME + "/" + Constant.DBNAME;
+	private static final String driverClassName = "org.postgresql.Driver";
+	private final String user = Constant.POSTGRES_USER;
 	private final String password = Constant.POSTGRES_PASSWORD;
 	private Connection connection;
 	private ResultSet resultSet;
