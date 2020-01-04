@@ -1,11 +1,15 @@
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import tool.*;
+import tool.FileHandle;
+import tool.PageDataManager;
 
 /**
  * Servlet implementation class FromClubMypage
@@ -50,7 +54,7 @@ public class FromClubInfoUpdate extends HttpServlet {
 				pageDataManager.toClubMyPage(request, hashId);
 				getServletContext().getRequestDispatcher("/clubMyPage.jsp").forward(request, response);
 			} else { // エラーがある
-				pageDataManager.toClubInfoUpdate(request, hashId, -1);
+				pageDataManager.toClubInfoUpdate(request, hashId, result);
 				getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 			}
 			break;
