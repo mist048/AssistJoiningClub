@@ -1,18 +1,10 @@
 package tool;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import model.AdminManager;
-import model.ClubInfoManager;
-import model.ClubManager;
-import model.FavoriteManager;
-import model.HoldTagManager;
-import model.TagManager;
-import model.UserManager;
+import model.*;
 
 public class PageDataManager {
 	private static PageDataManager pageDataManager = new PageDataManager();
@@ -338,7 +330,7 @@ public class PageDataManager {
 	}
 
 	// サークル情報更新画面へのデータ
-	public void toClubInfoUpdate(HttpServletRequest request, String clubId) {
+	public void toClubInfoUpdate(HttpServletRequest request, String clubId, int error) {
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
 		request.setAttribute("name", club[Constant.NAME]);
@@ -353,6 +345,8 @@ public class PageDataManager {
 		String[] tagIds = holdTagManager.getHoldTag(clubId);
 		String[][] tags = tagManager.getTags(tagIds);
 		request.setAttribute("tags", tags);
+
+		request.setAttribute("error", error);
 	}
 
 	// サークル情報更新処理
