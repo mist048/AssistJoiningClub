@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.PageDataManager"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,16 @@
 					<h5>
 						システムにログイン<br />
 					</h5>
+
+					<%
+						String error ="";
+						String user = request.getParameter("user");
+						boolean result = PageDataManager.login(session, request, user);
+						if (!result) {
+							error = "ログインに失敗しました.もう一度入力してください.";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>
