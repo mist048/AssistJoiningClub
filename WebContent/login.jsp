@@ -44,11 +44,11 @@
 					</h5>
 
 					<%
-						String error ="";
+						String error = "";
 						String user = request.getParameter("user");
-						boolean result = PageDataManager.login(session, request, user);
-						if (!result) {
-							error = "ログインに失敗しました.もう一度入力してください.";
+						Boolean result = (Boolean) session.getAttribute("login");
+						if (result != null && !result) {
+							error = "ユーザIDかパスワードが間違っています";
 						}
 					%>
 					<p class="red-text"><%=error%></p>
@@ -58,8 +58,8 @@
 
 					<form action="FromLogin" method="post" name="formLogin">
 						<p>
-							<label> <input name="user" value="general" type="radio" checked="checked" />
-								<span>一般</span>
+							<label> <input name="user" value="general" type="radio"
+								checked="checked" /> <span>一般</span>
 							</label>
 						</p>
 
@@ -106,8 +106,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
