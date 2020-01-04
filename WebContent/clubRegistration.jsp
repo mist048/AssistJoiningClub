@@ -39,6 +39,14 @@
 					<h6>
 						新規サークルアカウント登録<br />
 					</h6>
+
+					<%
+						String error = "";
+						if (request.getAttribute("error") != null) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>

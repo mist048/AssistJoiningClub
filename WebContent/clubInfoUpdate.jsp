@@ -44,6 +44,14 @@
 					<h6>
 						サークル情報編集<br />
 					</h6>
+
+					<%
+						String error = "";
+						if (request.getAttribute("error") != null) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>
@@ -71,7 +79,7 @@
 						<div id='tags'></div>
 						<div class="input-field col s12">
 							<input type="text" id="addTagName"><a
-								class="waves-effect waves-light btn" onclick="addChip()">追加</a>
+								class="waves-effect waves-light btn" onclick="addChip()">タグ追加</a>
 						</div>
 
 						<p>
@@ -171,7 +179,7 @@
 	</footer>
 
 	<script>
-		
+
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {

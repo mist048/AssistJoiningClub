@@ -41,6 +41,14 @@
 					<h6>
 						問い合わせフォーム<br />
 					</h6>
+
+					<%
+						String error = "";
+						if (request.getAttribute("error") != null) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>

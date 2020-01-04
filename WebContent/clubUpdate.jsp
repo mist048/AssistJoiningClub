@@ -39,12 +39,17 @@
 			<div class="card">
 				<div class="card-content">
 
-					<div class="center-align">
-						<h6>
-							サークルアカウント更新<br />
-						</h6>
-					</div>
+					<h6>
+						サークルアカウント更新<br />
+					</h6>
 
+					<%
+						String error = "";
+						if (request.getAttribute("error") != null) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>

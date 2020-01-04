@@ -49,6 +49,13 @@
 						<h6>新規一般ユーザ登録</h6>
 					</div>
 
+					<%
+						String error = "";
+						if (request.getAttribute("error") != null) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
 					</p>
