@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-	<!--Import Google Icon Font-->
+<!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <!-- materialize CDN -->
@@ -21,7 +21,7 @@
 <body bgcolor=#f9f9f9>
 
 
-<nav class="teal">
+	<nav class="teal">
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
@@ -40,12 +40,12 @@
 				<div class="card-content">
 					<div class="center-align">
 
-					<h6>検索結果</h6>
+						<h6>検索結果</h6>
 
 					</div>
 
 					<p>
-						<br/>
+						<br />
 					</p>
 
 
@@ -64,7 +64,8 @@
 								}
 						%>
 						<li class="collection-item avatar">
-							<form action="FromSearchResultDisplay" method="post" name="form<%=i%>">
+							<form action="FromSearchResultDisplay" method="post"
+								name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=intro%></p>
@@ -82,6 +83,49 @@
 
 
 					</ul>
+
+					<div class="center-align">
+
+
+						<ul class="pagination">
+							<%
+								String type = (String) request.getAttribute("type");
+								String keyword = (String) request.getAttribute("keyword");
+								int firstIndex = (int) request.getAttribute("firstIndex");
+								if (firstIndex > 0) {
+							%>
+							<li class="disabled"><form action="FromSearchResultDisplay"
+									method="post" name="formBefore">
+									<input type="hidden" name="option" value="searchResultDisplay">
+									<input type="hidden" name="type" value=<%=type%>> <input
+										type="hidden" name="keyword" value=<%=keyword%>> <input
+										type="hidden" name="firstIndex"
+										value=<%=firstIndex - Constant.MAX_OF_DISPLAYS%>> <a
+										href="javascript:formBefore.submit()"> <i
+										class="material-icons">chevron_left</i></a>
+								</form></li>
+							<%
+								}
+							%>
+							<%
+								Boolean next = (Boolean) request.getAttribute("next");
+								if (next != null && next == true) {
+							%>
+							<li class="waves-effect"><form
+									action="FromSearchResultDisplay" method="post" name="formNext">
+									<input type="hidden" name="option" value="searchResultDisplay">
+									<input type="hidden" name="type" value=<%=type%>> <input
+										type="hidden" name="keyword" value=<%=keyword%>> <input
+										type="hidden" name="firstIndex"
+										value=<%=firstIndex + Constant.MAX_OF_DISPLAYS%>><a
+										href="javascript:formNext.submit()"><i
+										class="material-icons">chevron_right</i></a>
+								</form></li>
+							<%
+								}
+							%>
+						</ul>
+					</div>
 
 
 				</div>

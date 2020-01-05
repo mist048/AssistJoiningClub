@@ -42,6 +42,11 @@ public class FromSearchResultDisplay extends HttpServlet {
 		String option = request.getParameter("option");
 
 		switch (option) {
+		case "searchResultDisplay": // 検索結果一覧画面へ
+			pageDataManager.toSearchResultDisplay(request);
+			getServletContext().getRequestDispatcher("/searchResultDisplay.jsp").forward(request, response);
+			break;
+
 		case "clubInfoDisplay": // サークル情報閲覧画面へ
 			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);

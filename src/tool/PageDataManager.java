@@ -484,6 +484,7 @@ public class PageDataManager {
 
 	// 検索結果表示画面へのデータ
 	public void toSearchResultDisplay(HttpServletRequest request) {
+		String keyword = request.getParameter("keyword");
 		String StringFirstIndex = request.getParameter("firstIndex");
 		int firstIndex = 0;
 		if (StringFirstIndex != null) { // 最初のアクセスでなければ
@@ -491,23 +492,24 @@ public class PageDataManager {
 		}
 
 		String type = request.getParameter("type");
-		String keyword = request.getParameter("keyword");
 		String[][] result;
-		int numOfPages = 0;
 		if (type.equals("keyword")) { // キーワード検索
 			result = clubManager.searchByKeyword(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-			numOfPages = clubManager.getNumOfPages(); // ページ数
+			if (result.length + Constant.MAX_OF_DISPLAYS > Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+				request.setAttribute("next", true);
+			}
 		} else { // タグ検索
-			result = clubManager.searchByTag(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-			numOfPages = clubManager.getNumOfPages(); // ページ数
+			result = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			System.out.print(result.length - Constant.MAX_OF_DISPLAYS + "," + firstIndex);
+			if (result.length - Constant.MAX_OF_DISPLAYS > firstIndex) { // 次のページがあればあることを返す
+				request.setAttribute("next", true);
+			}
 		}
 
-		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
-			request.setAttribute("next", true);
-		}
+		request.setAttribute("type", type);
+		request.setAttribute("keyword", keyword);
 		request.setAttribute("result", result);
 		request.setAttribute("firstIndex", firstIndex);
-		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// タグ一覧表示画面へのデータ

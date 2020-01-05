@@ -43,8 +43,12 @@ public class FromTop extends HttpServlet {
 
 		switch (option) {
 		case "searchResultDisplay": // 検索結果表示画面へ
-			pageDataManager.toSearchResultDisplay(request);
-			getServletContext().getRequestDispatcher("/searchResultDisplay.jsp").forward(request, response);
+			if (!request.getParameter("keyword").equals("")) { // 空欄でなければ
+				pageDataManager.toSearchResultDisplay(request);
+				getServletContext().getRequestDispatcher("/searchResultDisplay.jsp").forward(request, response);
+			} else {
+				getServletContext().getRequestDispatcher("/ToTop").forward(request, response);
+			}
 			break;
 
 		case "clubInfoDisplay": // サークル情報閲覧画面へ
