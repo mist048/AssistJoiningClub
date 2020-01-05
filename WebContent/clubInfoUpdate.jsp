@@ -182,6 +182,8 @@
 		</div>
 	</footer>
 
+
+	<script>
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {
