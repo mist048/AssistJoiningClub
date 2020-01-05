@@ -46,8 +46,8 @@
 					<%
 						String error ="";
 						String user = request.getParameter("user");
-						boolean result = PageDataManager.login(session, request, user);
-						if (!result) {
+						//boolean result = PageDataManager.login(session, request, user);
+						if(!(boolean)session.getAttribute("login")) {
 							error = "ログインに失敗しました.もう一度入力してください.";
 						}
 					%>
