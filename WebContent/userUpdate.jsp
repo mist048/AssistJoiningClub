@@ -86,6 +86,7 @@
 
 						<div class="center-align">
 							<p>
+							<br/>
 								<input type="hidden" name="option" value="confirm"> <input
 									type="hidden" name="id" value=<%=id%>> <a
 									class="waves-effect waves-light btn"
