@@ -31,10 +31,15 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
+			<%
+				if (session.getAttribute("user") != null) {
+			%>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="ToMyPage">マイページ</a></li>
 			</ul>
+			<%
+				}
+			%>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -84,26 +89,23 @@
 						String clubId = (String) request.getAttribute("clubId");
 					%>
 					<form action="FromClubInfoDisplay" method="post"
-							name="formFavorite">
-							<p>
-								<input type="hidden" name="option" value="favorite"> <input
-									type="hidden" name="clubId" value=<%=clubId%>> <a
-									class="waves-effect waves-light btn-small"
-									href="javascript:formFavorite.submit()">お気に入り登録</a>
-									<a
-									class="waves-effect waves-light btn-small grey lighten-5 grey-text"
-									href="javascript:formFavorite.submit()">登録済み</a>
-							</p>
-						</form>
+						name="formFavorite">
+						<p>
+							<input type="hidden" name="option" value="favorite"> <input
+								type="hidden" name="clubId" value=<%=clubId%>> <a
+								class="waves-effect waves-light btn-small"
+								href="javascript:formFavorite.submit()">お気に入り登録</a> <a
+								class="waves-effect waves-light btn-small grey lighten-5 grey-text"
+								href="javascript:formFavorite.submit()">登録済み</a>
+						</p>
+					</form>
 					<p>
 						<br />
 					</p>
 
 					<div id='tags'></div>
 
-					<div>
-
-					</div>
+					<div></div>
 
 					<table>
 
@@ -168,7 +170,7 @@
 	</footer>
 
 	<script>
-
+		
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {
