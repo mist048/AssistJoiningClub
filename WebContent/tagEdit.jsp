@@ -61,8 +61,13 @@
 									type="hidden" name="deleteTagId"
 									value=<%=tags[i][Constant.ID]%>>
 								<%
+
+								boolean isDeleted = false;
 									if (deleteTagIds != null) {
 											for (String tagId : deleteTagIds) {
+												if (tags[i][Constant.ID].equals(tagId)) {
+													isDeleted = true;
+												}
 								%>
 								<input type="hidden" name="deleteTagIds[]" value=<%=tagId%>>
 								<%
@@ -70,9 +75,13 @@
 										}
 								%>
 								<a href="javascript:form<%=i%>.submit()"
-									class="secondary-content"> <label> <input
-										type="checkbox" /> <span></span>
-								</label>
+									class="secondary-content">
+										<% if(isDeleted){  %>
+										<i class="waves-effect waves-teal btn-flat">✓</i>
+										<% }else{ %>
+
+									<i class="waves-effect waves-teal btn-flat">□</i>
+									<%} %>
 								</a>
 							</form>
 						</li>
