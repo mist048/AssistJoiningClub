@@ -85,8 +85,14 @@ public class UserManager {
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.blankCheck(userInfo[i])) { // 特殊な文字を含んでいる
-				return Constant.CONTAINS_EX_CHAR;
+			if (i != Constant.MAIL) {
+				if (errorCheck.exCharCheck(userInfo[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}else {
+				if (errorCheck.exCharCheckForMail(userInfo[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
 			}
 		}
 		return Constant.SUCCESS;

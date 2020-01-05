@@ -61,8 +61,14 @@ public class ClubManager {
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.exCharCheck(club[i])) { // 特殊な文字を含んでいる
-				return Constant.CONTAINS_EX_CHAR;
+			if (i != Constant.MAIL) {
+				if (errorCheck.exCharCheck(club[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}else {
+				if (errorCheck.exCharCheckForMail(club[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
 			}
 		}
 		return Constant.SUCCESS;
@@ -105,8 +111,14 @@ public class ClubManager {
 					return Constant.CONTAINS_EX_CHAR;
 				}
 			}
-			if (errorCheck.blankCheck(clubInfo[i])) { // 特殊な文字を含んでいる
-				return Constant.CONTAINS_EX_CHAR;
+			if (i != Constant.MAIL) {
+				if (errorCheck.exCharCheck(clubInfo[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
+			}else {
+				if (errorCheck.exCharCheckForMail(clubInfo[i])) { // 特殊な文字を含んでいる
+					return Constant.CONTAINS_EX_CHAR;
+				}
 			}
 		}
 		return Constant.SUCCESS;
