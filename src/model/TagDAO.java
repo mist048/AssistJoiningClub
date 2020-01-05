@@ -28,7 +28,7 @@ public class TagDAO {
 	private String strPrepSQL_I = "INSERT INTO tag VALUES(?, ?)";
 	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM tag WHERE id=?";
-	private String strPrepSQL_S = "SELECT * FROM tag LIMIT ORDER BY name ASC " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
+	private String strPrepSQL_S = "SELECT * FROM tag ORDER BY name ASC LIMIT " + Constant.MAX_OF_DISPLAYS + " OFFSET ?";
 	private String strPrepSQL_S_id = "SELECT * FROM tag WHERE id=?";
 	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
 	private String strPrepSQL_S_keyword = "SELECT * FROM tag WHERE name LIKE ? ORDER BY name ASC";
