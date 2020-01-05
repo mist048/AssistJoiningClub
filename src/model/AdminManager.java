@@ -17,26 +17,17 @@ public class AdminManager {
 		}
 		return false;
 	}
-	
+
 	public boolean confirmPassword(String password) {
-		if(adminDAO.findByPassword(password)) {
+		if (adminDAO.findByPassword(password)) {
 			return true;
 		}
 		return false;
 	}
 
-	public void mailToAdmin(String user, String userId, String subject, String info) {
-		String mail = null;
-		switch (user) {
-		case "general": // 一般ユーザ
-			mail = userDAO.getMail(userId);
-			break;
-
-		case "club": // サークルアカウント
-			mail = clubDAO.getMail(userId);
-			break;
-		}
+	public String getMail() {
 		String adminMail = adminDAO.getMail();
+		return adminMail;
 	}
 
 }

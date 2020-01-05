@@ -620,29 +620,10 @@ public class PageDataManager {
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
 	}
 
-	// 管理者問い合わせ内容確認画面へのデータ
-	public int toContactInfoConfirm(HttpServletRequest request) {
-		String subject = request.getParameter("subject");
-		String info = request.getParameter("info");
-		int error = -1;
-		if (errorCheck.blankCheck(subject) || errorCheck.blankCheck(subject)) {
-			error = Constant.CONTAINS_BLANK;
-		} else if (errorCheck.exCharCheck(subject) || errorCheck.exCharCheck(info)) {
-			error = Constant.CONTAINS_EX_CHAR;
-		} else {
-			error = Constant.SUCCESS;
-		}
-		request.setAttribute("subject", subject);
-		request.setAttribute("info", info);
-		request.setAttribute("error", error);
-		return Constant.SUCCESS;
-	}
-
-	// 管理者問い合わせ確認通知画面へのデータ
-	public void contactAdmin(HttpServletRequest request, String user, String userId) {
-		String subject = (String) request.getAttribute("subject");
-		String info = (String) request.getAttribute("info");
-		adminManager.mailToAdmin(user, userId, subject, info);
+	// 管理者問い合わせ画面へのデータ
+	public void toContactAdmin(HttpServletRequest request) {
+		String adminMail = adminManager.getMail();
+		request.setAttribute("adminMail", adminMail);
 	}
 
 }
