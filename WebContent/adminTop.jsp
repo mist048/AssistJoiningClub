@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 		<div class="nav-wrapper">

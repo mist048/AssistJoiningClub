@@ -3,20 +3,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>clubUpdate</title>
-<script src="http://code.jquery.com/jquery.min.js"></script>
-
 <!-- materealize CDN -->
+
+<!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+	<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- materialize CDN -->
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
 <body bgcolor=#f9f9f9>
-
-
 
 	<nav class="teal">
 		<div class="nav-wrapper">
@@ -31,7 +44,9 @@
 	</nav>
 
 
-	<p></p>
+	<p>
+		<br/>
+	</p>
 
 
 	<div class="row">
@@ -39,9 +54,10 @@
 			<div class="card">
 				<div class="card-content">
 
-					<h6>
+					<h5>
 						サークルアカウント更新<br />
-					</h6>
+					</h5>
+					<hr>
 
 					<%
 						String error = "";
@@ -73,6 +89,7 @@
 								value="" size="20" maxlength="16"></label>
 						</p>
 
+
 						<%
 							if (session.getAttribute("user").equals("admin")) { // 管理者のとき
 						%>
@@ -80,16 +97,32 @@
 						<%
 							}
 						%>
+						<p>
+								<label> <input type="radio" name="type" value="非公認"
+									checked="checked" /> <span>非公認</span>
+								</label>
+							</p>
+							<p>
+								<label> <input type="radio" name="type" value="公認" />
+									<span>公認</span>
+								</label>
+							</p>
+
+
+
+
+
+
+
+
 
 						<div class="center-align">
 
 							<p>
-
-								<input type="hidden" name="option" value="confirm"> <input
-									type="hidden" name="id" value=<%=id%>> <a
+								<br /> <input type="hidden" name="option" value="confirm">
+								<input type="hidden" name="id" value=<%=id%>> <a
 									class="waves-effect waves-light btn"
 									href="javascript:formConfirm.submit()">確定</a>
-
 							</p>
 						</div>
 					</form>
@@ -99,17 +132,17 @@
 							<input type="hidden" name="option" value="delete"> <input
 								type="hidden" name="id" value=<%=id%>> <a
 								class="waves-effect waves-teal btn-flat"
-								href="javascript:formDelete.submit()"> <span
-								class="red-text">アカウントを削除</span></a><br /> <br />
+								href="javascript:formDelete.submit()" style="margin-top: 10px;">
+								<span class="red-text">アカウントを削除</span>
+							</a>
 						</form>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
@@ -128,6 +161,15 @@
 			</div>
 		</div>
 	</footer>
+
+	<script>
+
+	  document.addEventListener('DOMContentLoaded', function() {
+	    var elems = document.querySelectorAll('.dropdown-trigger');
+	    var instances = M.Dropdown.init(elems);
+	  });
+
+</script>
 
 </body>
 </html>

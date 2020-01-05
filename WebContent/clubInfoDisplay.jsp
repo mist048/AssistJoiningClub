@@ -27,7 +27,7 @@
 
 <!-- materialize CDN -->
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 	<nav class="teal">
 
 		<div class="nav-wrapper">
@@ -76,9 +76,10 @@
 						}
 					%>
 
-					<h6>
+
+					<h5>
 						<%=name%><br />
-					</h6>
+					</h5>
 					<p>
 						<br />
 					</p>
@@ -158,7 +159,7 @@
 	</footer>
 
 	<script>
-		
+
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {
