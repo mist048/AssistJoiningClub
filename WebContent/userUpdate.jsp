@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,14 +36,25 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-					<div class="center-align">
-						<h6>ユーザ更新</h6>
-					</div>
+
+					<h5>
+						ユーザ更新<br />
+					</h5>
+					<hr>
 
 					<%
 						String error = "";
-						if (request.getAttribute("error") != null) {
-							error = "もう一度入力してください";
+						Integer result = (Integer) request.getAttribute("error");
+						if (result != null) {
+							if (result == Constant.CONTAINS_BLANK) {
+								error = "空欄が含まれています";
+							} else if (result == Constant.CONTAINS_EX_CHAR) {
+								error = "特殊文字が含まれています";
+							} else if (result == Constant.DUPLICATE) {
+								error = "メールアドレスが重複しています";
+							} else {
+								error = "定義された文字数を超えています";
+							}
 						}
 					%>
 					<p class="red-text"><%=error%></p>
