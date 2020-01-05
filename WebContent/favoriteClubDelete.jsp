@@ -59,13 +59,17 @@
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
 								}
+								String intro="";
+								if(clubs[i][Constant.DISPLAY_INTRO]!=null){
+									intro=clubs[i][Constant.DISPLAY_INTRO];
+								}
 						%>
 						<li class="collection-item avatar">
 							<form action="FromFavoriteClubDelete" method="post"
 								name="form<%=i%>">
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
-								<p><%=clubs[i][Constant.DISPLAY_INTRO]%></p>
+								<p><%=intro%></p>
 								<input type="hidden" name="option" value="delete">
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a

@@ -480,8 +480,6 @@ public class PageDataManager {
 		String[] tagIds = holdTagManager.getHoldTag(clubId);
 		String[][] tags = tagManager.getTags(tagIds);
 		request.setAttribute("tags", tags);
-		
-		System.out.print(user);
 
 		if (user != null && user.equals("general")) {
 			boolean isFavorite = favoriteManager.find(userId, clubId);
