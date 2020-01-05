@@ -29,6 +29,18 @@ public class ErrorCheck {
 		}
 		return false;
 	}
+	
+	// 特殊な文字をチェックする(メール)
+		public boolean exCharCheckForMail(String str) {
+			for (int i = 0; i < str.length(); i++) {
+				for (char c : Constant.EX_CHAR_MAIL) {
+					if (str.charAt(i) == c) { // 特殊文字
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 
 	// ASCII文字以上をチェックする
 	public boolean notAsciiCheck(String str) {

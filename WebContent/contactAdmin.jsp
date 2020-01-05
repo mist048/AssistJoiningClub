@@ -43,6 +43,7 @@
 					</h6>
 
 					<%
+						String adminMail = (String) request.getAttribute("adminMail");
 						String error = "";
 						if (request.getAttribute("error") != null) {
 							error = "もう一度入力してください";
@@ -51,6 +52,10 @@
 					<p class="red-text"><%=error%></p>
 					<p>
 						<br />
+					</p>
+
+					<p>
+						<label><%=adminMail%></label>
 					</p>
 
 					<form action="FromContactAdmin" method="post" name=formDecision>

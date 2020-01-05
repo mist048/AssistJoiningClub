@@ -37,9 +37,10 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
-					<div class="center-align">
-						<h6>タグ編集画面</h6>
-					</div>
+
+						<h5>タグ編集画面</h5>
+						<hr>
+
 
 					<ul class="collection">
 
@@ -48,8 +49,13 @@
 							String[][] tags = (String[][]) request.getAttribute("allTags");
 							for (int i = 0; i < tags.length; i++) {
 						%>
-						<li class="collection-item avatar">
+
+
+
+						<li class="collection-item">
 							<form action="FromTagEdit" method="post" name="form<%=i%>">
+
+
 								<span class="title"><%=tags[i][Constant.NAME]%></span> <input
 									type="hidden" name="option" value="delete"> <input
 									type="hidden" name="deleteTagId"
@@ -64,11 +70,13 @@
 										}
 								%>
 								<a href="javascript:form<%=i%>.submit()"
-									class="secondary-content"> <i
-									class="waves-effect waves-teal btn-flat">削除</i>
+									class="secondary-content"> <label> <input
+										type="checkbox" /> <span></span>
+								</label>
 								</a>
 							</form>
 						</li>
+
 						<%
 							}
 						%>
@@ -146,7 +154,7 @@
 								}
 							%>
 							<a class="waves-effect waves-light btn"
-								href="javascript:formSave.submit()">保存</a>
+								href="javascript:formSave.submit()">削除</a>
 						</form>
 
 					</div>
@@ -156,18 +164,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">お問い合わせ</h5>
-					<ul>
-						<li><a class="grey-text text-lighten-3"
-							href="contactAdmin.jsp">お問い合わせ</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="footer-copyright">
 			<div class="container">
 				© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"

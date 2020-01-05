@@ -71,13 +71,13 @@ public class FileHandleServlet extends HttpServlet {
 					pageDataManager.clubInfoImageUpdate(hashId, "home", home);
 					homePart.write(fileDir + "/" + home);
 				}
-				pageDataManager.toClubInfoUpdate(request, hashId);
+				pageDataManager.toClubInfoUpdate(request, hashId, true);
 				getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 				break;
 			}
 		} catch (IllegalStateException e) { // ファイルのサイズが1Mを超える場合
 			request.setAttribute("error", "exceedMaxFileSize");
-			pageDataManager.toClubInfoUpdate(request, hashId);
+			pageDataManager.toClubInfoUpdate(request, hashId, true);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 		}
 	}

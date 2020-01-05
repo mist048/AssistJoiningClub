@@ -135,9 +135,9 @@ public class ClubManager {
 		return false;
 	}
 
-	public String[][] searchByKeyword(String keyword) {
+	public String[][] searchByKeyword(String keyword,int firstIndex) {
 		String[] keywords = keyword.split("[ 　]", 0);
-		Club[] clubs = clubDAO.findByKeyword(keywords);
+		Club[] clubs = clubDAO.findByKeyword(keywords,firstIndex);
 		String[][] hitedClubs = new String[clubs.length][Constant.NUM_OF_DISPLAY_CLUB_INFO];
 		for (int i = 0; i < clubs.length; i++) {
 			hitedClubs[i][Constant.DISPLAY_ID] = clubs[i].getId();

@@ -47,7 +47,8 @@
 
 					<%
 						String error = "";
-						if (request.getAttribute("error") != null) {
+					    Boolean result = (Boolean)request.getAttribute("error");
+						if (result != null && !result) {
 							error = "もう一度入力してください";
 						}
 					%>

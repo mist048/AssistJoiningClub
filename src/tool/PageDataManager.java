@@ -1,10 +1,18 @@
 package tool;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import model.*;
+import model.AdminManager;
+import model.ClubInfoManager;
+import model.ClubManager;
+import model.FavoriteManager;
+import model.HoldTagManager;
+import model.TagManager;
+import model.UserManager;
 
 public class PageDataManager {
 	private static PageDataManager pageDataManager = new PageDataManager();
@@ -330,7 +338,7 @@ public class PageDataManager {
 	}
 
 	// サークル情報更新画面へのデータ
-	public void toClubInfoUpdate(HttpServletRequest request, String clubId, int error) {
+	public void toClubInfoUpdate(HttpServletRequest request, String clubId, boolean error) {
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
 		request.setAttribute("name", club[Constant.NAME]);
@@ -476,17 +484,30 @@ public class PageDataManager {
 
 	// 検索結果表示画面へのデータ
 	public void toSearchResultDisplay(HttpServletRequest request) {
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
+		}
+
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
 		String[][] result;
+		int numOfPages = 0;
 		if (type.equals("keyword")) { // キーワード検索
-			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-
+			result = clubManager.searchByKeyword(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			numOfPages = clubManager.getNumOfPages(); // ページ数
 		} else { // タグ検索
-			result = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			result = clubManager.searchByTag(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			numOfPages = clubManager.getNumOfPages(); // ページ数
+		}
 
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+			request.setAttribute("next", true);
 		}
 		request.setAttribute("result", result);
+		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// タグ一覧表示画面へのデータ
@@ -612,29 +633,10 @@ public class PageDataManager {
 		request.setAttribute("intro", clubInfo[Constant.INTRO]);
 	}
 
-	// 管理者問い合わせ内容確認画面へのデータ
-	public int toContactInfoConfirm(HttpServletRequest request) {
-		String subject = request.getParameter("subject");
-		String info = request.getParameter("info");
-		int error = -1;
-		if (errorCheck.blankCheck(subject) || errorCheck.blankCheck(subject)) {
-			error = Constant.CONTAINS_BLANK;
-		} else if (errorCheck.exCharCheck(subject) || errorCheck.exCharCheck(info)) {
-			error = Constant.CONTAINS_EX_CHAR;
-		} else {
-			error = Constant.SUCCESS;
-		}
-		request.setAttribute("subject", subject);
-		request.setAttribute("info", info);
-		request.setAttribute("error", error);
-		return Constant.SUCCESS;
-	}
-
-	// 管理者問い合わせ確認通知画面へのデータ
-	public void contactAdmin(HttpServletRequest request, String user, String userId) {
-		String subject = (String) request.getAttribute("subject");
-		String info = (String) request.getAttribute("info");
-		adminManager.mailToAdmin(user, userId, subject, info);
+	// 管理者問い合わせ画面へのデータ
+	public void toContactAdmin(HttpServletRequest request) {
+		String adminMail = adminManager.getMail();
+		request.setAttribute("adminMail", adminMail);
 	}
 
 }

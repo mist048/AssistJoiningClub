@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="tool.Constant"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +21,9 @@
 
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo center"></a>
-				<ul class="left hide-on-med-and-down">
-					<li><a href="ToTop">トップ</a></li>
-				</ul>
+			<ul class="left hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
+			</ul>
 		</div>
 
 	</nav>
@@ -42,8 +43,17 @@
 
 					<%
 						String error = "";
-						if (request.getAttribute("error") != null) {
-							error = "もう一度入力してください";
+						Integer result = (Integer) request.getAttribute("error");
+						if (result != null) {
+							if (result == Constant.CONTAINS_BLANK) {
+								error = "空欄が含まれています";
+							} else if (result == Constant.CONTAINS_EX_CHAR) {
+								error = "特殊文字が含まれています";
+							} else if (result == Constant.DUPLICATE) {
+								error = "ユーザIDかメールアドレスが重複しています";
+							} else {
+								error = "定義された文字数を超えています";
+							}
 						}
 					%>
 					<p class="red-text"><%=error%></p>
@@ -92,8 +102,8 @@
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
 						<li><a class="grey-text text-lighten-3"
-								href="contactAdmin.jsp">お問い合わせ</a></li>
-						</ul>
+							href="contactAdmin.jsp">お問い合わせ</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
