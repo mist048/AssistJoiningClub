@@ -78,15 +78,39 @@
 
 
 					<h5>
-						<%=name%><br />
+						<%=name%>
 					</h5>
+					<%
+						String clubId = (String) request.getAttribute("clubId");
+					%>
+					<form action="FromClubInfoDisplay" method="post"
+							name="formFavorite">
+							<p>
+								<input type="hidden" name="option" value="favorite"> <input
+									type="hidden" name="clubId" value=<%=clubId%>> <a
+									class="waves-effect waves-light btn-small"
+									href="javascript:formFavorite.submit()">お気に入り登録</a>
+									<a
+									class="waves-effect waves-light btn-small grey lighten-5 grey-text"
+									href="javascript:formFavorite.submit()">登録済み</a>
+							</p>
+						</form>
 					<p>
 						<br />
 					</p>
 
 					<div id='tags'></div>
 
+					<div>
+
+					</div>
+
 					<table>
+
+						<tr>
+							<td>サークル説明文</td>
+							<td><%=intro%></td>
+						</tr>
 						<tr>
 							<td>メールアドレス</td>
 							<td><%=mail%></td>
@@ -99,10 +123,7 @@
 							<td>リンク</td>
 							<td><%=link%></td>
 						</tr>
-						<tr>
-							<td>サークル説明文</td>
-							<td><%=intro%></td>
-						</tr>
+
 						<tr>
 							<td>メンバー</td>
 							<td><%=member%></td>
@@ -117,21 +138,9 @@
 						</tr>
 					</table>
 
-					<%
-						String clubId = (String) request.getAttribute("clubId");
-					%>
 
-					<div class="center-align">
-						<form action="FromClubInfoDisplay" method="post"
-							name="formFavorite">
-							<p>
-								<input type="hidden" name="option" value="favorite"> <input
-									type="hidden" name="clubId" value=<%=clubId%>> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formFavorite.submit()">お気に入り</a>
-							</p>
-						</form>
-					</div>
+
+
 
 				</div>
 			</div>
