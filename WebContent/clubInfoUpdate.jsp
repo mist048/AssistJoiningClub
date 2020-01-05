@@ -40,9 +40,10 @@
 			<div class="card">
 				<div class="card-content">
 
-					<h6>
+					<h5>
 						サークル情報編集<br />
-					</h6>
+					</h5>
+					<hr>
 
 					<%
 						String error = "";

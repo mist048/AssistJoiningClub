@@ -17,10 +17,8 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="userRegistration.jsp">戻る</a></li>
-				<!-- トップ(viewerTop.jsp)に遷移 -->
+			<ul class="right hide-on-med-and-down">
+				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>
 	</nav>
