@@ -86,19 +86,33 @@
 						<%=name%>
 					</h5>
 					<%
-						String clubId = (String) request.getAttribute("clubId");
+						if (session.getAttribute("user") != null && session.getAttribute("user").equals("general")) {
+							String clubId = (String) request.getAttribute("clubId");
 					%>
 					<form action="FromClubInfoDisplay" method="post"
 						name="formFavorite">
 						<p>
 							<input type="hidden" name="option" value="favorite"> <input
-								type="hidden" name="clubId" value=<%=clubId%>> <a
-								class="waves-effect waves-light btn-small"
-								href="javascript:formFavorite.submit()">お気に入り登録</a> <a
-								class="waves-effect waves-light btn-small grey lighten-5 grey-text"
+								type="hidden" name="clubId" value=<%=clubId%>>
+							<%
+								boolean isFavorite = (boolean) request.getAttribute("isFavorite");
+									if (isFavorite) {
+							%><a class="waves-effect waves-light btn-small"
 								href="javascript:formFavorite.submit()">登録済み</a>
+							<%
+								} else {
+							%>
+							<a
+								class="waves-effect waves-light btn-small grey lighten-5 grey-text"
+								href="javascript:formFavorite.submit()">お気に入り登録</a>
+							<%
+								}
+							%>
 						</p>
 					</form>
+					<%
+						}
+					%>
 					<p>
 						<br />
 					</p>
@@ -155,7 +169,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
@@ -173,7 +188,7 @@
 	</footer>
 
 	<script>
-
+		
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {
@@ -184,15 +199,12 @@
 			}%>
 		];
 		init();
-
 		function init() {
 			var tagList = []; //ここが配列になる
 			for (var i = 0; i < tagNames.length; i++) {
 				tagList.push('<div class="chip">' + tagNames[i] + '</div>'); //ここにpush()がくる
 			}
-
 			document.getElementById('tags').innerHTML = tagList.join(''); //innerHTMLへ入れる時にjoin()で文字列にする
-
 		}
 	</script>
 </body>

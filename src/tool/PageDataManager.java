@@ -463,7 +463,7 @@ public class PageDataManager {
 	}
 
 	// サークル情報閲覧画面へのデータ
-	public void toClubInfoDisplay(HttpServletRequest request) {
+	public void toClubInfoDisplay(HttpServletRequest request, String user, String userId) {
 		String clubId = request.getParameter("clubId");
 		String[] club = clubManager.getClub(clubId);
 		String[] clubInfo = clubInfoManager.getClubInfo(club[Constant.CLUB_INFO_ID]);
@@ -480,6 +480,13 @@ public class PageDataManager {
 		String[] tagIds = holdTagManager.getHoldTag(clubId);
 		String[][] tags = tagManager.getTags(tagIds);
 		request.setAttribute("tags", tags);
+		
+		System.out.print(user);
+
+		if (user != null && user.equals("general")) {
+			boolean isFavorite = favoriteManager.find(userId, clubId);
+			request.setAttribute("isFavorite", isFavorite);
+		}
 	}
 
 	// 検索結果表示画面へのデータ

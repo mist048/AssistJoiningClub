@@ -41,13 +41,14 @@ public class FromClubInfoDisplay extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
 		String hashId = (String) session.getAttribute("userId");
 		String option = request.getParameter("option");
 
 		switch (option) {
 		case "favorite": // お気に入り登録・削除処理
 			pageDataManager.favorite(request, hashId);
-			pageDataManager.toClubInfoDisplay(request);
+			pageDataManager.toClubInfoDisplay(request, user, hashId);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
 		}
