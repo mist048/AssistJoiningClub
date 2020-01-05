@@ -49,8 +49,8 @@
 							} else if (result == Constant.CONTAINS_EX_CHAR) {
 								error = "特殊文字が含まれています";
 							} else if (result == Constant.DUPLICATE) {
-								error = "ユーザIDかメールアドレスが重複しています";
-							} else {
+								error = "メールアドレスが重複しています";
+							} else if (result == Constant.EXCEED_NUM_OF_CHAR) {
 								error = "定義された文字数を超えています";
 							}
 						}
@@ -100,7 +100,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
