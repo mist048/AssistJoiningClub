@@ -176,8 +176,8 @@
 							</div>
 
 							<p>
-								<label> <input type="radio" name="type" value="keyword" checked="checked" />
-									<span>フリーワード</span>
+								<label> <input type="radio" name="type" value="keyword"
+									checked="checked" /> <span>フリーワード</span>
 								</label>
 							</p>
 							<p>
@@ -228,8 +228,11 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><a class="grey-text text-lighten-3"
-							href="contactAdmin.jsp">お問い合わせ</a></li>
+						<li><form action="FromTop" method="post" name="formContact">
+								<input type="hidden" name="option" value="contactAdmin">
+								<a class="grey-text text-lighten-3"
+									href="javascript:formContact.submit()">お問い合わせ</a>
+							</form></li>
 					</ul>
 				</div>
 			</div>
