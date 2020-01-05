@@ -24,18 +24,21 @@
 		</div>
 	</nav>
 
+	<p>
+	<br/>
+	<p>
+
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-						<div class="center-align">
-							<h6>
-								管理者ページ<br />
-							</h6>
-						</div>
+							<h5>
+								管理者トップページ<br />
+							</h5>
+							<hr>
 
-						<div class="center-align">
+						<div class="center-align" style = "margin-top: 30px;">
 							<form action="FromAdminTop" method="post" name="formTag">
 								<p>
 									<input type="hidden" name="option" value="tagDisplay">
@@ -74,7 +77,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal" style="margin-top: 50px;">
+	<footer class="page-footer teal" style="width: 100%; position: absolute; bottom: 0;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
