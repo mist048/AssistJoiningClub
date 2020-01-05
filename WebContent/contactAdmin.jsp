@@ -19,10 +19,15 @@
 
 	<nav class="teal">
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"></a>
+			<%
+				if (session.getAttribute("user") != null) {
+			%>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="ToMyPage">マイページ</a></li>
 			</ul>
+			<%
+				}
+			%>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -31,7 +36,7 @@
 
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 
@@ -44,34 +49,28 @@
 						システムに関する問い合わせ<br />
 					</h5>
 					<hr>
-					<p class = "blue-grey-text">
-					システムに関する導入やログイン、パスワードの変更など、
-					システムの管理者にご気軽にご相談ください。下記メールアドレスにお問い合わせいただければ、
-					できるだけ早急にご連絡いたします。
-					</p>
+					<p class="blue-grey-text">システムに関する導入やログイン、パスワードの変更など、
+						システムの管理者にご気軽にご相談ください。下記メールアドレスにお問い合わせいただければ、 できるだけ早急にご連絡いたします。</p>
 
 					<%
 						String adminMail = (String) request.getAttribute("adminMail");
-
 					%>
 					<div style="margin-top: 10px;">
-						<label style="margin-top:">管理者メールアドレス</label>
-
-						<font size = 4>
-						<p>
-							<%=adminMail%>
-						</p>
+						<label style="margin-top:">管理者メールアドレス</label> <font size=4>
+							<p>
+								<%=adminMail%>
+							</p>
 						</font>
 					</div>
 
 
 					<div style="margin-top: 20px;">
 
-					<font size = 1>
-					<p class = "blue-grey-text">
-					※ご連絡の際はお手数ですが件名に「入部支援システム」とお書きください。<br/>
-					</p>
-					</font>
+						<font size=1>
+							<p class="blue-grey-text">
+								※ご連絡の際はお手数ですが件名に「入部支援システム」とお書きください。<br />
+							</p>
+						</font>
 					</div>
 
 
@@ -81,7 +80,8 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal footer-copyright" style="width: 100%; position: absolute; bottom: 0;">
+	<footer class="page-footer teal footer-copyright"
+		style="width: 100%; position: absolute; bottom: 0;">
 		<div class="footer-copyright">
 			<div class="container">
 				© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
