@@ -28,7 +28,9 @@
 	</nav>
 
 
-	<p></p>
+	<p>
+		<br />
+	</p>
 
 
 	<div class="row">
@@ -98,8 +100,9 @@
 							<input type="hidden" name="option" value="delete"> <input
 								type="hidden" name="id" value=<%=id%>><a
 								class="waves-effect waves-teal btn-flat"
-								href="javascript:formDelete.submit()"> <span
-								class="red-text">アカウントを削除</span></a><br /> <br />
+								href="javascript:formDelete.submit()" style="margin-top: 10px;">
+								<span class="red-text">アカウントを削除</span>
+							</a>
 						</form>
 					</div>
 
