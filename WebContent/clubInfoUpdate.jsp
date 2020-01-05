@@ -158,14 +158,17 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><a class="grey-text text-lighten-3"
-							href="contactAdmin.jsp">お問い合わせ</a></li>
+						<li><form action="ToContactAdmin" method="post" name="formContact">
+								<input type="hidden" name="option" value="contactAdmin">
+								<a class="grey-text text-lighten-3"
+									href="javascript:formContact.submit()">お問い合わせ</a>
+							</form></li>
 					</ul>
 				</div>
 			</div>
@@ -177,8 +180,6 @@
 			</div>
 		</div>
 	</footer>
-
-	<script>
 
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
