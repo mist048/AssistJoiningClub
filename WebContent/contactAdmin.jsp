@@ -30,7 +30,9 @@
 	</nav>
 
 
-	<p></p>
+	<p>
+		<br/>
+	</p>
 
 
 	<div class="row">
@@ -38,47 +40,55 @@
 			<div class="card">
 				<div class="card-content">
 
-					<h6>
-						問い合わせフォーム<br />
-					</h6>
+					<h5>
+						システムに関する問い合わせ<br />
+					</h5>
+					<hr>
+					<p class = "blue-grey-text">
+					システムに関する導入やログイン、パスワードの変更など、
+					システムの管理者にご気軽にご相談ください。下記メールアドレスにお問い合わせいただければ、
+					できるだけ早急にご連絡いたします。
+					</p>
 
 					<%
 						String adminMail = (String) request.getAttribute("adminMail");
-						String error = "";
-						if (request.getAttribute("error") != null) {
-							error = "もう一度入力してください";
-						}
+
 					%>
-					<p class="red-text"><%=error%></p>
-					<p>
-						<br />
-					</p>
+					<div style="margin-top: 10px;">
+						<label style="margin-top:">管理者メールアドレス</label>
 
-					<p>
-						<label><%=adminMail%></label>
-					</p>
-
-					<form action="FromContactAdmin" method="post" name=formDecision>
+						<font size = 4>
 						<p>
-							<label>件名<input type="text" name="subject" size="50"
-								maxlength="50"></label>
+							<%=adminMail%>
 						</p>
-						<textarea name="info" maxlength="2000" cols="100" rows="20"></textarea>
+						</font>
+					</div>
 
 
-						<div class="center-align">
-							<p>
-								<input type="hidden" name="option" value="decision"> <a
-									class="waves-effect waves-light btn"
-									href="javascript:formDecision.submit()">確定</a>
-							</p>
-						</div>
-					</form>
+					<div style="margin-top: 20px;">
+
+					<font size = 1>
+					<p class = "blue-grey-text">
+					※ご連絡の際はお手数ですが件名に「入部支援システム」とお書きください。<br/>
+					</p>
+					</font>
+					</div>
+
+
 
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<footer class="page-footer teal footer-copyright" style="width: 100%; position: absolute; bottom: 0;">
+		<div class="footer-copyright">
+			<div class="container">
+				© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
+					href="https://mlab.im.dendai.ac.jp/~hirota/2019_WSP/">サーバプログラミング演習</a>
+			</div>
+		</div>
+	</footer>
 
 
 </body>
