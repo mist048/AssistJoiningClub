@@ -36,8 +36,10 @@
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
 				<div class="card-content">
+					<div class="center-align">
 
 						<h5>タグ編集画面</h5>
+					</div>
 						<hr>
 
 

@@ -37,8 +37,9 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-						<h6>タグ一覧</h6>
+						<h5>タグ一覧</h5>
 					</div>
+					<hr>
 
 					<ul class="collection">
 
@@ -46,7 +47,7 @@
 							String[][] tags = (String[][]) request.getAttribute("allTags");
 							for (int i = 0; i < tags.length; i++) {
 						%>
-						<li class="collection-item avatar"><span class="title"><%=tags[i][Constant.NAME]%></span>
+						<li class="collection-item"><span class="title"><%=tags[i][Constant.NAME]%></span>
 						</li>
 						<%
 							}
