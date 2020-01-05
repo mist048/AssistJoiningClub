@@ -49,4 +49,7 @@ public class FavoriteManager {
 		return numOfPages;
 	}
 
+	public boolean find (String generalId, String clubId) {
+		return favoriteDAO.find(generalId, clubId);
+	}
 }
