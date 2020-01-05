@@ -20,7 +20,7 @@
 		<div class="nav-wrapper">
 		<form action="FromClubMyPage" method="post" name ="form0">
 			<ul class="right hide-on-med-and-down">
-				<li><a href="ToTop">トップへ</a></li>
+				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</form>
 		</div>
