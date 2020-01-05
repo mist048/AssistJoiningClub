@@ -51,7 +51,7 @@ public class FromTop extends HttpServlet {
 			pageDataManager.toClubInfoDisplay(request);
 			getServletContext().getRequestDispatcher("/clubInfoDisplay.jsp").forward(request, response);
 			break;
-			
+
 		case "contactAdmin": // 管理者問い合わせ画面へ
 			pageDataManager.toContactAdmin(request);
 			getServletContext().getRequestDispatcher("/contactAdmin.jsp").forward(request, response);

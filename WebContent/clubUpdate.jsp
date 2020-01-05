@@ -17,11 +17,13 @@
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-	<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -45,7 +47,7 @@
 
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 
@@ -74,6 +76,7 @@
 						String id = (String) request.getAttribute("id");
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
+						String recogn = (String) request.getAttribute("recogn");
 					%>
 					<form action="FromClubUpdate" method="post" name=formConfirm>
 						<p>
@@ -92,21 +95,27 @@
 
 						<%
 							if (session.getAttribute("user").equals("admin")) { // 管理者のとき
+								String recognChecked = "";
+								String nonRecognChecked = "";
+								if (recogn.equals("公認")) {
+									recognChecked = "checked=\"checked\"";
+								} else {
+									nonRecognChecked = "checked=\"checked\"";
+								}
 						%>
-						<!-- 公認・非公認のドロップダウンリスト -->
+						<p>
+							<label> <input type="radio" name="recogn" value="非公認"
+								<%=nonRecognChecked%> /> <span>非公認</span>
+							</label>
+						</p>
+						<p>
+							<label> <input type="radio" name="recogn" value="公認"
+								<%=recognChecked%> /> <span>公認</span>
+							</label>
+						</p>
 						<%
 							}
 						%>
-						<p>
-								<label> <input type="radio" name="type" value="非公認"
-									checked="checked" /> <span>非公認</span>
-								</label>
-							</p>
-							<p>
-								<label> <input type="radio" name="type" value="公認" />
-									<span>公認</span>
-								</label>
-							</p>
 
 
 
@@ -163,13 +172,11 @@
 	</footer>
 
 	<script>
-
-	  document.addEventListener('DOMContentLoaded', function() {
-	    var elems = document.querySelectorAll('.dropdown-trigger');
-	    var instances = M.Dropdown.init(elems);
-	  });
-
-</script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('.dropdown-trigger');
+			var instances = M.Dropdown.init(elems);
+		});
+	</script>
 
 </body>
 </html>

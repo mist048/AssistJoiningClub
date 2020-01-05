@@ -484,17 +484,30 @@ public class PageDataManager {
 
 	// 検索結果表示画面へのデータ
 	public void toSearchResultDisplay(HttpServletRequest request) {
+		String StringFirstIndex = request.getParameter("firstIndex");
+		int firstIndex = 0;
+		if (StringFirstIndex != null) { // 最初のアクセスでなければ
+			firstIndex = Integer.parseInt(StringFirstIndex);
+		}
+
 		String type = request.getParameter("type");
 		String keyword = request.getParameter("keyword");
 		String[][] result;
+		int numOfPages = 0;
 		if (type.equals("keyword")) { // キーワード検索
-			result = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-
+			result = clubManager.searchByKeyword(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			numOfPages = clubManager.getNumOfPages(); // ページ数
 		} else { // タグ検索
-			result = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			result = clubManager.searchByTag(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+			numOfPages = clubManager.getNumOfPages(); // ページ数
+		}
 
+		if (firstIndex < (numOfPages - 1) * Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
+			request.setAttribute("next", true);
 		}
 		request.setAttribute("result", result);
+		request.setAttribute("firstIndex", firstIndex);
+		request.setAttribute("numOfPages", numOfPages);
 	}
 
 	// タグ一覧表示画面へのデータ
