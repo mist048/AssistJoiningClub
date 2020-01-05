@@ -164,7 +164,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="footer-copyright">
 			<div class="container">
 				© 2019 クロノスの時計 <a class="grey-text text-lighten-4 right"
