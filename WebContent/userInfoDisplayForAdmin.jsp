@@ -12,7 +12,7 @@
 <!-- materialize CDN -->
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 		<div class="nav-wrapper">
@@ -23,7 +23,9 @@
 	</nav>
 
 
-	<p></p>
+	<p>
+	<br/>
+	</p>
 
 
 	<div class="row">
@@ -39,7 +41,8 @@
 						%>
 
 						<div class="center-align">
-							<h6>ユーザ情報</h6>
+							<h5>ユーザ情報</h5>
+							<hr>
 						</div>
 
 						<p>

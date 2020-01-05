@@ -12,7 +12,7 @@
 <!-- materialize CDN -->
 
 </head>
-<body>
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 
@@ -22,6 +22,10 @@
 			</ul>
 		</div>
 	</nav>
+
+	<p>
+	<br/>
+	</p>
 
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
