@@ -182,7 +182,7 @@ public class ClubDAO {
 		try {
 			for (int i = 0; i < keywords.length; i++) {
 				prepStmt_S_keyword.setString(1, "%" + keywords[i] + "%");
-				prepStmt_S_keyword.setInt(1,firstIndex);
+				prepStmt_S_keyword.setInt(2,firstIndex);
 				resultSet = prepStmt_S_keyword.executeQuery();
 				while (resultSet.next()) {
 					Club club = new Club();
