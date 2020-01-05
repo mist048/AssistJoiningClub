@@ -20,7 +20,7 @@
 	<nav class="teal">
 		<div class="nav-wrapper">
 			<%
-				if (session.getAttribute("user") != null) {
+				if (session.getAttribute("user") != null && !session.getAttribute("user").equals("admin")) {
 			%>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="ToMyPage">マイページ</a></li>
