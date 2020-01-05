@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body bgcolor=#f9f9f9>
 
 	<nav class="teal">
 
@@ -46,7 +46,8 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="center-align">
-						<h6>ユーザ一覧</h6>
+						<h5>ユーザ一覧</h5>
+						<hr>
 					</div>
 
 					<ul class="collection">
@@ -56,8 +57,7 @@
 							for (int i = 0; i < users.length; i++) {
 						%>
 
-						<li class="collection-item avatar"><i
-							class="material-icons circle">person</i>
+						<li class="collection-item">
 							<form action="FromUserDisplay" method="get" name="form<%=i%>">
 								<span class="title"><%=users[i][Constant.NAME]%></span> <input
 									type="hidden" name="option" value="userInfoDisplayForAdmin">
