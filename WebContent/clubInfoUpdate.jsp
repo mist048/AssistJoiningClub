@@ -92,7 +92,7 @@
 								value="<%=mail%>" size="50" maxlength="256"></label>
 						</p>
 						<p>
-							<label>公認<input type="text" name="recgon"
+							<label>公認/非公認<input type="text" name="recgon"
 								value="<%=recogn%>" size="20" maxlength="50"></label>
 						</p>
 						<p>
