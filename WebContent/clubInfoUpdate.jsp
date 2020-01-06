@@ -10,7 +10,7 @@
 <!-- materealize CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<!--Import Google Icon Font-->
+<!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 
@@ -24,9 +24,15 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
+			<%
+				if (!session.getAttribute("user").equals("admin")) {
+			%>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="ToMyPage">マイページ</a></li>
 			</ul>
+			<%
+				}
+			%>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -34,7 +40,7 @@
 	</nav>
 
 	<p>
-		<br/>
+		<br />
 	</p>
 
 	<div class="row">
@@ -49,7 +55,7 @@
 
 					<%
 						String error = "";
-					    Boolean result = (Boolean)request.getAttribute("error");
+						Boolean result = (Boolean) request.getAttribute("error");
 						if (result != null && !result) {
 							error = "もう一度入力してください";
 						}
@@ -58,7 +64,7 @@
 
 					<%
 						String exceedMaxFileSize = "";
-					    Boolean resultForImage = (Boolean)request.getAttribute("exceedMaxFileSize");
+						Boolean resultForImage = (Boolean) request.getAttribute("exceedMaxFileSize");
 						if (resultForImage != null && !resultForImage) {
 							exceedMaxFileSize = "ファイルのサイズが1Mを超えています";
 						}
@@ -92,15 +98,15 @@
 						</div>
 
 						<p>
-							<label>紹介文<br/>
-							<textarea name="intro" maxlength="2000" cols="100" rows="20" style ="width:100%; height:500px;"><%=intro%></textarea></label>
+							<label>紹介文<br /> <textarea name="intro" maxlength="2000"
+									cols="100" rows="20" style="width: 100%; height: 500px;"><%=intro%></textarea></label>
 						</p>
 						<p>
 							<label>リンク<input type="text" name="link"
 								value="<%=link%>" size="20" maxlength="256"></label>
 						</p>
 						<p>
-							<label>人数　※数字のみ入力してください<input type="text" name="member"
+							<label>人数 ※数字のみ入力してください<input type="text" name="member"
 								value="<%=member%>" size="20" maxlength="16"></label>
 						</p>
 
@@ -135,13 +141,12 @@
 					<form action="FileHandleServlet" method="post"
 						name=formImageConfirm enctype="multipart/form-data">
 						<p>
-							<label>アイコン　※1:1の画像をアップロードしてください<br/>
-							<input type="file" name="icon"></label>
+							<label>アイコン ※1:1の画像をアップロードしてください<br /> <input type="file"
+								name="icon"></label>
 						</p>
 						<br />
 						<p>
-							<label>ホーム画像<br/>
-							<input type="file" name="home">
+							<label>ホーム画像<br /> <input type="file" name="home">
 							</label>
 						</p>
 						<br />
@@ -165,7 +170,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
@@ -184,6 +190,7 @@
 
 
 	<script>
+		
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {

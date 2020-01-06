@@ -82,7 +82,7 @@ public class FromClubUpdate extends HttpServlet {
 				if (user.equals("club")) { // サークルアカウント
 					pageDataManager.toClubUpdate(request, hashId, code);
 				} else if (user.equals("admin")) { // 管理者
-					String clubId = request.getParameter("clubId");
+					String clubId = request.getParameter("id");
 					pageDataManager.toClubUpdate(request, clubId, code);
 				}
 				getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);

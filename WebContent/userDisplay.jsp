@@ -29,7 +29,7 @@
 
 		<div class="nav-wrapper">
 			<form action="ToTop" method="post">
-				<ul class="left hide-on-med-and-down">
+				<ul class="right hide-on-med-and-down">
 					<li><a href="ToTop">トップ</a></li>
 				</ul>
 			</form>

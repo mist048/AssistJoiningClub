@@ -18,9 +18,15 @@
 
 	<nav class="teal">
 		<div class="nav-wrapper">
+			<%
+				if (!session.getAttribute("user").equals("admin")) {
+			%>
 			<ul class="left hide-on-med-and-down">
 				<li><a href="ToMyPage">マイページ</a></li>
 			</ul>
+			<%
+				}
+			%>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
@@ -86,9 +92,8 @@
 
 						<div class="center-align">
 							<p>
-							<br/>
-								<input type="hidden" name="option" value="confirm"> <input
-									type="hidden" name="id" value=<%=id%>> <a
+								<br /> <input type="hidden" name="option" value="confirm">
+								<input type="hidden" name="id" value=<%=id%>> <a
 									class="waves-effect waves-light btn"
 									href="javascript:formConfirm.submit()">確定</a>
 							</p>
