@@ -75,8 +75,9 @@ public class FileHandleServlet extends HttpServlet {
 				getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 				break;
 			}
+			request.setAttribute("exceedMaxFileSize", true);
 		} catch (IllegalStateException e) { // ファイルのサイズが1Mを超える場合
-			request.setAttribute("error", "exceedMaxFileSize");
+			request.setAttribute("exceedMaxFileSize", false);
 			pageDataManager.toClubInfoUpdate(request, hashId, true);
 			getServletContext().getRequestDispatcher("/clubInfoUpdate.jsp").forward(request, response);
 		}
