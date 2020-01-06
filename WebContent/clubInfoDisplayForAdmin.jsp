@@ -17,7 +17,7 @@
 	<nav class="teal">
 
 		<div class="nav-wrapper">
-			<ul class="left hide-on-med-and-down">
+			<ul class="right hide-on-med-and-down">
 				<li><a href="ToTop">トップ</a></li>
 			</ul>
 		</div>
