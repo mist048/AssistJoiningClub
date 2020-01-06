@@ -181,7 +181,13 @@ public class PageDataManager {
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
 		// パスワードをハッシュ値に変換する
-		String hashPassword = SHA256.hash(password);
+		String hashPassword = null;
+		if (password.equals("")) { // パスワードが空欄だったら前のパスワードに変更
+			hashPassword = userManager.getPassword(generalId);
+		} else {
+			// パスワードをハッシュ値に変換する
+			hashPassword = SHA256.hash(password);
+		}
 		userManager.updateConfirm(generalId, name, hashPassword, mail); // 更新処理
 	}
 
@@ -259,9 +265,6 @@ public class PageDataManager {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String mail = request.getParameter("mail");
-		// ID、パスワードをハッシュ値に変換する
-		String hashId = SHA256.hash(id);
-		String hashPassword = SHA256.hash(password);
 		int code = -1;
 		code = clubManager.register(id, name, password, mail); // 登録判定
 		return code;

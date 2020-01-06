@@ -123,6 +123,11 @@ public class UserManager {
 		}
 		return allUserInfo;
 	}
+	
+	public String getPassword(String id) {
+		User user = userDAO.getUser(id);
+		return user.getPassword();
+	}
 
 	public int getNumOfPages() {
 		int count = 0;

@@ -139,9 +139,9 @@ public class ClubManager {
 	public boolean delete(String id, String password) {
 		Club club = clubDAO.getClub(id);
 		if (clubDAO.find(id, password)) {
-			clubDAO.delete(id, club.getClubInfoId());
-			//favoriteDAO.deleteByUserId(id);
+			favoriteDAO.deleteByUserId(id);
 			holdTagDAO.delete(id);
+			clubDAO.delete(id, club.getClubInfoId());
 			return true;
 		}
 		return false;
