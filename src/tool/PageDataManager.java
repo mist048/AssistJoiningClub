@@ -459,6 +459,9 @@ public class PageDataManager {
 			}
 			break;
 		}
+		if (!result) {
+			request.setAttribute("error", false);
+		}
 		return result;
 	}
 

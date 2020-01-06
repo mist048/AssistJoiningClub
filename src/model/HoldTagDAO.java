@@ -17,22 +17,16 @@ public class HoldTagDAO {
 	private ResultSet resultSet;
 
 	private PreparedStatement prepStmt_I; // INSERT用
-	private PreparedStatement prepStmt_U; // UPDATE用
 	private PreparedStatement prepStmt_D; // DELETE用
 	private PreparedStatement prepStmt_D_tagid; // DELETE用(tagid)
 	private PreparedStatement prepStmt_S_clubid; // SELECT用(clubid)
 	private PreparedStatement prepStmt_S_tagid; // SELECT用(tagid)
-	private PreparedStatement prepStmt_S_name; // SELECT用(name)
-	private PreparedStatement prepStmt_S_count; // SELECT用(全部カウント)
 
 	private String strPrepSQL_I = "INSERT INTO holdtag VALUES(?, ?)";
-	private String strPrepSQL_U = "UPDATE tag SET name=? WHERE id=?";
 	private String strPrepSQL_D = "DELETE FROM holdtag WHERE clubid=?";
 	private String strPrepSQL_D_tagid = "DELETE FROM holdtag WHERE tagid=?";
 	private String strPrepSQL_S_clubid = "SELECT * FROM holdtag WHERE clubid=?";
 	private String strPrepSQL_S_tagid = "SELECT * FROM holdtag WHERE tagid=?";
-	private String strPrepSQL_S_name = "SELECT * FROM tag WHERE name=?";
-	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM tag";
 
 	protected HoldTagDAO() {
 		try { // ドライバマネージャとコネクション

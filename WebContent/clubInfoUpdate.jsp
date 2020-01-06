@@ -60,7 +60,6 @@
 					<%
 						String name = (String) request.getAttribute("name");
 						String mail = (String) request.getAttribute("mail");
-						String recogn = (String) request.getAttribute("recogn");
 						String link = "";
 						if (request.getAttribute("link") != null) {
 							link = (String) request.getAttribute("link");
@@ -90,10 +89,6 @@
 						<p>
 							<label>メールアドレス<input type="email" name="mail"
 								value="<%=mail%>" size="50" maxlength="256"></label>
-						</p>
-						<p>
-							<label>公認/非公認<input type="text" name="recgon"
-								value="<%=recogn%>" size="20" maxlength="50"></label>
 						</p>
 						<p>
 							<label>リンク<input type="text" name="link"

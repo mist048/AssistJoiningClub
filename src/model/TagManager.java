@@ -31,16 +31,6 @@ public class TagManager {
 		}
 	}
 
-	public boolean update(String[] id, String[] name) {
-		for (int i = 0; i < name.length; i++) {
-			if (tagDAO.findByName(name[i])) {
-				tagDAO.update(id[i], name[i]);
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public void delete(String[] ids) {
 		for (String id : ids) {
 			holdTagDAO.deleteByTagId(id);

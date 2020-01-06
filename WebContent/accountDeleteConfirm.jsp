@@ -60,6 +60,15 @@
 					<p class="blue-grey-text">パスワードを確認
 						アカウント削除リクエストを完了するために登録されているパスワードを入力してください。</p>
 
+					<%
+						String error = "";
+						Boolean result = (Boolean) request.getAttribute("error");
+						if (result != null && !result) {
+							error = "もう一度入力してください";
+						}
+					%>
+					<p class="red-text"><%=error%></p>
+
 					<form action="FromAccountDeleteConfirm" method="post"
 						name="formDelete">
 						<p>
@@ -93,7 +102,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
