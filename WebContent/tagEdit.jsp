@@ -40,12 +40,13 @@
 
 						<h5>タグ編集画面</h5>
 					</div>
-						<hr>
+					<hr>
 
 
 					<ul class="collection">
 
 						<%
+							int firstIndex = (int) request.getAttribute("firstIndex");
 							String[] deleteTagIds = (String[]) request.getAttribute("deleteTagIds");
 							String[][] tags = (String[][]) request.getAttribute("allTags");
 							for (int i = 0; i < tags.length; i++) {
@@ -59,12 +60,12 @@
 
 								<span class="title"><%=tags[i][Constant.NAME]%></span> <input
 									type="hidden" name="option" value="delete"> <input
-									type="hidden" name="deleteTagId"
+									type="hidden" name="firstIndex" value="<%=firstIndex%>">
+								<input type="hidden" name="deleteTagId"
 									value=<%=tags[i][Constant.ID]%>>
 								<%
-
-								boolean isDeleted = false;
-									if (deleteTagIds != null) {
+									boolean isDeleted = false;
+										if (deleteTagIds != null) {
 											for (String tagId : deleteTagIds) {
 												if (tags[i][Constant.ID].equals(tagId)) {
 													isDeleted = true;
@@ -76,13 +77,15 @@
 										}
 								%>
 								<a href="javascript:form<%=i%>.submit()"
-									class="secondary-content">
-										<% if(isDeleted){  %>
-										<i class="waves-effect waves-teal btn-flat">✓</i>
-										<% }else{ %>
-
-									<i class="waves-effect waves-teal btn-flat">□</i>
-									<%} %>
+									class="secondary-content"> <%
+ 	if (isDeleted) {
+ %> <i
+									class="waves-effect waves-teal btn-flat">✓</i> <%
+ 	} else {
+ %> <i
+									class="waves-effect waves-teal btn-flat">□</i> <%
+ 	}
+ %>
 								</a>
 							</form>
 						</li>
@@ -98,7 +101,6 @@
 
 						<ul class="pagination">
 							<%
-								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
 							<li class="disabled"><form action="FromTagEdit"
@@ -180,7 +182,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
