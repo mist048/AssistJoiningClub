@@ -41,7 +41,7 @@
 						<br />
 					</p>
 
-					<form action="FromClubRegistration" method="get" name="formConfirm">
+					<form action="FromClubRegistration" method="post" name="formConfirm">
 						<p style="margin-top: 20px;">
 							<label>サークル名<input type="text" name="name" size="20"
 								maxlength="50"></label>

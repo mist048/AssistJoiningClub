@@ -46,12 +46,12 @@
 
 							<br/>
 
-						<form action="FromLogout" method="get" name ="formLogoutYes" style="display: inline">
+						<form action="FromLogout" method="post" name ="formLogoutYes" style="display: inline">
 						<input type="hidden" name="option" value="yes">
 						<a href = "javascript:formLogoutYes.submit()" class="waves-effect waves-light btn"> はい </a>
 						</form>
 
-						<form action="FromLogout" method="get" name ="formLogoutNo" style="display: inline">
+						<form action="FromLogout" method="post" name ="formLogoutNo" style="display: inline">
 						<input type="hidden" name="option" value="no">
 						<a href = "javascript:formLogoutNo.submit()" class="waves-effect waves-light btn"> いいえ </a>
 						</form>

@@ -58,7 +58,7 @@
 						%>
 
 						<li class="collection-item">
-							<form action="FromUserDisplay" method="get" name="form<%=i%>">
+							<form action="FromUserDisplay" method="post" name="form<%=i%>">
 								<span class="title"><%=users[i][Constant.NAME]%></span> <input
 									type="hidden" name="option" value="userInfoDisplayForAdmin">
 								<input type="hidden" name="id"
