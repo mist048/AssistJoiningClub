@@ -10,11 +10,11 @@ public class Constant {
 
 	// 特殊文字
 	public static final char[] EX_CHAR = { '[', ']', '?', '/', '<', '~', '#', '`', '!', '@', '$', '%', '^', '&', '*',
-			'(', ')', '+', '=', '{', '|', ':', '\"', ';', '\'', '>', '}', ' ' };
+			'(', ')', '+', '=', '{', '|', ':', '\"', ';', '\'', '>', '}' };
 
 	// 特殊文字(メール)
 	public static final char[] EX_CHAR_MAIL = { '[', ']', '?', '/', '<', '~', '#', '`', '!', '$', '%', '^', '&', '*',
-			'(', ')', '+', '=', '{', '|', ':', '\"', ';', '\'', '>', '}', ' ' };
+			'(', ')', '+', '=', '{', '|', ':', '\"', ';', '\'', '>', '}' };
 
 	// ユーザの種類
 	public static final int GENERAL = 0; // 一般ユーザ
@@ -53,7 +53,7 @@ public class Constant {
 	public static final int DISPLAY_ICON = 3; // アイコン
 
 	// データベース
-	public static final String POSTGRES_PASSWORD = "akabane"; // postgresのパスワード
+	public static final String POSTGRES_PASSWORD = "akabane!"; // postgresのパスワード
 	public static final String DBNAME = "assistjoiningclub"; // Postgre SQL DB name
 	public static final String POSTGRES_USER = "postgres"; // Postgre SQL user name
 	public static final String SQL_HOSTNAME = "pgs_7048";

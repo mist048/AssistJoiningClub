@@ -81,7 +81,7 @@
 								}
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
-									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
+									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=100% height=100% >";
 								}
 						%>
 						<li class="collection-item avatar">
