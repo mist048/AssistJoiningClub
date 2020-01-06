@@ -58,8 +58,6 @@
 					</p>
 
 					<%
-						String name = (String) request.getAttribute("name");
-						String mail = (String) request.getAttribute("mail");
 						String link = "";
 						if (request.getAttribute("link") != null) {
 							link = (String) request.getAttribute("link");
@@ -81,15 +79,6 @@
 							<input type="text" id="addTagName"><a
 								class="waves-effect waves-light btn" onclick="addChip()">タグ追加</a>
 						</div>
-
-						<p>
-							<label>サークル名<input type="text" name="name"
-								value="<%=name%>" size="20" maxlength="50"></label>
-						</p>
-						<p>
-							<label>メールアドレス<input type="email" name="mail"
-								value="<%=mail%>" size="50" maxlength="256"></label>
-						</p>
 						<p>
 							<label>リンク<input type="text" name="link"
 								value="<%=link%>" size="20" maxlength="256"></label>
