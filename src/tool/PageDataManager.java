@@ -363,11 +363,12 @@ public class PageDataManager {
 	// サークル情報更新処理
 	public boolean clubInfoUpdate(HttpServletRequest request, String clubId) {
 		String[] tagNames = request.getParameterValues("addTagNames[]");
-		if (tagNames != null) { // 追加リストがあれば
-			tagManager.register(tagNames);
-			String[] addTagIds = tagManager.getByNames(tagNames);
-			holdTagManager.update(clubId, addTagIds);
+		if (tagNames == null) { // 追加リストがなければ
+			tagNames = new String[0];
 		}
+		tagManager.register(tagNames);
+		String[] addTagIds = tagManager.getByNames(tagNames);
+		holdTagManager.update(clubId, addTagIds);
 
 		String link = request.getParameter("link");
 		String intro = request.getParameter("intro");
@@ -511,29 +512,27 @@ public class PageDataManager {
 			clubs = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
 		}
 
-		if (clubs.length - Constant.MAX_OF_DISPLAYS > firstIndex) { // 次のページがあれば
+		if (clubs.length > firstIndex + Constant.MAX_OF_DISPLAYS) { // 次のページがあれば
 			result = new String[Constant.MAX_OF_DISPLAYS][Constant.NUM_OF_DISPLAY_CLUB_INFO];
-			for (int i = 0; i < result.length; i++) {
-				result[i][Constant.DISPLAY_ID] = clubs[firstIndex + i][Constant.DISPLAY_ID];
-				result[i][Constant.DISPLAY_NAME] = clubs[firstIndex + i][Constant.DISPLAY_NAME];
-				result[i][Constant.DISPLAY_INTRO] = clubs[firstIndex + i][Constant.DISPLAY_INTRO];
-				result[i][Constant.DISPLAY_ICON] = clubs[firstIndex + i][Constant.DISPLAY_ICON];
-			}
 			request.setAttribute("next", true);
+		} else if (clubs.length == firstIndex + Constant.MAX_OF_DISPLAYS) { // 最大表示数の倍数であれば
+			result = new String[Constant.MAX_OF_DISPLAYS][Constant.NUM_OF_DISPLAY_CLUB_INFO];
 		} else {
 			result = new String[clubs.length % Constant.MAX_OF_DISPLAYS][Constant.NUM_OF_DISPLAY_CLUB_INFO];
-			for (int i = 0; i < result.length; i++) {
-				result[i][Constant.DISPLAY_ID] = clubs[firstIndex + i][Constant.DISPLAY_ID];
-				result[i][Constant.DISPLAY_NAME] = clubs[firstIndex + i][Constant.DISPLAY_NAME];
-				result[i][Constant.DISPLAY_INTRO] = clubs[firstIndex + i][Constant.DISPLAY_INTRO];
-				result[i][Constant.DISPLAY_ICON] = clubs[firstIndex + i][Constant.DISPLAY_ICON];
-			}
+		}
+
+		for (int i = 0; i < result.length; i++) {
+			result[i][Constant.DISPLAY_ID] = clubs[firstIndex + i][Constant.DISPLAY_ID];
+			result[i][Constant.DISPLAY_NAME] = clubs[firstIndex + i][Constant.DISPLAY_NAME];
+			result[i][Constant.DISPLAY_INTRO] = clubs[firstIndex + i][Constant.DISPLAY_INTRO];
+			result[i][Constant.DISPLAY_ICON] = clubs[firstIndex + i][Constant.DISPLAY_ICON];
 		}
 
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("result", result);
 		request.setAttribute("firstIndex", firstIndex);
+
 	}
 
 	// タグ一覧表示画面へのデータ
