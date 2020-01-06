@@ -69,7 +69,7 @@
 			icon = "<div style=\"float: left; background-color: white; width: 20%; height: 100px; padding-left: 13%; margin-top: 10px; padding-top: 10px;\">"+
 					"<img src=\"./images/"+(String)request.getAttribute("icon")+"\" width=50px height=50px style=\"border-radius: 50%;\"></div>";
 		}
-		String home = "";
+		String home = "HomeSample.jpg";
 		if (request.getAttribute("home") != null) {
 			home = (String) request.getAttribute("home");
 		}
@@ -80,22 +80,6 @@
 
 
 	<div style="background-color: white;">
-
-
-<!--
-		<div  style="float:left; background-color:white; width:20%; height:100px; padding-left:13%; margin-top:10px; padding-top:10px;">
-			<i class="medium material-icons circle " style="float: left;">person</i>
-		</div>
-
-
-
-
-		<div
-			style="float: left; background-color: white; width: 20%; height: 100px; padding-left: 13%; margin-top: 10px; padding-top: 10px;">
-			<img src="./images/<%=icon%>" width=50px height=50px
-				style="border-radius: 50%;">
-		</div>
-		-->
 
 		<%=icon %>
 
