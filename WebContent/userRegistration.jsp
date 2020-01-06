@@ -58,7 +58,7 @@
 							} else if (result == Constant.CONTAINS_EX_CHAR) {
 								error = "特殊文字が含まれています";
 							} else if (result == Constant.DUPLICATE) {
-								error = "メールアドレスが重複しています";
+								error = "IDかメールアドレスが重複しています";
 							} else if (result == Constant.EXCEED_NUM_OF_CHAR) {
 								error = "定義された文字数を超えています";
 							}
