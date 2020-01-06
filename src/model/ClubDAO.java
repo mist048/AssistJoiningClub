@@ -182,7 +182,7 @@ public class ClubDAO {
 		ArrayList<Club> hited = new ArrayList<Club>();
 		try {
 			for (int i = 0; i < keywords.length; i++) {
-				prepStmt_S_keyword.setString(1, keywords[i]);
+				prepStmt_S_keyword.setString(1, "%" + keywords[i] + "%");
 				resultSet = prepStmt_S_keyword.executeQuery();
 				while (resultSet.next()) {
 					Club club = new Club();
