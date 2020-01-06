@@ -38,7 +38,7 @@ public class ClubDAO {
 	private String strPrepSQL_S_id = "SELECT * FROM club WHERE id=?";
 	private String strPrepSQL_S_mail = "SELECT * FROM club WHERE mail=?";
 	private String strPrepSQL_S_clubinfoid = "SELECT COUNT(*) AS cnt FROM club WHERE clubinfoid=?";
-	private String strPrepSQL_S_keyword = "SELECT * FROM club WHERE name LIKE ? ORDER BY name ASC";
+	private String strPrepSQL_S_keyword = "SELECT * FROM club WHERE name LIKE \"%"+"?"+"%\" ORDER BY name ASC";
 	private String strPrepSQL_S_count = "SELECT COUNT(*) AS cnt FROM club";
 	private String strPrepSQL_I_info = "INSERT INTO clubinfo VALUES(?, null, null, 0, null, null)";
 	private String strPrepSQL_D_info = "DELETE FROM clubinfo WHERE id=?";
@@ -182,7 +182,7 @@ public class ClubDAO {
 		ArrayList<Club> hited = new ArrayList<Club>();
 		try {
 			for (int i = 0; i < keywords.length; i++) {
-				prepStmt_S_keyword.setString(1, "%" + keywords[i] + "%");
+				prepStmt_S_keyword.setString(1, keywords[i]);
 				resultSet = prepStmt_S_keyword.executeQuery();
 				while (resultSet.next()) {
 					Club club = new Club();
