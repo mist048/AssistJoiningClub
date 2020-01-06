@@ -46,122 +46,172 @@
 		</div>
 	</nav>
 
+
+	<%
+		String name = (String) request.getAttribute("name");
+		String mail = (String) request.getAttribute("mail");
+		String recogn = (String) request.getAttribute("recogn");
+		String link = "";
+		if (request.getAttribute("link") != null) {
+			link = (String) request.getAttribute("link");
+		}
+		String intro = "";
+		if (request.getAttribute("intro") != null) {
+			intro = (String) request.getAttribute("intro");
+		}
+		String member = "";
+		if (request.getAttribute("member") != null) {
+			member = (String) request.getAttribute("member");
+		}
+		String icon = "<div  style=\"float:left; background-color:white; width:20%; height:100px; padding-left:13%; margin-top:10px; padding-top:10px;\">"+
+		"<i class=\"medium material-icons circle \" style=\"float: left;\">person</i></div>";
+		if (request.getAttribute("icon") != null) {
+			icon = "<div style=\"float: left; background-color: white; width: 20%; height: 100px; padding-left: 13%; margin-top: 10px; padding-top: 10px;\">"+
+					"<img src=\"./images/"+(String)request.getAttribute("icon")+"\" width=50px height=50px style=\"border-radius: 50%;\"></div>";
+		}
+		String home = "";
+		if (request.getAttribute("home") != null) {
+			home = (String) request.getAttribute("home");
+		}
+	%>
+
+	<img src = "./images/<%=home %>" width = 100% height=150px>
+
+
+
+	<div style="background-color: white;">
+
+
+<!--
+		<div  style="float:left; background-color:white; width:20%; height:100px; padding-left:13%; margin-top:10px; padding-top:10px;">
+			<i class="medium material-icons circle " style="float: left;">person</i>
+		</div>
+
+
+
+
+		<div
+			style="float: left; background-color: white; width: 20%; height: 100px; padding-left: 13%; margin-top: 10px; padding-top: 10px;">
+			<img src="./images/<%=icon%>" width=50px height=50px
+				style="border-radius: 50%;">
+		</div>
+		-->
+
+		<%=icon %>
+
+
+		<div style="float:left; background-color:white; width:60%; height:100px; margin-top:10px; ">
+			<h5>
+				<%=name%>
+			</h5>
+			<p class="blue-grey-text">
+			<%=recogn%>
+			</p>
+
+		</div>
+
+
+		<div style="float: left; background-color:white; width:20% ; height:100px; margin-top:10px; padding-top:10px">
+
+
+			<%
+				if (session.getAttribute("user") != null && session.getAttribute("user").equals("general")) {
+					String clubId = (String) request.getAttribute("clubId");
+			%>
+			<form action="FromClubInfoDisplay" method="post" name="formFavorite">
+				<p>
+					<input type="hidden" name="option" value="favorite"> <input
+						type="hidden" name="clubId" value=<%=clubId%>>
+					<%
+						boolean isFavorite = (boolean) request.getAttribute("isFavorite");
+							if (isFavorite) {
+					%><a
+						class="waves-effect waves-light btn-small grey lighten-5 grey-text"
+						href="javascript:formFavorite.submit()">登録済み</a>
+					<%
+						} else {
+					%>
+					<a class="waves-effect waves-light btn-small "
+						href="javascript:formFavorite.submit()">お気に入り登録</a>
+					<%
+						}
+					%>
+				</p>
+			</form>
+			<%
+				}
+			%>
+
+
+
+		</div>
+
+	</div>
+
+
+
 	<p>
 		<br />
 	</p>
 
 	<div class="row">
-		<div class="col s12 m8 l6 offset-m2 offset-l3">
+		<div class="col s12 m8 l7 offset-l1">
 			<div class="card">
-				<div class="card-content">
-
-					<%
-						String name = (String) request.getAttribute("name");
-						String mail = (String) request.getAttribute("mail");
-						String recogn = (String) request.getAttribute("recogn");
-						String link = "";
-						if (request.getAttribute("link") != null) {
-							link = (String) request.getAttribute("link");
-						}
-						String intro = "";
-						if (request.getAttribute("intro") != null) {
-							intro = (String) request.getAttribute("intro");
-						}
-						String member = "";
-						if (request.getAttribute("member") != null) {
-							member = (String) request.getAttribute("member");
-						}
-						String icon = "";
-						if (request.getAttribute("icon") != null) {
-							icon = (String) request.getAttribute("icon");
-						}
-						String home = "";
-						if (request.getAttribute("home") != null) {
-							home = (String) request.getAttribute("home");
-						}
-					%>
+				<div class="card-content" style="margin-top: 15px;">
 
 
-					<h5>
-						<%=name%>
-					</h5>
-					<%
-						if (session.getAttribute("user") != null && session.getAttribute("user").equals("general")) {
-							String clubId = (String) request.getAttribute("clubId");
-					%>
-					<form action="FromClubInfoDisplay" method="post"
-						name="formFavorite">
-						<p>
-							<input type="hidden" name="option" value="favorite"> <input
-								type="hidden" name="clubId" value=<%=clubId%>>
-							<%
-								boolean isFavorite = (boolean) request.getAttribute("isFavorite");
-									if (isFavorite) {
-							%><a class="waves-effect waves-light btn-small"
-								href="javascript:formFavorite.submit()">登録済み</a>
-							<%
-								} else {
-							%>
-							<a
-								class="waves-effect waves-light btn-small grey lighten-5 grey-text"
-								href="javascript:formFavorite.submit()">お気に入り登録</a>
-							<%
-								}
-							%>
-						</p>
-					</form>
-					<%
-						}
-					%>
-					<p>
-						<br />
-					</p>
 
 					<div id='tags'></div>
 
-					<div></div>
-
-					<table>
-
-						<tr>
-							<td>サークル説明文</td>
-							<td><%=intro%></td>
-						</tr>
-						<tr>
-							<td>メールアドレス</td>
-							<td><%=mail%></td>
-						</tr>
-						<tr>
-							<td>公認</td>
-							<td><%=recogn%></td>
-						</tr>
-						<tr>
-							<td>リンク</td>
-							<td><%=link%></td>
-						</tr>
-
-						<tr>
-							<td>メンバー</td>
-							<td><%=member%></td>
-						</tr>
-						<tr>
-							<td>アイコン</td>
-							<td><%=icon%></td>
-						</tr>
-						<tr>
-							<td>ホーム画像</td>
-							<td><%=home%></td>
-						</tr>
-					</table>
-
-
+					<div style="padding-top: 20px;">
+						<label>サークル説明文</label>
+						<p><%=intro%></p>
+					</div>
 
 
 
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col s12 m4 l3">
+				<div class="card">
+					<div class="card-content" style="margin-top: 15px;">
+
+
+
+							<div>
+								<label>メールアドレス</label>
+								<p><%=mail%></p>
+							</div>
+
+							<div style = "margin-top:10px;">
+								<label>リンク</label>
+								<a href= <%=link%>><%=link%></a>
+							</div>
+
+							<div style = "margin-top:10px;">
+								<label>人数</label>
+								<p><%=member%>名</p>
+							</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+
+
+
+
+
+
+
 
 	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
@@ -188,7 +238,7 @@
 	</footer>
 
 	<script>
-		
+
 	<%String[][] tags = (String[][]) request.getAttribute("tags");%>
 		var tagNames = [
 	<%for (int i = 0; i < tags.length; i++) {
