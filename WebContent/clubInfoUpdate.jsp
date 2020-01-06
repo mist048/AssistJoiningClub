@@ -33,10 +33,12 @@
 		</div>
 	</nav>
 
-	<p></p>
+	<p>
+		<br/>
+	</p>
 
 	<div class="row">
-		<div class="col s12 m8 l6 offset-m2 offset-l3">
+		<div class="col s12 m8 l8 offset-m2 offset-l2">
 			<div class="card">
 				<div class="card-content">
 
@@ -79,15 +81,17 @@
 							<input type="text" id="addTagName"><a
 								class="waves-effect waves-light btn" onclick="addChip()">タグ追加</a>
 						</div>
+
+						<p>
+							<label>紹介文<br/>
+							<textarea name="intro" maxlength="2000" cols="100" rows="20" style ="width:100%; height:500px;"><%=intro%></textarea></label>
+						</p>
 						<p>
 							<label>リンク<input type="text" name="link"
 								value="<%=link%>" size="20" maxlength="256"></label>
 						</p>
 						<p>
-							<label>紹介文<textarea name="intro" maxlength="2000" cols="100" rows="20"><%=intro%></textarea></label>
-						</p>
-						<p>
-							<label>メンバー<input type="text" name="member"
+							<label>人数　※数字のみ入力してください<input type="text" name="member"
 								value="<%=member%>" size="20" maxlength="16"></label>
 						</p>
 
@@ -108,7 +112,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col s12 m8 l6 offset-m2 offset-l3">
+		<div class="col s12 m8 l8 offset-m2 offset-l2">
 			<div class="card">
 				<div class="card-content">
 
@@ -130,11 +134,14 @@
 					<form action="FileHandleServlet" method="post"
 						name=formImageConfirm enctype="multipart/form-data">
 						<p>
-							<label>アイコン<input type="file" name="icon"></label>
+							<label>アイコン　※1:1の画像をアップロードしてください<br/>
+							<input type="file" name="icon"></label>
 						</p>
 						<br />
 						<p>
-							<label>ホーム画像<input type="file" name="home"></label>
+							<label>ホーム画像<br/>
+							<input type="file" name="home">
+							</label>
 						</p>
 						<br />
 
