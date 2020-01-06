@@ -59,7 +59,7 @@
 								<td><%=mail%></td>
 							</tr>
 							<tr>
-								<td>公認</td>
+								<td>公認/非公認</td>
 								<td><%=recogn%></td>
 							<br />
 							<%
