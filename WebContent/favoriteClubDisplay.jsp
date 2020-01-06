@@ -60,9 +60,9 @@
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
 								}
-								String intro="";
-								if(clubs[i][Constant.DISPLAY_INTRO]!=null){
-									intro=clubs[i][Constant.DISPLAY_INTRO];
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
 								}
 						%>
 						<li class="collection-item avatar">
@@ -139,16 +139,17 @@
 								}
 							%>
 						</ul>
-					</div>
 
-					<form action="FromFavoriteClubDisplay" method="post"
-						name="formEdit">
-						<p>
-							<input type="hidden" name="option" value="edit"> <a
-								class="waves-effect waves-light btn"
-								href="javascript:formEdit.submit()">編集</a>
-						</p>
-					</form>
+						<form action="FromFavoriteClubDisplay" method="post"
+							name="formEdit">
+							<p>
+								<input type="hidden" name="option" value="edit"> <input
+									type="hidden" name="firstIndex" value=<%=firstIndex%>>
+								<a class="waves-effect waves-light btn"
+									href="javascript:formEdit.submit()">編集</a>
+							</p>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

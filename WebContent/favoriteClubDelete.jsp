@@ -53,15 +53,16 @@
 					<ul class="collection">
 
 						<%
+							int firstIndex = (int) request.getAttribute("firstIndex");
 							String[][] clubs = (String[][]) request.getAttribute("favoriteClubs");
 							for (int i = 0; i < clubs.length; i++) {
 								String icon = "person";
 								if (clubs[i][Constant.DISPLAY_ICON] != null) {
 									icon = "<img src=./images/" + clubs[i][Constant.DISPLAY_ICON] + " width=50px height=50px>";
 								}
-								String intro="";
-								if(clubs[i][Constant.DISPLAY_INTRO]!=null){
-									intro=clubs[i][Constant.DISPLAY_INTRO];
+								String intro = "";
+								if (clubs[i][Constant.DISPLAY_INTRO] != null) {
+									intro = clubs[i][Constant.DISPLAY_INTRO];
 								}
 						%>
 						<li class="collection-item avatar">
@@ -70,7 +71,8 @@
 								<i class="material-icons circle"><%=icon%> </i> <span
 									class="title"><%=clubs[i][Constant.DISPLAY_NAME]%></span>
 								<p><%=intro%></p>
-								<input type="hidden" name="option" value="delete">
+								<input type="hidden" name="option" value="delete"> <input
+									type="hidden" name="firstIndex" value=<%=firstIndex%>>
 								<input type="hidden" name="clubId"
 									value=<%=clubs[i][Constant.DISPLAY_ID]%>> <a
 									href="javascript:form<%=i%>.submit()" class="secondary-content">
@@ -88,7 +90,6 @@
 					<div class="center-align">
 						<ul class="pagination">
 							<%
-								int firstIndex = (int) request.getAttribute("firstIndex");
 								if (firstIndex > 0) {
 							%>
 							<li class="disabled"><form action="FromFavoriteClubDelete"
@@ -151,7 +152,8 @@
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post" name="formContact">
+						<li><form action="ToContactAdmin" method="post"
+								name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
