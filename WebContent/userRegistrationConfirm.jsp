@@ -60,6 +60,9 @@
 							<td><%=mail%></td>
 						</tr>
 					</table>
+					<p>
+					<br/>
+					</p>
 
 					<div class="center-align">
 						<form action="FromUserRegistrationConfirm" method="post"
@@ -80,7 +83,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal" style="margin-top: 50px;">
+	<footer class="page-footer teal" style="width: 100%; position: absolute; bottom: 0;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">

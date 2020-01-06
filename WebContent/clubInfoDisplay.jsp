@@ -166,17 +166,17 @@
 
 
 							<div>
-								<label>メールアドレス</label>
+								<label>メールアドレス</label><br/>
 								<p><%=mail%></p>
 							</div>
 
 							<div style = "margin-top:10px;">
-								<label>リンク</label>
+								<label>リンク</label><br/>
 								<a href= <%=link%>><%=link%></a>
 							</div>
 
 							<div style = "margin-top:10px;">
-								<label>人数</label>
+								<label>人数</label><br/>
 								<p><%=member%>名</p>
 							</div>
 

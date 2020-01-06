@@ -138,14 +138,13 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal" style="margin-top: 50px;">
+	<footer class="page-footer teal" style="width: 100%; position: absolute; bottom: 0;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">お問い合わせ</h5>
 					<ul>
-						<li><form action="ToContactAdmin" method="post"
-								name="formContact">
+						<li><form action="ToContactAdmin" method="post" name="formContact">
 								<input type="hidden" name="option" value="contactAdmin">
 								<a class="grey-text text-lighten-3"
 									href="javascript:formContact.submit()">お問い合わせ</a>
