@@ -55,6 +55,15 @@
 						}
 					%>
 					<p class="red-text"><%=error%></p>
+
+					<%
+						String exceedMaxFileSize = "";
+					    Boolean resultForImage = (Boolean)request.getAttribute("exceedMaxFileSize");
+						if (resultForImage != null && !resultForImage) {
+							exceedMaxFileSize = "ファイルのサイズが1Mを超えています";
+						}
+					%>
+					<p class="red-text"><%=exceedMaxFileSize%></p>
 					<p>
 						<br />
 					</p>
@@ -122,14 +131,6 @@
 					<p>
 						<br />
 					</p>
-					<%
-						String exceedMaxFileSize = "";
-					    Boolean resultForImage = (Boolean)request.getAttribute("exceedMaxFileSize");
-						if (resultForImage != null && !resultForImage) {
-							exceedMaxFileSize = "ファイルのサイズが1Mを超えています";
-						}
-					%>
-					<p class="red-text"><%=exceedMaxFileSize%></p>
 
 					<form action="FileHandleServlet" method="post"
 						name=formImageConfirm enctype="multipart/form-data">
