@@ -91,10 +91,10 @@ public class ClubManager {
 	public int update(String id, String name, String password, String mail) {
 		Club club = clubDAO.getClub(id);
 		String[] clubInfo = new String[Constant.NUM_OF_USER_FIELD];
-		clubInfo[Constant.ID] = club.getId();
-		clubInfo[Constant.NAME] = club.getName();
-		clubInfo[Constant.PASSWORD] = club.getPassword();
-		clubInfo[Constant.MAIL] = club.getMail();
+		clubInfo[Constant.ID] = id;
+		clubInfo[Constant.NAME] = name;
+		clubInfo[Constant.PASSWORD] = password;
+		clubInfo[Constant.MAIL] = mail;
 		if (!club.getMail().equals(mail)) { // メールアドレスを変更していれば
 			if (clubDAO.findByMail(mail)) { // メールアドレスが重複している
 				return Constant.DUPLICATE;

@@ -85,6 +85,7 @@ public class FromClubUpdate extends HttpServlet {
 					String clubId = request.getParameter("clubId");
 					pageDataManager.toClubUpdate(request, clubId, code);
 				}
+				getServletContext().getRequestDispatcher("/clubUpdate.jsp").forward(request, response);
 			}
 			break;
 		}

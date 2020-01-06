@@ -80,6 +80,11 @@ public class UserManager {
 			}
 		}
 		for (int i = 0; i < userInfo.length; i++) {
+			if (i != Constant.PASSWORD) {
+				if (errorCheck.blankCheck(userInfo[i])) { // 空欄を含んでいる
+					return Constant.CONTAINS_BLANK;
+				}
+			}
 			if (i != Constant.NAME) {
 				if (errorCheck.notAsciiCheck(userInfo[i])) { // ASCII文字以上を含んでいる
 					return Constant.CONTAINS_EX_CHAR;
