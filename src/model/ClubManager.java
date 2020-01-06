@@ -139,7 +139,7 @@ public class ClubManager {
 	public boolean delete(String id, String password) {
 		Club club = clubDAO.getClub(id);
 		if (clubDAO.find(id, password)) {
-			favoriteDAO.deleteByUserId(id);
+			favoriteDAO.deleteByClubId(id);
 			holdTagDAO.delete(id);
 			clubDAO.delete(id, club.getClubInfoId());
 			return true;
