@@ -498,16 +498,29 @@ public class PageDataManager {
 
 		String type = request.getParameter("type");
 		String[][] result;
+		String[][] clubs;
 		if (type.equals("keyword")) { // キーワード検索
-			result = clubManager.searchByKeyword(keyword, firstIndex); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-			if (result.length + Constant.MAX_OF_DISPLAYS > Constant.MAX_OF_DISPLAYS) { // 次のページがあればあることを返す
-				request.setAttribute("next", true);
-			}
+			clubs = clubManager.searchByKeyword(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
 		} else { // タグ検索
-			result = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
-			System.out.print(result.length - Constant.MAX_OF_DISPLAYS + "," + firstIndex);
-			if (result.length - Constant.MAX_OF_DISPLAYS > firstIndex) { // 次のページがあればあることを返す
-				request.setAttribute("next", true);
+			clubs = clubManager.searchByTag(keyword); // 検索されたサークルID、サークル名、紹介文、アイコンを取得
+		}
+
+		if (clubs.length - Constant.MAX_OF_DISPLAYS > firstIndex) { // 次のページがあれば
+			result = new String[Constant.MAX_OF_DISPLAYS][Constant.NUM_OF_DISPLAY_CLUB_INFO];
+			for (int i = 0; i < result.length; i++) {
+				result[i][Constant.DISPLAY_ID] = clubs[firstIndex + i][Constant.DISPLAY_ID];
+				result[i][Constant.DISPLAY_NAME] = clubs[firstIndex + i][Constant.DISPLAY_NAME];
+				result[i][Constant.DISPLAY_INTRO] = clubs[firstIndex + i][Constant.DISPLAY_INTRO];
+				result[i][Constant.DISPLAY_ICON] = clubs[firstIndex + i][Constant.DISPLAY_ICON];
+			}
+			request.setAttribute("next", true);
+		} else {
+			result = new String[clubs.length % Constant.MAX_OF_DISPLAYS][Constant.NUM_OF_DISPLAY_CLUB_INFO];
+			for (int i = 0; i < result.length; i++) {
+				result[i][Constant.DISPLAY_ID] = clubs[firstIndex + i][Constant.DISPLAY_ID];
+				result[i][Constant.DISPLAY_NAME] = clubs[firstIndex + i][Constant.DISPLAY_NAME];
+				result[i][Constant.DISPLAY_INTRO] = clubs[firstIndex + i][Constant.DISPLAY_INTRO];
+				result[i][Constant.DISPLAY_ICON] = clubs[firstIndex + i][Constant.DISPLAY_ICON];
 			}
 		}
 
