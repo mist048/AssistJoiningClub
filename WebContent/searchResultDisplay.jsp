@@ -39,6 +39,10 @@
 		</div>
 	</nav>
 
+	<p>
+	<br/>
+	<p>
+
 	<div class="row">
 		<div class="col s12 m8 l6 offset-m2 offset-l3">
 			<div class="card">
@@ -138,7 +142,7 @@
 		</div>
 	</div>
 
-	<footer class="page-footer teal" style="width: 100%; position: absolute; bottom: 0;">
+	<footer class="page-footer teal" style="margin-top: 50px;">
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
